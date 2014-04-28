@@ -1,0 +1,3 @@
+<div id="content" class="box">
+	orupaadu valippikkan nokkalle ...
+</div>
