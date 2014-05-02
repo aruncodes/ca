@@ -39,8 +39,19 @@
 
 			</div> <!-- /padding -->
 
+			<?php
+				function giveSubID($text, $pg)
+				{
+					if($pg == $text)
+						return " id='submenu-active'";
+					else
+						return '';
+				}
+
+			?>
 			<ul class="box">
-				<li>THEPP</li>
+				<li<?php echo giveSubID('inward', $page); ?>><a href="<?php echo base_url('index.php/inout/inward'); ?>">Inward</a></li>
+				<li<?php echo giveSubID('outward', $page); ?>><a href="<?php echo base_url('index.php/inout/outward'); ?>">Outward</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

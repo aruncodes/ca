@@ -11,7 +11,7 @@
 			<tr>
 				<td>Gender</td>
 				<td>
-					<input name="gender" type="radio" value="M">Male
+					<input name="gender" checked="checked" type="radio" value="M">Male
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<input name="gender" type="radio" value="F">Female
 				</td>

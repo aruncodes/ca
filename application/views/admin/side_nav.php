@@ -39,8 +39,19 @@
 
 			</div> <!-- /padding -->
 
+			<?php
+				function giveSubID($text, $pg)
+				{
+					if($pg == $text)
+						return " id='submenu-active'";
+					else
+						return '';
+				}
+
+			?>
 			<ul class="box">
-				<li>THEPP</li>
+				<li<?php echo giveSubID('teamMgmt', $page); ?>><a href="<?php echo base_url('index.php/admin/teamMgmt'); ?>">Team Management</a></li>
+				<li<?php echo giveSubID('employeeMgmt', $page); ?>><a href="<?php echo base_url('index.php/admin/employeeMgmt'); ?>">Employee Management</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

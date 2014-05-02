@@ -43,20 +43,20 @@
 	<div id="menu" class="box">
 
 		<ul class="box">
-		<li<?php echo giveID('clientdb', $page); ?>><a href="<?php echo base_url('index.php/clientdb'); ?>"><span>Client Database</span></a></li>
-				<li<?php echo giveID('inout', $page); ?>><a href="<?php echo base_url('index.php/inout'); ?>"><span>Inward/Outward</span></a></li>
-				<li<?php echo giveID('filemgmt', $page); ?>><a href="<?php echo base_url('index.php/filemgmt'); ?>"><span>File Management</span></a></li>
-				<li<?php echo giveID('svcs', $page); ?>><a href="<?php echo base_url('index.php/svcs'); ?>"><span>Services</span></a></li>
-				<li<?php echo giveID('projects', $page); ?>><a href="<?php echo base_url('index.php/projects'); ?>"><span>Projects</span></a></li>
-				<?php
-					if($this->session->userdata('isa') == 'y') {
-						echo "<li";
-						echo giveID('admin', $page);
-						echo "><a href='";
-						echo base_url('index.php/admin', $page);
-						echo "'><span>Administration</span></a></li>\n";
-					}
-				?>
+			<li<?php echo giveID('clientdb', $page); ?>><a href="<?php echo base_url('index.php/clientdb'); ?>"><span>Client Database</span></a></li>
+			<li<?php echo giveID('inout', $page); ?>><a href="<?php echo base_url('index.php/inout'); ?>"><span>Inward/Outward</span></a></li>
+			<li<?php echo giveID('filemgmt', $page); ?>><a href="<?php echo base_url('index.php/filemgmt'); ?>"><span>File Management</span></a></li>
+			<li<?php echo giveID('svcs', $page); ?>><a href="<?php echo base_url('index.php/svcs'); ?>"><span>Services</span></a></li>
+			<li<?php echo giveID('projects', $page); ?>><a href="<?php echo base_url('index.php/projects'); ?>"><span>Projects</span></a></li>
+			<?php
+				if($this->session->userdata('isa') == 'y') {
+					echo "<li";
+					echo giveID('admin', $page);
+					echo "><a href='";
+					echo base_url('index.php/admin', $page);
+					echo "'><span>Administration</span></a></li>\n";
+				}
+			?>
 			
 		</ul>
 
