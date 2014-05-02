@@ -7,6 +7,7 @@ class Svcs extends CI_Controller {
 
 		$data['page'] = "svcs";
 		$this->load->view('template/base', $data);
+		$this->load->view('template/side_nav', $data);
 		
 		$this->load->view('svcs');
 		$this->load->view('template/footer');

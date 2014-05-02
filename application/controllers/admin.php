@@ -7,6 +7,8 @@ class Admin extends CI_Controller {
 		
 		$data['page'] = "admin";
 		$this->load->view('template/base', $data);
+
+		$this->load->view('template/side_nav', $data);
 		
 		if($this->session->userdata['isa'] == 'y') {
 			$this->load->view('admin');

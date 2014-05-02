@@ -65,7 +65,7 @@
 				<td><input type="text" size="40" name="regnNo" class="input-text"></td>
 			</tr>
 			<tr>
-				<td class="va-top">Address no - office & residence</td>
+				<td class="va-top">Address office & residence</td>
 				<td>
 					<textarea cols="40" rows="7" class="input-text"></textarea>
 				</td>
@@ -139,7 +139,7 @@
 				</td>
 			</tr>
 			<tr id="service_other"  style="display:none;">
-			<td>Please specify	</td>
+			<td></td>
 			<td><input class="input-text" size="40" name="service_other" type="text" /></td></tr>
 			<tr>
 				<td class="va-top">Bank Details</td>

@@ -7,6 +7,7 @@ class Filemgmt extends CI_Controller {
 
 		$data['page'] = "filemgmt";
 		$this->load->view('template/base', $data);
+		$this->load->view('template/side_nav', $data);
 		
 		$this->load->view('filemgmt');
 		$this->load->view('template/footer');

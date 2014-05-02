@@ -7,6 +7,7 @@ class Clientdb extends CI_Controller {
 
 		$data['page'] = "clientdb";
 		$this->load->view('template/base', $data);
+		$this->load->view('template/side_nav', $data);
 
 		$this->load->view('clientdb/clientdb');
 		$this->load->view('template/footer');
@@ -19,6 +20,7 @@ class Clientdb extends CI_Controller {
 
 		$data['page'] = "clientdb";
 		$this->load->view('template/base', $data);
+		$this->load->view('template/side_nav', $data);
 
 		$this->load->view('clientdb/addNewClient');
 		$this->load->view('template/footer');

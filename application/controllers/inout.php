@@ -7,6 +7,7 @@ class Inout extends CI_Controller {
 
 		$data['page'] = "inout";
 		$this->load->view('template/base', $data);
+		$this->load->view('template/side_nav', $data);
 		
 		$this->load->view('inout');
 		$this->load->view('template/footer');

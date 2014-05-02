@@ -7,6 +7,8 @@ class Projects extends CI_Controller {
 
 		$data['page'] = "projects";
 		$this->load->view('template/base', $data);
+
+		$this->load->view('template/side_nav', $data);
 		
 		$this->load->view('projects');
 		$this->load->view('template/footer');
