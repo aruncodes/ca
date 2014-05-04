@@ -17,6 +17,7 @@ class Inout extends CI_Controller {
 		$this->load->view('inout/side_nav', $data);
 		
 		$data['page_end'] = TRUE;
+		$data['title'] = "Inward Documents";
 		$this->load->view('inout/inward',$data);
 		$this->load->view('template/footer');		
 	}
@@ -33,13 +34,15 @@ class Inout extends CI_Controller {
 		$this->load->view('inout/side_nav', $data);
 		
 		$data['page_end'] = TRUE;
+		$data['title'] = "Outward Documents";
 		$this->load->view('inout/inward',$data);
 		$this->load->view('template/footer');
 	}
 
-	function show($p="in") {
+	function show($p="in", $cid=0) {
 		
-		$cid = $this->input->post('cid');
+		if($cid == 0)
+			$cid = $this->input->post('cid');
 
 		$data['title'] = 'Inward Outward';
 		$this->load->view('template/header',$data);
@@ -54,10 +57,6 @@ class Inout extends CI_Controller {
 		}
 		$this->load->view('inout/side_nav', $data);
 		
-		$data['page_end'] = FALSE;
-		$data['cid'] = $cid;
-		$this->load->view('inout/inward',$data);
-
 		$this->load->model('inout_model');
 		if($p == "in") {
 			$data['title'] = "Inward Documents";
@@ -68,6 +67,10 @@ class Inout extends CI_Controller {
 		}
 		
 		$data['result'] = $result;
+		$data['page_end'] = FALSE;
+		$data['cid'] = $cid;
+
+		$this->load->view('inout/inward',$data);
 		$this->load->view('inout/show_data',$data);
 		$this->load->view('template/footer');
 
