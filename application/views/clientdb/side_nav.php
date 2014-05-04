@@ -51,7 +51,7 @@
 			?>
 			<ul class="box">
 				<li<?php echo giveSubID('existingClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/existingClient'); ?>">Existing Client</a></li>
-				<li<?php echo giveSubID('addNewClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/addNewClient'); ?>">New Client</a></li>
+				<li<?php echo giveSubID('addNewClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/addClient'); ?>">New Client</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

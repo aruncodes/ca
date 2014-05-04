@@ -16,13 +16,15 @@ class Login extends CI_Controller {
 		}
 	}
 	private function load_home() {
-		$data['title'] = "Home";
+		$data['title'] = 'Client DB';
 		$this->load->view('template/header',$data);
+
 		$data['page'] = "clientdb";
 		$this->load->view('template/base', $data);
+
 		$data['page'] = "existingClient";
 		$this->load->view('clientdb/side_nav', $data);
-		$this->load->view('clientdb/existingClient');
+		$this->load->view('clientdb/getCid');
 		$this->load->view('template/footer');
 	}
 	function logout()
