@@ -50,8 +50,8 @@
 
 			?>
 			<ul class="box">
-				<li<?php echo giveSubID('existingClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/existingClient'); ?>">Existing Client</a></li>
-				<li<?php echo giveSubID('addNewClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/addNewClient'); ?>">New Client</a></li>
+				<li<?php echo giveSubID('viewServices', $page); ?>><a href="<?php echo base_url('index.php/services/viewServices'); ?>">View Service</a></li>
+				<li<?php echo giveSubID('addNewService', $page); ?>><a href="<?php echo base_url('index.php/services/modServices'); ?>">Modify Services</a></li>
 			</ul>
 
 		</div> <!-- /aside -->
