@@ -1,4 +1,11 @@
 <div id="content">
+
+<style type="text/css">
+	select {
+		height: 30px;
+	}
+</style>
+
 <?php
 	if(!isset($style))
 		$style = "msg done";
@@ -28,13 +35,18 @@
 		<td>
 		<select name="sname">
 		<?php
-			foreach($serviceNames as $sname) {
-				echo "<option>".$sname."</option>";
+			$flag = count($serviceNames);
+			if($flag == 0) {
+				echo "<option> --empty-- </option>\n";
+			} else {
+				foreach($serviceNames as $sname) {
+					echo "<option>".$sname."</option>\n";
+				}
 			}
 		?>
 		</select>
 		</td>
-		<td><input type="submit" class="input-submit" value="Delete" /></td>
+		<td><input type="submit" class="input-submit" value="Delete" <?php if($flag == 0) echo "disabled='disabled' "; ?>/></td>
 	</tr>
 	</table>
 </fieldset>

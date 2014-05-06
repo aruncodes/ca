@@ -72,8 +72,14 @@ class Services_model extends CI_Model {
 
 	function remService($sname)
 	{
-		$data = array('sname'=>$sname);
-		$this->db->delete('service_names', $data);
+		$query = $this->db->get_where('services', array('service'=>$sname));
+		if($query->num_rows() == 0) {
+			$data = array('sname'=>$sname);
+			$this->db->delete('service_names', $data);
+			return FALSE;
+		} else {
+			return array('error'=>TRUE);
+		}
 	}
 	
 	function remCliService($cid, $sname)

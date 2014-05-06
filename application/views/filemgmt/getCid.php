@@ -1,6 +1,6 @@
 <div id="content" class="box">
 <?php
-	echo form_open('services/viewServices/show');
+	echo form_open('filemgmt/showFiles/show');
 ?>
 	<table class="nostyle" style="margin-bottom:25px">
 		<tr>

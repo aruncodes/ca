@@ -1,19 +1,13 @@
-<div id='content'>
-	<?php
+<?php
+	if(isset($new) || isset($success))
+		echo "<div id='content'>";
 	if(isset($success))
 		echo "<p class='msg done'>".$success."</p>";
-	?>
-	<?php
-		if(isset($error)) {
-			echo "The specified client does not exist\n";
-			echo "</div>\n";
-			return;
-		}
-		if(isset($new))
-			echo form_open('clientdb/addClient/add');
-		else
-			echo form_open('clientdb/addClient/modify');
-	?>
+	if(isset($new))
+		echo form_open('clientdb/addClient/add');
+	else
+		echo form_open('clientdb/addClient/modify');
+?>
 	<fieldset>
 		<?php
 		if(isset($new))
@@ -386,6 +380,8 @@
 				}
 
 				document.getElementById('edit').disabled = false;
+				document.getElementById('getCidBox').disabled = false;
+				document.getElementById('getCidBut').disabled = false;
 			}
 			function showSave()
 			{

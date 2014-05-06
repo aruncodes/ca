@@ -1,24 +1,37 @@
-<div id='content' align="center">
+<div id="kopp">
 
 <style type="text/css">
-	table tr td {
-		min-width: 250px;
+	#kopp table tr td{
 		text-align: center;
 		height: 25px;
 	}
 	select {
-		height: 25px;
+		height: 30px;
+	}
+	legend {
+		text-align:left;
+	}
+	#kopp {
+		text-align: center;
 	}
 </style>
 
-<table>
-	<tbody>
-	<h3><?php echo "Client ID : ".$cid; ?></h3>
+<fieldset>
+<legend>View Services</legend>
+<h3><?php echo "Client ID : ".$cid; ?></h3>
+<table style="margin: 0px auto;">
 	<?php
 		if(isset($services['numrows'])) {
 			echo "No services currently";
 		}
 		else {
+			echo '<thead>
+				<tr>
+				<th>Service</th>
+				<th>Del</th>
+				</tr>
+				</thead>';
+			echo "\n<tbody>\n";
 			foreach($services as $service) {
 				echo "<tr>\n";
 					echo "<td>".$service['service']."</td>\n";
@@ -30,9 +43,9 @@
 					echo "</td>\n";
 				echo "</tr>\n";
 			}
+			echo "</tbody>\n";
 		}
 	?>
-	</tbody>
 </table>
 
 <br /><br />
@@ -41,12 +54,19 @@
 	<input type="hidden" name="cid" value="<?php echo $cid; ?>" />
 	<select name="service">
 	<?php
-		foreach($serviceNames as $sname) {
-			echo "<option>".$sname."</option>";
+		$flag = count($serviceNames);
+		if($flag == 0) {
+			echo "<option> --empty-- </option>\n";
+		} else {
+			foreach($serviceNames as $sname) {
+				echo "<option>".$sname."</option>\n";
+			}
 		}
 	?>
 	</select>
-	<input type="submit" value="Add" class="input-submit"/>
+	<input type="submit" value="Add" class="input-submit" <?php if($flag == 0) echo "disabled='disabled' "; ?>/>
 </form>
 
+</fieldset>
+</div>
 </div>

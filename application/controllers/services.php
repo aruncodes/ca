@@ -15,31 +15,39 @@ class Services extends CI_Controller {
 		$data['page'] = "viewServices";
 		$this->load->view('services/side_nav', $data);
 
-		if($arg == "none") {
-			$this->load->view('services/getCid');
-		} else if($arg == "show" || $arg == "add") {
-			
-			if($cid == "none")
-				$cid = $this->input->post('cid');
-			
+		if($this->input->post('cid')) {
 			$this->load->model('clientdb_model');
+			$cid = $this->input->post('cid');
 			$present = $this->clientdb_model->isPresent($cid);
-			if($present == 1) {
-				$this->load->model('services_model');
-
-				if($arg == "add")
-					$this->services_model->addService($cid, $this->input->post('service'));
-
-				$services = $this->services_model->getServices($cid);
-				$services['serviceNames'] = $this->services_model->getServiceNames($cid);
-				$services['cid'] = $cid;
-				$this->load->view('services/viewServices', $services);
-			} else {
+			if($present == 0) {
+				$this->session->unset_userdata('cid');
 				$details['error'] = "Specified client does not exist";
-				$details['cid'] = $this->input->post('cid');
+				$details['cid'] = $cid;
 				$this->load->view('services/getCid', $details);
+				return;
+			} else {
+				$details['cid'] = $cid;
+				$this->session->set_userdata(array('cid'=>$cid));
 			}
 		}
+
+		if($this->session->userdata('cid')) {
+			$cid = $this->session->userdata('cid');
+
+			$details['cid'] = $cid;
+			$this->load->view('services/getCid', $details);
+
+			$this->load->model('services_model');
+			if($arg == "add")
+				$this->services_model->addService($cid, $this->input->post('service'));
+			$services = $this->services_model->getServices($cid);
+			$services['serviceNames'] = $this->services_model->getServiceNames($cid);
+			$services['cid'] = $cid;
+			$this->load->view('services/viewServices', $services);
+		} else {
+			$this->load->view('services/getCid',array('close'=>TRUE));
+		}
+
 		$this->load->view('template/footer');
 	}
 	
@@ -67,8 +75,13 @@ class Services extends CI_Controller {
 			}
 		} else if($arg == "remService") {
 			$sname = $this->input->post('sname');
-			$this->services_model->remService($sname);
-			$data['msg'] = "Removed Service";
+			$flag = $this->services_model->remService($sname);
+			if($flag == FALSE)
+				$data['msg'] = "Removed Service";
+			else {
+				$data['msg'] = "Unable to remove service, clients using it";
+				$data['style'] = "msg error";
+			}
 		}
 		$data['serviceNames'] = $this->services_model->getServiceNames();
 		$this->load->view('services/modServices', $data);
@@ -83,7 +96,7 @@ class Services extends CI_Controller {
 			$this->load->model("services_model");
 			$this->services_model->remCliService($cid, $sname);
 		}
-		$this->viewServices("show", $cid);
+		$this->viewServices("show");
 	}
 }
 ?>

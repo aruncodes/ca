@@ -15,21 +15,32 @@ class Clientdb extends CI_Controller {
 		$data['page'] = "existingClient";
 		$this->load->view('clientdb/side_nav', $data);
 
-
-		if($arg == "none") {
-			$this->load->view('clientdb/getCid');
-		} else if($arg == "show") {
-			$this->load->model('clientdb_model');
-			$details = $this->clientdb_model->getData($this->input->post('cid'));
+		$this->load->model('clientdb_model');
+		if($this->input->post('cid')) {
+			$cid = $this->input->post('cid');
+			$details = $this->clientdb_model->getData($cid);
 			if(isset($details['error'])) {
+				$this->session->unset_userdata('cid');
 				$details['error'] = "Specified client does not exist";
 				$details['cid'] = $this->input->post('cid');
 				$this->load->view('clientdb/getCid', $details);
+				return;
+			} else {
+				$details['cid'] = $cid;
+				$this->session->set_userdata(array('cid'=>$cid));
 			}
-			else
-				$this->load->view('clientdb/clientDetails', $details);
 		}
-		$this->load->view('template/footer');
+
+		if($this->session->userdata('cid')) {
+			$cid = $this->session->userdata('cid');
+			if(!isset($details))
+				$details = $this->clientdb_model->getData($cid);
+			$details['cid'] = $cid;
+			$this->load->view('clientdb/getCid', $details);
+			$this->load->view('clientdb/clientDetails', $details);
+		} else {
+			$this->load->view('clientdb/getCid',array('close'=>TRUE));
+		}
 	}
 
 	function addClient($arg = "none")
@@ -90,7 +101,9 @@ class Clientdb extends CI_Controller {
 				$this->clientdb_model->modify($clientData);
 			}
 			$this->load->model('clientdb_model');
-			$details = $this->clientdb_model->getData($this->input->post('cid'));
+			$cid = $this->input->post('cid');
+			$this->session->set_userdata(array('cid'=>$cid));
+			$details = $this->clientdb_model->getData($cid);
 			$details['success'] = "Successful";
 			$this->load->view('clientdb/clientDetails', $details);
 		}

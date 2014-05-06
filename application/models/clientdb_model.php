@@ -42,8 +42,7 @@ class Clientdb_model extends CI_Model {
 			return $data;
 		}
 
-		$this->db->select('*');
-		$this->db->where(array('cid' => $cid));
+		$this->db->where('cid',$cid);
 		$query = $this->db->get('client');
 		$row = $query->result()[0];
 		$clientData = (array)$row;
