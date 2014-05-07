@@ -110,5 +110,18 @@ class Clientdb extends CI_Controller {
 
 		$this->load->view('template/footer');
 	}
+
+	function forgotCID($arg = "none")
+	{
+		$data=NULL;
+		if($this->input->post('pan')) {
+			$pan = $this->input->post('pan');
+			$this->load->model('clientdb_model');
+			$data = $this->clientdb_model->getCIDs($pan);
+			$data['pan'] = $pan;
+		}
+		$this->load->view('template/header', array('title'=>"Forgot Client ID"));
+		$this->load->view('clientdb/forgotCID', $data);
+	}
 }
 ?>

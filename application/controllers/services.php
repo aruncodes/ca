@@ -79,7 +79,7 @@ class Services extends CI_Controller {
 			if($flag == FALSE)
 				$data['msg'] = "Removed Service";
 			else {
-				$data['msg'] = "Unable to remove service, clients using it";
+				$data['msg'] = "Unable to remove service, clients are using it";
 				$data['style'] = "msg error";
 			}
 		}

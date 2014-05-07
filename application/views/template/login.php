@@ -13,17 +13,29 @@
 				<table class="nostyle">
 					<tr>
 						<td style="width:70px;">Username:</td>
-						<td><input type="text" size="40" name="uname" class="input-text" required="required"/></td>
+						<td><input type="text" size="40" name="uname" class="input-text" required="required" <?php
+							if(isset($uname)) echo "value = '$uname' ";
+						?>/></td>
 					</tr>
 					<tr>
 						<td>Password:</td>
-						<td><input type="password" size="40" name="pass" class="input-text" required="required"/></td>
+						<td><input type="password" size="40" name="pass" class="input-text" required="required" /></td>
 					</tr>					
 					<tr>
 						<td colspan="2" class="t-right"><input type="submit" class="input-submit" value="Sign in" /></td>
 					</tr>
 				</table>
 				</form>
+				<a href="<?php echo base_url('index.php/login/forgotpass'); ?>">Forgot Password</a>
 			</fieldset>
+			<?php
+				if(isset($error))
+					echo "<p class='msg error'>$error</p>\n";
+			?>
+			<?php
+				if(isset($info))
+					echo "<p class='msg info'>$info</p>\n";
+			?>
+
 			
 		</div> <!-- /content -->

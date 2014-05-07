@@ -50,7 +50,7 @@
 
 			?>
 			<ul class="box">
-				<li<?php echo giveSubID('viewFiles', $page); ?>><a href="<?php echo base_url('index.php/filemgmt/showFiles'); ?>">View Files</a></li>
+				<li<?php echo giveSubID('viewFiles', $page); ?>><a href="<?php echo base_url('index.php/filemgmt/showFiles'); ?>">Manage Client Files</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

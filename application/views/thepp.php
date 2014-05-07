@@ -1,3 +1,3 @@
 <div id="content" class="box">
-	orupaadu valippikkan nokkalle ...
+	No Thepp Allowed.
 </div>

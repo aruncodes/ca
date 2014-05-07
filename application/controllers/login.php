@@ -3,12 +3,12 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Login extends CI_Controller {
-	function index()
+	function index($details = "none")
 	{
 		if(!$this->session->userdata('isa')) {
 			$data['title'] = "Login";
 			$this->load->view('template/header',$data);
-			$this->load->view('template/login');
+			$this->load->view('template/login', $details);
 			$this->load->view('template/footer');
 		}
 		else{
@@ -43,8 +43,15 @@ class Login extends CI_Controller {
 			else
 				exit('Unauthorized access. No thepp allowed');
 
-			if($isadmin == 'x')
-				echo "DO something when the user doesn't exist";
+			if($isadmin == 'x') {
+				$details = array(
+					'uname'=>$uname,
+					'pass'=>$pass,
+					'error'=>"Invalid username/password"
+					);
+				$this->index($details);
+				return;
+			}
 			else {
 				$userdata = array(
 					'uname' => $uname,
@@ -60,7 +67,7 @@ class Login extends CI_Controller {
 	}
 	function forgotpass()
 	{
-		$this->load->view('forgotpass');
+		$this->index(array('info'=>"Kindly Contact Administrator with login details"));
 	}
 }
 

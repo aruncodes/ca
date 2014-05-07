@@ -6,14 +6,14 @@ class Clientdb_model extends CI_Model {
 	}
 	function modify($clientData)
 	{
-		$this->deleteClient($clientData['cid']);
+		$this->db->delete('client', array('cid'=>$clientData['cid']));
 		$this->insert($clientData);
 	}
 	function deleteClient($cid)
 	{
 		$this->db->delete('client', array('cid'=>$cid));
 		$this->db->delete('docs_rcvd', array('cid'=>$cid));
-		$this->db->delete('file', array('cid'=>$cid));
+		$this->db->delete('files', array('cid'=>$cid));
 		$this->db->delete('inout', array('cid'=>$cid));
 		$this->db->delete('services', array('cid'=>$cid));
 	}
@@ -64,5 +64,14 @@ class Clientdb_model extends CI_Model {
 		return $clientData;
 	}
 
+	function getCIDs($pan)
+	{
+		$this->db->select('cid, cmpname, name');
+		$this->db->where('pan',$pan);
+		$query = $this->db->get('client');
+		if($query->num_rows() == 0)
+			return array('error'=>TRUE);
+		return array('cids'=>$query->result_array());
+	}
 }
 ?>
