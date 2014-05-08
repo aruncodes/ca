@@ -163,7 +163,17 @@ class Inout extends CI_Controller {
 		} else {
 			$this->show($p,$cid,"add_error");
 		}
+	}
 
+	function printDocs($cid)
+	{
+		$this->load->model('inout_model');
+		$details['inward'] = $this->inout_model->get_inward($cid);
+		$details['outward'] = $this->inout_model->get_outward($cid);
+
+		$this->load->model('clientdb_model');
+		$details['client'] = $this->clientdb_model->getData($cid);
+		$this->load->view('inout/printDocs', $details);
 	}
 }
 ?>
