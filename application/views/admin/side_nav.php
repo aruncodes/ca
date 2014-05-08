@@ -28,14 +28,15 @@
 			?>
 			<ul class="box">
 				<li<?php echo giveSubID('teamMgmt', $page); ?>><a href="<?php echo base_url('index.php/admin/teamMgmt'); ?>">Team Management</a></li>
-				<?php if(isset($teams)) { 
-						echo '<ul>';						
+				<?php echo '<ul>';
+					if(isset($teams)) { 						
 						foreach ($teams as $i) {
 							echo '<li><a href="'.base_url('index.php/admin/teamMgmt/'.$i).'"> Team '.$i.'</a></li>';
 						}
-						echo '<li><a href="'.base_url('index.php/admin/addNewTeam').'">Add New Team</a></li>';
-						echo '</ul>';
-					}?>					
+					}
+					echo '<li><a href="'.base_url('index.php/admin/addNewTeam').'">Add New Team</a></li>';
+					echo '</ul>';
+					?>					
 				<li<?php echo giveSubID('employeeMgmt', $page); ?>><a href="<?php echo base_url('index.php/admin/employeeMgmt'); ?>">Employee Management</a></li>
 			</ul>
 
