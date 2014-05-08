@@ -4,29 +4,22 @@
 		echo '</div>';
 	} else {
 ?>
-<style type="text/css">
-	#inward-tab tbody tr td{
-		//min-width: 250px;
-	}
-	#subcat td {
-		font-weight: bolder;	
-	}	
-</style>
 <fieldset>
 <legend> <?php echo $title; ?></legend>
-<table id="inward-tab" style="margin-left: 50px;">
+<table style="margin-left: 50px; border:10px solid #ffffff">
 	<tbody>
-	<?php if($page == "inward") { ?>
-		<tr id="sub-cat">
-			<td style="min-width: 200px;">Accounts</td>
-			<td style="min-width: 200px;">Notices</td>
-			<td style="min-width: 200px;">Others</td>
-		</tr>
-	<?php }?>
+	<?php if($page == "inward") { 
+		$tit[0] = "Account";
+		$tit[1] = "Notice";
+		$tit[2] = "Other";
+		} else
+		$tit[0] = "Outward";
+			?>
 		<tr>
 			<?php for($i = 0; $i < 3; $i++) { ?>
 				<td style="border: 1px solid #cfcfcf;">
-					<table class="nostyle">				
+					<table >	
+					<tr><th><?php echo $tit[$i]; ?> Documents</th><th>Del</th></tr>			
 						 <?php foreach( $result[$i] as $doc) { 
 						 	 echo '<tr><td>'.$doc[1].'</td><td>'; 
 						 	 if($doc[0] > 0) {

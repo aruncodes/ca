@@ -20,25 +20,9 @@
 					foreach ($members as $mem) {
 						echo '<tr><td>';
 						echo $mem['name'];
-						echo '</td><td>';
-						echo form_open('projects/removeMember/'.$teamid);
-						echo "<input type='hidden' name='eid' value='".$mem['eid']."' />";
-						echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />";
-						echo form_close();
 						echo '</td></tr>';
 					}
-					if(count($non_members) > 0) {
-						echo form_open('projects/addMember/'.$teamid);
-						echo '<tr><td>';
-						echo '<select name="eid">';
-						foreach($non_members as $mem) {
-							echo '<option value="'.$mem['eid'].'">'.$mem['name'].'</option>';						
-						}
-						echo '</select>';
-						echo "</td><td><input type='image' src='".base_url('design/ico-done.gif')."' />";
-						echo '</td></tr>';
-						echo form_close();
-					}
+					
 					?>
 				</table>
 			</td>

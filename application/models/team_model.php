@@ -22,21 +22,28 @@
 		}
 
 		function getTeams() {
-			// $this->db->distinct('teamid');
-			// $this->db->where('teamid !=', 0);
-			// $query = $this->db->get('users');
-
-			// codeignitor distinct didn't work as expected. it doesnt allow  coloum names
-
-			//array_unique(array_merge($array1,$array2), SORT_REGULAR);
 			$query1 = $this->db->query("SELECT DISTINCT teamid FROM `users` WHERE teamid != 0 ORDER BY teamid;");
 			$query2 = $this->db->query("SELECT DISTINCT tid as teamid FROM `client` WHERE tid != 0 ORDER BY tid;");
 
-			//TODO: modify this into single query later. Buggy now
-			if($query1->num_rows() >= $query2->num_rows())
-				return $query1->result_array();
-			else
-				return $query2->result_array();
+			$result = array();
+			foreach ($query1->result_array() as $row) {
+				array_push($result, $row['teamid']);
+			}
+			foreach ($query2->result_array() as $row) {
+				if(!in_array($row['teamid'],$result))
+					array_push($result, $row['teamid']);
+			}
+
+			return $result;
+		}
+
+		function getTeamID($eid) {
+			$this->db->select('teamid');
+			$this->db->where(array('eid'=>$eid));
+
+			$query = $this->db->get('users');
+
+			return $query->result_array()[0]['teamid'];
 		}
 
 		function getNoTeamMembers() {
