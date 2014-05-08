@@ -36,6 +36,7 @@ class Clientdb extends CI_Controller {
 			if(!isset($details))
 				$details = $this->clientdb_model->getData($cid);
 			$details['cid'] = $cid;
+
 			$this->load->view('clientdb/getCid', $details);
 			$this->load->view('clientdb/clientDetails', $details);
 		} else {
@@ -111,17 +112,32 @@ class Clientdb extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	function forgotCID($arg = "none")
+	function forgotCID()
 	{
+		$data['title'] = 'Client DB';
+		$this->load->view('template/header', $data);
+
+		$data['page'] = "clientdb";
+		$this->load->view('template/base', $data);
+		$data['page'] = "existingClient";
+		$this->load->view('clientdb/side_nav', $data);
+
+		
 		$data=NULL;
 		if($this->input->post('pan')) {
+			$this->session->unset_userdata('cid');
 			$pan = $this->input->post('pan');
 			$this->load->model('clientdb_model');
 			$data = $this->clientdb_model->getCIDs($pan);
 			$data['pan'] = $pan;
 		}
-		$this->load->view('template/header', array('title'=>"Forgot Client ID"));
 		$this->load->view('clientdb/forgotCID', $data);
+	}
+
+	function setSession($cid)
+	{
+		$this->session->set_userdata(array('cid'=>$cid));
+		$this->index();
 	}
 }
 ?>

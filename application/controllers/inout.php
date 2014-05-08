@@ -26,6 +26,7 @@ class Inout extends CI_Controller {
 			
 			$data['page_end'] = TRUE;
 			$data['title'] = "Inward Documents";
+
 			$this->load->view('inout/inward',$data);
 			$this->load->view('template/footer');
 		}	else {
@@ -74,6 +75,8 @@ class Inout extends CI_Controller {
 			
 			$data['page_end'] = TRUE;
 			$data['title'] = "Outward Documents";
+
+
 			$this->load->view('inout/inward',$data);
 			$this->load->view('template/footer');
 		}	else {
@@ -124,6 +127,7 @@ class Inout extends CI_Controller {
 		}
 		$data['p'] = $p;		
 		$data['msg'] = '';
+
 		$this->load->view('inout/inward',$data);
 		if($msg == "deleted") {
 			$data['msg'] ='<p class="msg done">Successfully deleted!</p>';			
@@ -174,6 +178,41 @@ class Inout extends CI_Controller {
 		$this->load->model('clientdb_model');
 		$details['client'] = $this->clientdb_model->getData($cid);
 		$this->load->view('inout/printDocs', $details);
+	}
+
+	function forgotCID($page)
+	{
+		$data['title'] = 'Inward Outward';
+		$this->load->view('template/header',$data);
+
+		$data['page'] = "inout";
+		$this->load->view('template/base', $data);
+		
+		$data['page'] = $page;
+		$this->load->view('inout/side_nav', $data);
+
+		
+		$data=NULL;
+		if($this->input->post('pan')) {
+			$this->session->unset_userdata('cid');
+			$pan = $this->input->post('pan');
+			$this->load->model('clientdb_model');
+			$data = $this->clientdb_model->getCIDs($pan);
+			$data['pan'] = $pan;
+		}
+		$data['page'] = $page;
+		$this->load->view('inout/forgotCID', $data);
+	}
+
+	function setSession($cid, $page = "none")
+	{
+		$this->session->set_userdata(array('cid'=>$cid));
+		if($page == "none")
+			$this->index();
+		else if($page == "inward")
+			$this->inward();
+		else if($page == "outward")
+			$this->outward();
 	}
 }
 ?>

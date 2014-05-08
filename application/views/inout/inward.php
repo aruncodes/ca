@@ -26,5 +26,6 @@
 		</tr>
 	</table>
 	<?php echo form_close(); ?>
+	<a href="<?php echo base_url('index.php/inout/forgotCID').'/'.$page; ?>">Forgot Client ID</a> <br /> <br />
 
 <?php if($page_end==TRUE)  echo '</div>'; ?>

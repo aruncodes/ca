@@ -1,11 +1,13 @@
 <div id = "content">
-<?php echo form_open('clientdb/forgotCID');
+<?php echo form_open('services/forgotCID');
 ?>
+	
 <table class="nostyle" style="margin-bottom: 25px;">
+
 		<tbody><tr>
 			<td style="font-size: 1.2em;"> Enter PAN No: </td>
-			<td> <input class="input-text" name="pan" type="text" <?php if(isset($pan)) echo 'value="'.$pan.'" '; ?>/></td>
-			<td> <input class="input-submit" value="Find Client ID" type="submit"> </td>
+			<td> <input class="input-text" id="enterPAN" name="pan" type="text" <?php if(isset($pan)) echo 'value="'.$pan.'" '; ?>/></td>
+			<td> <input class="input-submit" id="findCID" value="Find Client ID" type="submit"> </td>
 		</tr>
 	</tbody>
 </table>
@@ -30,7 +32,7 @@
 			</thead>
 			';
 			foreach($cids as $cid) {
-				$retAddr = base_url("index.php/clientdb/setSession")."/".$cid['cid'];
+				$retAddr = base_url("index.php/services/setSession")."/".$cid['cid'];
 				echo "<tr>\n";
 					echo "<td><a href='$retAddr'>".$cid['cid']."</a></td>";
 					echo "<td>".$cid['name']."</td>";

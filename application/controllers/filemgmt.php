@@ -90,5 +90,33 @@ class Filemgmt extends CI_Controller {
 
 		$this->showFiles("Modified file");
 	}
+
+	function forgotCID()
+	{
+		$data['title'] = 'File Management';
+		$this->load->view('template/header',$data);
+
+		$data['page'] = "filemgmt";
+		$this->load->view('template/base', $data);
+
+		$data['page'] = 'viewFiles';
+		$this->load->view('filemgmt/side_nav', $data);
+
+		$data=NULL;
+		if($this->input->post('pan')) {
+			$this->session->unset_userdata('cid');
+			$pan = $this->input->post('pan');
+			$this->load->model('clientdb_model');
+			$data = $this->clientdb_model->getCIDs($pan);
+			$data['pan'] = $pan;
+		}
+		$this->load->view('filemgmt/forgotCID', $data);
+	}
+
+	function setSession($cid)
+	{
+		$this->session->set_userdata(array('cid'=>$cid));
+		$this->index();
+	}
 }
 ?>

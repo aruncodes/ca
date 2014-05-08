@@ -1,4 +1,5 @@
 <div id="content" class="box">
+
 <?php
 	echo form_open('services/viewServices/show');
 ?>
@@ -10,6 +11,9 @@
 		</tr>
 	</table>
 	</form>
+
+	<a href="<?php echo base_url('index.php/services/forgotCID'); ?>">Forgot Client ID</a> <br /> <br />
+
 <?php
 	if(isset($error)) {
 		echo "<p class='msg error'>".$error."</p>\n";

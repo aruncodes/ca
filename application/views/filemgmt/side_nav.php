@@ -34,8 +34,6 @@
 					</fieldset>
 				</form>
 -->
-				<!-- Create a new project -->
-				<p id="btn-create" class="box"><a href="#"><span>Create a new project</span></a></p>
 
 			</div> <!-- /padding -->
 

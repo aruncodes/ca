@@ -98,5 +98,33 @@ class Services extends CI_Controller {
 		}
 		$this->viewServices("show");
 	}
+
+	function forgotCID()
+	{
+		$data['title'] = 'Services';
+		$this->load->view('template/header',$data);
+
+		$data['page'] = "svcs";
+		$this->load->view('template/base', $data);
+
+		$data['page'] = "viewServices";
+		$this->load->view('services/side_nav', $data);
+		
+		$data=NULL;
+		if($this->input->post('pan')) {
+			$this->session->unset_userdata('cid');
+			$pan = $this->input->post('pan');
+			$this->load->model('clientdb_model');
+			$data = $this->clientdb_model->getCIDs($pan);
+			$data['pan'] = $pan;
+		}
+		$this->load->view('services/forgotCID', $data);
+	}
+
+	function setSession($cid)
+	{
+		$this->session->set_userdata(array('cid'=>$cid));
+		$this->index();
+	}
 }
 ?>

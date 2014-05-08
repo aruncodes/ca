@@ -12,9 +12,6 @@
 				<!-- Logo (Max. width = 200px) -->
 				<p id="logo"><a href="#"><img src="<?php echo base_url('tmp/logo.gif'); ?>" alt="Our logo" title="Visit Site" /></a></p>
 
-				<!-- Create a new project -->
-				<p id="btn-create" class="box"><a href="#"><span>Create a new project</span></a></p>
-
 			</div> <!-- /padding -->
 
 			<?php
