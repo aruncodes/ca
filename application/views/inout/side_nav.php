@@ -26,10 +26,23 @@
 						return '';
 				}
 
+				$inward_url = 'index.php/inout';
+				$outward_url = 'index.php/inout';
+				$add_doc_url =  'index.php/inout/add_doc';
+				if(isset($cid)) {
+					$inward_url .= '/show/in/'.$cid;
+					$outward_url .= '/show/out/'.$cid;
+					$add_doc_url .= '/'.$cid;
+				} else {
+					$inward_url .= '/inward';
+					$outward_url .= '/outward';
+				}
+
 			?>
 			<ul class="box">
-				<li<?php echo giveSubID('inward', $page); ?>><a href="<?php echo base_url('index.php/inout/inward'); ?>">Inward</a></li>
-				<li<?php echo giveSubID('outward', $page); ?>><a href="<?php echo base_url('index.php/inout/outward'); ?>">Outward</a></li>
+				<li<?php echo giveSubID('inward', $page); ?>><a href="<?php echo base_url($inward_url); ?>">Inward</a></li>
+				<li<?php echo giveSubID('outward', $page); ?>><a href="<?php echo base_url($outward_url); ?>">Outward</a></li>
+				<li<?php echo giveSubID('add_doc', $page); ?>><a href="<?php echo base_url($add_doc_url); ?>">Add Document</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

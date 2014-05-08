@@ -1,12 +1,3 @@
-<!-- <table>
-<tbody>
-	<tr>
-		<th> Document</th>
-	</tr>
-
-</tbody>
-</table>
- -->
 <?php
 	if($result == FALSE) {
 		echo '<p class="msg error"> Client ID doesn\'t exist </p>';
@@ -15,56 +6,58 @@
 ?>
 <style type="text/css">
 	#inward-tab tbody tr td{
-		min-width: 250px;
+		//min-width: 250px;
 	}
 	#subcat td {
 		font-weight: bolder;	
 	}	
 </style>
-<table id="inward-tab" style="margin-left: 50px;" <?php if($page != "inward") echo 'class="nostyle"'; ?>>
+<fieldset>
+<legend> <?php echo $title; ?></legend>
+<table id="inward-tab" style="margin-left: 50px;">
 	<tbody>
 	<?php if($page == "inward") { ?>
 		<tr id="sub-cat">
-			<td>
-				Accounts
-			</td>
-			<td>
-				Notices
-			</td>
-			<td>
-				Others
-			</td>
+			<td style="min-width: 200px;">Accounts</td>
+			<td style="min-width: 200px;">Notices</td>
+			<td style="min-width: 200px;">Others</td>
 		</tr>
 	<?php }?>
 		<tr>
-			<td style="border: 1px solid #cfcfcf;">
-				<ul>
-				 <?php foreach( $result[0] as $doc) { ?>
-				 	<li> <?php echo $doc; ?> </li>
-				 <?php } ?>
-				 </ul>
-			</td>
-			<td>
-			<?php if($page == "inward") { ?>
-				<ul>
-				 <?php foreach( $result[1] as $doc) { ?>
-				 	<li> <?php echo $doc; ?> </li>
-				 <?php } ?>
-				 </ul>
-				<?php }?>
-			</td>
-			<td>
-			<?php if($page == "inward") { ?>
-				<ul>
-				 <?php foreach( $result[2] as $doc) { ?>
-				 	<li> <?php echo $doc; ?> </li>
-				 <?php } ?>
-				 </ul>
-				 <?php }?>
-			</td>
+			<?php for($i = 0; $i < 3; $i++) { ?>
+				<td style="border: 1px solid #cfcfcf;">
+					<table class="nostyle">				
+						 <?php foreach( $result[$i] as $doc) { 
+						 	 echo '<tr><td>'.$doc[1].'</td><td>'; 
+						 	 if($doc[0] > 0) {
+						 	 	echo form_open('inout/remove/'.$p.'/'.$cid);
+						 		echo "<input type='hidden' name='inout_id' value='".$doc[0]."' />";
+								echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />";
+								echo form_close();
+								}
+								echo '</td></tr>';
+						 	} 
+						 	echo form_open('inout/add/'.$p.'/'.$cid); ?>
+						 	<tr><td>
+								 	<select name="new_doc">
+									 	<?php	foreach ($INOUT[$i] as $doc) {
+									 	 	echo '<option value="'.$doc['id'].'">'.$doc['doc_name'].'</option>';
+									 	}	?>
+								 	</select>
+						 		</td> <td>  <?php echo "<input type='image' src='".base_url('design/ico-done.gif')."' />";	 ?> </td>
+						 	</tr>
+						 	<?php echo form_close(); ?>
+					 </table>
+				</td>
+			<?php
+				if($i == 0 && $page != "inward")
+					break;
+			} ?>
+			
 		</tr>
 	</tbody>
 </table> 
+</fieldset>
 </div>
 
 <?php } ?>

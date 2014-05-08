@@ -12,28 +12,6 @@
 				<!-- Logo (Max. width = 200px) -->
 				<p id="logo"><a href="#"><img src="<?php echo base_url('tmp/logo.gif'); ?>" alt="Our logo" title="Visit Site" /></a></p>
 
-				<!-- Search -->
-<!--				<form action="#" method="get" id="search">
-					<fieldset>
-						<legend>Search</legend>
-
-						<p><input type="text" size="17" name="" class="input-text" />&nbsp;<input type="submit" value="OK" class="input-submit-02" /><br />
-						<a href="javascript:toggle('search-options');" class="ico-drop">Advanced search</a></p>
-
-						
-						<div id="search-options" style="display:none;">
-
-							<p>
-								<label><input type="checkbox" name="" checked="checked" /> Option I.</label><br />
-								<label><input type="checkbox" name="" /> Option II.</label><br />
-								<label><input type="checkbox" name="" /> Option III.</label>
-							</p>
-
-						</div> <!-- /search-options ->
-
-					</fieldset>
-				</form>
--->
 				<!-- Create a new project -->
 				<p id="btn-create" class="box"><a href="#"><span>Create a new project</span></a></p>
 
@@ -51,6 +29,13 @@
 			?>
 			<ul class="box">
 				<li<?php echo giveSubID('existingTeams', $page); ?>><a href="<?php echo base_url('index.php/projects/existingTeams'); ?>">Existing Teams</a></li>
+				<?php if(isset($teams)) { echo '<ul>';
+						//for($i = 1; $i <= $teams; $i++) {
+						foreach ($teams as $i) {
+							echo '<li><a href="'.base_url('index.php/projects/existingTeams/'.$i['teamid']).'"> Team '.$i['teamid'].'</li>';
+						}
+					 echo '</ul>'; }?>
+
 				<li<?php echo giveSubID('addNewTeam', $page); ?>><a href="<?php echo base_url('index.php/projects/addNewTeam'); ?>">Add New Team</a></li>
 			</ul>
 
