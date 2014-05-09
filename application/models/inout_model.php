@@ -26,9 +26,9 @@
 
 			$query = $this->db->query('SELECT inout.id,doc_name,doc_id,category FROM `inout` LEFT JOIN `doc_names` ON inout.doc_id = doc_names.id WHERE (category = "INA" OR category = "INN" OR category = "INO") AND cid = '.$cid.' ORDER BY doc_name' );
 
-			$result = array(0 => array(array(-1,"No documents found!!")),
-							1 => array(array(-1,"No documents found!!")),
-							2 => array(array(-1,"No documents found!!")));
+			$result = array(0 => array(array(-1,"---")),
+							1 => array(array(-1,"---")),
+							2 => array(array(-1,"---")));
 			$i = $j=$k= 0;
 			if ($query->num_rows() > 0)
 			{

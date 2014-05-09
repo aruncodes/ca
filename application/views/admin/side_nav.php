@@ -35,6 +35,7 @@
 					echo '</ul>';
 					?>					
 				<li<?php echo giveSubID('employeeMgmt', $page); ?>><a href="<?php echo base_url('index.php/admin/employeeMgmt'); ?>">Employee Management</a></li>
+				<li<?php echo giveSubID('delClient', $page); ?>><a href="<?php echo base_url('index.php/admin/deleteClient'); ?>">Delete Client</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

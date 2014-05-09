@@ -4,7 +4,7 @@ class Projects extends CI_Controller {
 	{
 		$this->existingTeams();
 	}
-	function existingTeams($team_id=1,$msg="none")
+	function existingTeams($team_id=0,$msg="none")
 	{
 		$data['title'] = 'Projects';
 		$this->load->view('template/header',$data);
@@ -15,10 +15,12 @@ class Projects extends CI_Controller {
 		$this->load->model('team_model');
 		$data['teams'] = $this->team_model->getTeams();
 		
+		if($team_id == 0)
+			$team_id = $this->team_model->getFirstTeamID();
+		$data['teamid'] = $team_id;
+		
 		$data['page'] = "team".$team_id;
 		$this->load->view('projects/side_nav', $data);
-		
-		$data['teamid'] = $team_id;
 
 		$data['members'] = $this->team_model->getMembers($team_id);		
 		$data['clients'] = $this->team_model->getClients($team_id);

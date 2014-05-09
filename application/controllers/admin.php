@@ -4,7 +4,7 @@ class Admin extends CI_Controller {
 	{
 		$this->teamMgmt();
 	}
-	function teamMgmt($team_id=1,$msg="none")
+	function teamMgmt($team_id=0,$msg="none")
 	{
 		$data['title'] = 'Administration';
 		$this->load->view('template/header',$data);
@@ -18,6 +18,8 @@ class Admin extends CI_Controller {
 		$data['page'] = "teamMgmt";
 		$this->load->view('admin/side_nav', $data);
 
+		if($team_id == 0)
+			$team_id = $this->team_model->getFirstTeamID();
 		$data['teamid'] = $team_id;
 
 		$data['members'] = $this->team_model->getMembers($team_id);
@@ -37,11 +39,11 @@ class Admin extends CI_Controller {
 		if($this->session->userdata['isa'] == 'y') {
 			$this->load->view('admin/teamMgmt',$data);
 		} else {
-			$this->load->view('thepp');
+			$this->load->view('admin/noadmin');
 		}
 		$this->load->view('template/footer');
 	}
-	function employeeMgmt()
+	function employeeMgmt($msg="none")
 	{
 		$data['title'] = 'Administration';
 		$this->load->view('template/header',$data);
@@ -51,13 +53,66 @@ class Admin extends CI_Controller {
 
 		$data['page'] = "employeeMgmt";
 		$this->load->view('admin/side_nav', $data);
+
+		$this->load->model('empmgmt_model');
+		$data['emps'] = $this->empmgmt_model->getEmployees();
 		
+		if($msg == "madeadmin") {
+			$data['msg'] = '<p class="msg done"> Successfully made the employee as administrator. </p>';
+		} else if($msg == "remadmin") {
+			$data['msg'] = '<p class="msg info"> Successfully removed the employee from administrator group. </p>';
+		}
+		else if($msg == "empdel") {
+			$data['msg'] = '<p class="msg info"> Successfully removed the employee. </p>';
+		}
+
 		if($this->session->userdata['isa'] == 'y') {
-			$this->load->view('admin/employeeMgmt');
+			$this->load->view('admin/employeeMgmt',$data);
 		} else {
-			$this->load->view('thepp');
+			$this->load->view('admin/noadmin');
 		}
 		$this->load->view('template/footer');
+	}
+	function editUser($eid) {
+		$data['title'] = 'Administration';
+		$this->load->view('template/header',$data);
+		
+		$data['page'] = "admin";
+		$this->load->view('template/base', $data);
+
+		$data['page'] = "employeeMgmt";
+		$this->load->view('admin/side_nav', $data);
+
+		$this->load->model('empmgmt_model');
+
+		if($this->session->userdata['isa'] == 'y') {
+			$this->load->view('admin/editUser',$data);
+		} else {
+			$this->load->view('admin/noadmin');
+		}
+		$this->load->view('template/footer');
+	}
+	function removeEmployee() {
+		$eid = $this->input->post('eid');
+		$this->load->model('empmgmt_model');
+		$this->empmgmt_model->removeEmployee($eid);
+
+		$this->employeeMgmt("empdel");
+	}
+	function makeAdmin() {
+		$eid = $this->input->post('eid');
+		$this->load->model('empmgmt_model');
+		$this->empmgmt_model->makeAdmin($eid);
+
+		$this->employeeMgmt("madeadmin");
+	}
+	function removeAdmin() {
+		$eid = $this->input->post('eid');
+
+		$this->load->model('empmgmt_model');
+		$this->empmgmt_model->removeAdmin($eid);
+
+		$this->employeeMgmt("remadmin");
 	}
 	function addNewTeam()
 	{
@@ -75,8 +130,13 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/side_nav', $data);
 		
 		$data['non_members'] = $this->team_model->getNoTeamMembers();
+		
+		if($this->session->userdata['isa'] == 'y') {
+			$this->load->view('admin/addNewTeam',$data);			
+		} else {
+			$this->load->view('admin/noadmin');
+		}
 
-		$this->load->view('admin/addNewTeam',$data);
 		$this->load->view('template/footer');
 	}
 
@@ -119,6 +179,43 @@ class Admin extends CI_Controller {
 		$this->team_model->setTeamForClient($eid,$team_id);
 
 		$this->teamMgmt($team_id,"success_add_client");
+	}
+	function deleteClient($cid = "none") {
+		$this->load->model('clientdb_model');
+
+		if($cid != "none") {
+			$this->clientdb_model->deleteClient($cid);
+			if($this->session->userdata('cid') == $cid)
+				$this->session->unset_userdata('cid');
+		}
+
+		$data['title'] = 'Administration';
+		$this->load->view('template/header',$data);
+		
+		$data['page'] = "admin";
+		$this->load->view('template/base', $data);
+
+		$data['page'] = "delClient";
+		$this->load->view('admin/side_nav', $data);
+		
+		if($this->session->userdata['isa'] == 'y') {
+			$data = $this->clientdb_model->getCIDs();
+			$this->load->view('admin/deleteClient',$data);			
+		} else {
+			$this->load->view('admin/noadmin');
+		}
+
+		$this->load->view('template/footer');
+	}
+	function setSession($cid)
+	{
+		$this->load->model('clientdb_model');
+		$present = $this->clientdb_model->isPresent($cid);
+		if($present == 1)
+			$this->session->set_userdata(array('cid'=>$cid));
+		else
+			$this->session->unset_userdata('cid');
+		$this->index();
 	}
 }
 ?>

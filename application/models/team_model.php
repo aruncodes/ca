@@ -46,6 +46,11 @@
 			return $query->result_array()[0]['teamid'];
 		}
 
+		function getFirstTeamID() {
+			
+			return min($this->getTeams());
+		}
+
 		function getNoTeamMembers() {
 			$this->db->select('eid,name');
 			$this->db->where(array('teamid'=>0));
