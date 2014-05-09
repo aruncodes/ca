@@ -13,7 +13,7 @@
 				<table class="nostyle">
 					<tr>
 						<td style="width:70px;">Username:</td>
-						<td><input type="text" size="40" name="uname" class="input-text" required="required" <?php
+						<td><input type="text" size="40" name="uname" class="input-text" required="required" autofocus="autofocus" <?php
 							if(isset($uname)) echo "value = '$uname' ";
 						?>/></td>
 					</tr>

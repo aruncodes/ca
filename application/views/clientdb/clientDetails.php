@@ -345,7 +345,7 @@
 		</table>
 		<script type="text/javascript">
 			<?php if(!isset($new))
-				echo "disableAll()\n";
+				echo "disableAll();\n";
 			?>
 			function enableAll()
 			{

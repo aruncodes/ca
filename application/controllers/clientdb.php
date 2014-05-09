@@ -136,8 +136,30 @@ class Clientdb extends CI_Controller {
 
 	function setSession($cid)
 	{
-		$this->session->set_userdata(array('cid'=>$cid));
+		$this->load->model('clientdb_model');
+		$present = $this->clientdb_model->isPresent($cid);
+		if($present == 1)
+			$this->session->set_userdata(array('cid'=>$cid));
+		else
+			$this->session->unset_userdata('cid');
 		$this->index();
+	}
+
+	function listClients()
+	{
+		$data['title'] = 'Client DB';
+		$this->load->view('template/header', $data);
+
+		$data['page'] = "clientdb";
+		$this->load->view('template/base', $data);
+		$data['page'] = "listClients";
+		$this->load->view('clientdb/side_nav', $data);
+
+		$this->load->model('clientdb_model');
+		$clients = $this->clientdb_model->getCIDs();
+		$this->load->view('clientdb/clientList', $clients);
+
+		$this->load->view('template/footer');
 	}
 }
 ?>
