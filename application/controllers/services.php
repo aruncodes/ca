@@ -123,7 +123,13 @@ class Services extends CI_Controller {
 
 	function setSession($cid)
 	{
-		$this->session->set_userdata(array('cid'=>$cid));
+		$this->load->model('clientdb_model');
+		$present = $this->clientdb_model->isPresent($cid);
+		if($present == 1)
+			$this->session->set_userdata(array('cid'=>$cid));
+		else
+			$this->session->unset_userdata('cid');
+
 		$this->index();
 	}
 }

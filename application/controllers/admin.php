@@ -215,7 +215,7 @@ class Admin extends CI_Controller {
 			$this->session->set_userdata(array('cid'=>$cid));
 		else
 			$this->session->unset_userdata('cid');
-		$this->index();
+		header('Location: '.base_url('index.php/clientdb'));
 	}
 }
 ?>
