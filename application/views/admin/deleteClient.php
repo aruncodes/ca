@@ -28,7 +28,7 @@ if(isset($error)) {
 	$n = count($cids);
 	echo "var n = $n\n";
 	for($i = 0; $i < $n; $i++) {
-		$retAddr = base_url("index.php/admin/setSession")."/".$cids[$i]['cid'];
+		$retAddr = base_url("index.php/clientdb/setSession")."/".$cids[$i]['cid'];
 		$arg = $cids[$i]['cid'].',"'.$cids[$i]['name'].'","'.$cids[$i]['cmpname'].'","'.$retAddr.'"';
 		echo "clients[$i] = new Client(".$arg.");\n";
 	}

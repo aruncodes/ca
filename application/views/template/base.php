@@ -16,9 +16,9 @@
 		</p>
 
 		<p class="f-right">
-			User: <strong><a href="#"><?php echo $this->session->userdata('uname'); ?></a></strong>
+			Logged in: <strong><a href="#"><?php echo $this->session->userdata('uname'); ?></a></strong>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<strong> <a href="#">Account settings</a> </strong>
+			<strong> <a href="<?php echo base_url('index.php/userControl'); ?>">Account settings</a> </strong>
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<strong><a href="<?php echo base_url('index.php/login/logout'); ?>" id="logout">Log out</a></strong>
 		</p>

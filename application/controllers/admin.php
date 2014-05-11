@@ -207,15 +207,5 @@ class Admin extends CI_Controller {
 
 		$this->load->view('template/footer');
 	}
-	function setSession($cid)
-	{
-		$this->load->model('clientdb_model');
-		$present = $this->clientdb_model->isPresent($cid);
-		if($present == 1)
-			$this->session->set_userdata(array('cid'=>$cid));
-		else
-			$this->session->unset_userdata('cid');
-		header('Location: '.base_url('index.php/clientdb'));
-	}
 }
 ?>

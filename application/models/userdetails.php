@@ -10,5 +10,18 @@
 				return "x";
 			return $query->row('isadmin');
 		}
+
+		function getPass($uname)
+		{
+			$this->db->select('pass')->from('users')->where('uname',$uname);
+			$query = $this->db->get();
+			return $query->result_array()[0]['pass'];
+		}
+
+		function changePassword($uname, $newPass)
+		{
+			$this->db->where('uname', $uname);
+			$this->db->update('users', array('pass'=>$newPass));
+		}
 	}
 ?>
