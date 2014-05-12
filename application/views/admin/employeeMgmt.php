@@ -1,33 +1,16 @@
 <div id="content" class="box">
-<style type="text/css">
-	input.image-button{    
-	    padding-left: 16px;
-	    height: 25px;
-	    margin:2px;
-	}
-	input.del {
-		background: #cfcfcf url('<?php echo base_url("design/ico-delete.gif") ?>') no-repeat top left;
-		width:75px;	
-	}
-	input.makeadmin {
-		background: #cfcfcf url('<?php echo base_url("design/ico-done.gif") ?>') no-repeat top left;
-		width:100px;	
-	}
-	input.warn {
-		background: #cfcfcf url('<?php echo base_url("design/ico-warning.gif") ?>') no-repeat top left;
-		width:110px;	
-	}
-	input.edit {
-		background: #cfcfcf url('<?php echo base_url("design/ico-edit.gif") ?>') no-repeat top left;
-		width:75px;	
-	}
-</style>
 	<fieldset>
 		<legend>Employee Management</legend>
 		<?php if(isset($msg)) echo $msg;
 			if(count($emps) == 0) {
 				echo '<p class="msg warning"> No employees found! </p>';
-		} else { ?>
+		} else { 
+					echo form_open('admin/editUser/new/');					
+					echo "<input type='submit' value='Add Employee' class='image-button add'/>";					
+					echo form_close();
+
+			?>
+
 		<table>
 			<tbody>
 				<tr>
@@ -38,6 +21,7 @@
 					<th>Privilege</th>
 					<th>Salary structure</th>
 					<th>Leaves</th>
+					<th>Email</th>
 					<th>Contact</th>
 					<th>Emergency Contact</th>
 					<th>Actions</th>
@@ -69,21 +53,43 @@
 					echo '</td>';
 					echo '<td>'.$emp['sal_structure'].'</td>';
 					echo '<td>'.$emp['leaves'].'</td>';
+					echo '<td>'.$emp['email'].'</td>';
 					echo '<td>'.$emp['contact'].'</td>';
 					echo '<td>'.$emp['em_contact'].'</td>';
 					
 					echo '<td>';
+
+					echo '<table class="nostyle"><tr><td>';
+
+					echo form_open('admin/editUser/show/'.$emp['eid']);
+					//echo form_hidden('eid',$emp['eid']);
+					echo "<input type='submit' value='Show' class='image-button info'/>";					
+					echo form_close();
+
+					echo '</td><td>';
+
+					$attrib = array('onsubmit'=>"return confirm('Are you sure you want to reset password of this employee?');");
+					echo form_open('admin/resetPass/',$attrib);
+					echo form_hidden('uname',$emp['uname']);
+					echo "<input type='submit' value='Reset Password' class='image-button reset'/>";					
+					echo form_close();
+
+					echo '</td><td></tr><tr><td>';
+
+					echo form_open('admin/editUser/edit/'.$emp['eid']);
+					//echo form_hidden('eid',$emp['eid']);
+					echo "<input type='submit' value='Edit' class='image-button edit'/>";					
+					echo form_close();
+
+					echo '</td><td>';
+
 					$attrib = array('onsubmit'=>"return confirm('Do you really want to remove this employee?');");
 					echo form_open('admin/removeEmployee',$attrib);
 					echo form_hidden('eid',$emp['eid']);
 					echo "<input type='submit' value='Delete' class='image-button del'/>";					
 					echo form_close();
 
-					echo form_open('admin/editUser/'.$emp['eid']);
-					//echo form_hidden('eid',$emp['eid']);
-					echo "<input type='submit' value='Edit' class='image-button edit'/>";					
-					echo form_close();
-
+					echo '</td></tr></table>';
 					
 					echo '</td>';
 

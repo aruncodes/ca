@@ -41,7 +41,7 @@ class Login extends CI_Controller {
 			if($uname && $pass)
 				$isadmin = $this->userdetails->login($uname, $pass);
 			else
-				exit('Unauthorized access. No thepp allowed');
+				exit('Unauthorized access. ');
 
 			if($isadmin == 'x') {
 				$details = array(
@@ -56,7 +56,8 @@ class Login extends CI_Controller {
 				$userdata = array(
 					'uname' => $uname,
 					'pass' => $pass,
-					'isa' => $isadmin
+					'isa' => $isadmin,
+					'loggedin' => TRUE
 				);
 				$this->session->set_userdata($userdata);
 				$this->load_home();

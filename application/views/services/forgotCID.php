@@ -7,7 +7,7 @@
 		<tbody><tr>
 			<td style="font-size: 1.2em;"> Enter PAN No: </td>
 			<td> <input class="input-text" id="enterPAN" name="pan" type="text" <?php if(isset($pan)) echo 'value="'.$pan.'" '; ?>/></td>
-			<td> <input class="input-submit" id="findCID" value="Find Client ID" type="submit"> </td>
+			<td> <input class="image-button find" id="findCID" value="Find Client ID" type="submit"> </td>
 		</tr>
 	</tbody>
 </table>

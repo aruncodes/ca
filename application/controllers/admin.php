@@ -1,24 +1,47 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Admin extends CI_Controller {
+	function checkSession() {
+		if($this->session->userdata('loggedin'))
+			return;
+		else {
+			$this->session->sess_destroy();
+			$data['title'] = "Login";
+			$details['error'] = "Please login first!";
+
+			echo $this->load->view('template/header',$data,TRUE);
+			echo $this->load->view('template/login', $details,TRUE);
+			echo $this->load->view('template/footer',array(),TRUE);
+			exit;
+		}
+	}
 	function index()
 	{
+		$this->checkSession();
 		$this->teamMgmt();
 	}
-	function teamMgmt($team_id=0,$msg="none")
+	function teamMgmt($team_id='-',$msg="none")
 	{
+		$this->checkSession();
+		$this->load->model('team_model');
+		$data['teams'] = $this->team_model->getTeams();
+
+		if(count($data['teams']) == 0) {
+			$this->addNewTeam();
+			return;
+		}
+
 		$data['title'] = 'Administration';
 		$this->load->view('template/header',$data);
 		
 		$data['page'] = "admin";
 		$this->load->view('template/base', $data);
 
-		$this->load->model('team_model');
-		$data['teams'] = $this->team_model->getTeams();
 
 		$data['page'] = "teamMgmt";
 		$this->load->view('admin/side_nav', $data);
 
-		if($team_id == 0)
+		if($team_id == '-')
 			$team_id = $this->team_model->getFirstTeamID();
 		$data['teamid'] = $team_id;
 
@@ -45,6 +68,7 @@ class Admin extends CI_Controller {
 	}
 	function employeeMgmt($msg="none")
 	{
+		$this->checkSession();
 		$data['title'] = 'Administration';
 		$this->load->view('template/header',$data);
 		
@@ -64,6 +88,8 @@ class Admin extends CI_Controller {
 		}
 		else if($msg == "empdel") {
 			$data['msg'] = '<p class="msg info"> Successfully removed the employee. </p>';
+		} else if($msg == "reset") {
+			$data['msg'] = '<p class="msg info"> Password of employee resetted to his username! </p>';
 		}
 
 		if($this->session->userdata['isa'] == 'y') {
@@ -73,7 +99,8 @@ class Admin extends CI_Controller {
 		}
 		$this->load->view('template/footer');
 	}
-	function editUser($eid) {
+	function editUser($mode="new",$eid=1,$update_mode="none") {
+		$this->checkSession();
 		$data['title'] = 'Administration';
 		$this->load->view('template/header',$data);
 		
@@ -85,14 +112,59 @@ class Admin extends CI_Controller {
 
 		$this->load->model('empmgmt_model');
 
+		if($update_mode == "change" && $mode=="new") {
+			if($this->insertUser()) {
+				$data['msg'] = '<p class="msg done"> Successfully added new employee!</p>';
+				$mode="show";
+				$eid = $this->empmgmt_model->getEID($this->input->post('uname'));
+			} else {
+				$data['msg'] = '<p class="msg error"> Could not add new employee!</p>';
+				$mode="edit";
+				unset($eid);
+			}
+		}
+
+		$data['mode'] = $mode;
+		$data['unames'] = $this->empmgmt_model->getCSVUsernames();
+		if(isset($eid) && is_numeric($eid)) {
+			$data['emp'] = $this->empmgmt_model->getUserDetails($eid);
+		}
+
 		if($this->session->userdata['isa'] == 'y') {
+			$data['isa'] = TRUE;
 			$this->load->view('admin/editUser',$data);
 		} else {
 			$this->load->view('admin/noadmin');
 		}
 		$this->load->view('template/footer');
 	}
+	function insertUser() {
+
+		$this->checkSession();
+		$data['name'] = $this->input->post('name');
+		$data['sex'] = $this->input->post('sex');
+		$data['uname'] = $this->input->post('uname');
+		$data['pass'] = $this->input->post('uname');
+		$data['isadmin'] = $this->input->post('isadmin');
+		$data['dob'] = $this->input->post('dob');
+		$data['doj'] = $this->input->post('doj');
+		$data['qualification'] = $this->input->post('quali');
+		$data['sal_structure'] = $this->input->post('sal');
+		$data['leaves'] = $this->input->post('leaves');
+		$data['email'] = $this->input->post('email');
+		$data['contact'] = $this->input->post('contact');
+		$data['em_contact'] = $this->input->post('em_contact');
+		$data['addr_gn'] = $this->input->post('addr');
+		$data['state'] = $this->input->post('state');
+		$data['pin'] = $this->input->post('pin');
+		$data['teamid'] = '-';
+
+		$this->load->model('empmgmt_model');
+		return $this->empmgmt_model->insertUser($data);
+	}
+
 	function removeEmployee() {
+		$this->checkSession();
 		$eid = $this->input->post('eid');
 		$this->load->model('empmgmt_model');
 		$this->empmgmt_model->removeEmployee($eid);
@@ -100,6 +172,7 @@ class Admin extends CI_Controller {
 		$this->employeeMgmt("empdel");
 	}
 	function makeAdmin() {
+		$this->checkSession();
 		$eid = $this->input->post('eid');
 		$this->load->model('empmgmt_model');
 		$this->empmgmt_model->makeAdmin($eid);
@@ -107,6 +180,7 @@ class Admin extends CI_Controller {
 		$this->employeeMgmt("madeadmin");
 	}
 	function removeAdmin() {
+		$this->checkSession();
 		$eid = $this->input->post('eid');
 
 		$this->load->model('empmgmt_model');
@@ -114,8 +188,17 @@ class Admin extends CI_Controller {
 
 		$this->employeeMgmt("remadmin");
 	}
-	function addNewTeam()
-	{
+	function resetPass() {
+		$this->checkSession();
+		$uname = $this->input->post('uname');
+
+		$this->load->model('empmgmt_model');
+		$this->empmgmt_model->resetPass($uname);
+
+		$this->employeeMgmt("reset");
+	}
+	function addNewTeam() {
+		$this->checkSession();
 		$data['title'] = 'Administration';
 		$this->load->view('template/header',$data);
 		
@@ -141,6 +224,7 @@ class Admin extends CI_Controller {
 	}
 
 	function removeMember($team_id) {
+		$this->checkSession();
 		$this->load->model('team_model');
 		$eid = $this->input->post('eid');
 
@@ -149,6 +233,7 @@ class Admin extends CI_Controller {
 		$this->teamMgmt($team_id,"success");
 	}
 	function removeClient($team_id) {
+		$this->checkSession();
 		$this->load->model('team_model');
 		$cid = $this->input->post('cid');
 
@@ -157,13 +242,15 @@ class Admin extends CI_Controller {
 		$this->teamMgmt($team_id,"success_client");
 	}
 	function getNextTeam() {
+		$this->checkSession();
 
 	}
 	function addMember($team_id) {
+		$this->checkSession();
 		$this->load->model('team_model');
 		$eid = $this->input->post('eid');
 
-		if($team_id == 0) {
+		if($team_id == '-') {
 			$team_id = $this->input->post('team_id');
 		}
 
@@ -173,6 +260,7 @@ class Admin extends CI_Controller {
 	}
 
 	function addClient($team_id) {
+		$this->checkSession();
 		$this->load->model('team_model');
 		$eid = $this->input->post('cid');
 
@@ -181,6 +269,7 @@ class Admin extends CI_Controller {
 		$this->teamMgmt($team_id,"success_add_client");
 	}
 	function deleteClient($cid = "none") {
+		$this->checkSession();
 		$this->load->model('clientdb_model');
 
 		if($cid != "none") {

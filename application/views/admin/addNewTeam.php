@@ -13,14 +13,14 @@
 		</tr>
 		<tr>
 		<?php		
-			echo form_open('admin/addMember/0');		
+			echo form_open('admin/addMember/-');		
 			echo '<td><select name="eid">';
 			foreach($non_members as $mem) {
 				echo '<option value="'.$mem['eid'].'">'.$mem['name'].'</option>';						
 			}
 			echo '</select></td><td>';
-			echo '<input type="number" required="required" rows=3 name="team_id" hint="Team ID" />';
-			echo "</td><td><input type='image' src='".base_url('design/ico-done.gif')."' />";
+			echo '<input type="text" required="required" rows=3 name="team_id" placeholder="Team Name" />';
+			echo "</td><td><input type='submit' value ='Add' class='image-button addsmall' />";
 			echo form_close();
 		}
 		?>

@@ -1,8 +1,64 @@
-
-.loginbox {	
-
-}
-
-.loginfield {
-	
-}
+input.image-button{    
+	    padding-left: 16px;
+	    height: 25px;
+	    margin:2px;
+	}
+	.show-as-text {
+		background-color:#FFFFFF;
+		border:solid 1px #FFFFFF;
+	}
+	input.del {
+		background: #cfcfcf url('../design/ico-delete.gif') no-repeat center left;
+		width:75px;	
+	}
+	input.makeadmin {
+		background: #cfcfcf url('../design/ico-done.gif') no-repeat center left;
+		width:100px;	
+	}
+	input.warn {
+		background: #cfcfcf url('../design/ico-warning.gif') no-repeat center left;
+		width:110px;	
+	}
+	input.add {
+		background: #cfcfcf url('../design/ico-add.png') no-repeat center left;
+		width:110px;	
+	}
+	input.addsmall {
+		background: #cfcfcf url('../design/ico-add.png') no-repeat center left;
+		width:50px;	
+	}
+	input.edit {
+		background: #cfcfcf url('../design/ico-edit.gif') no-repeat center left;
+		width:75px;	
+	}
+	input.info {
+		background: #cfcfcf url('../design/ico-info.gif') no-repeat center left;
+		width:75px;	
+	}
+	input.print {
+		background: #cfcfcf url('../design/ico-print.png') no-repeat center left;
+		width:125px;	
+	}
+	input.save {
+		background: #cfcfcf url('../design/ico-save.gif') no-repeat center left;
+		width:75px;	
+	}
+	input.show {
+		background: #cfcfcf url('../design/ico-show.gif') no-repeat center left;
+		width:75px;	
+	}
+	input.find {
+		background: #cfcfcf url('../design/ico-show.gif') no-repeat center left;
+		width:125px;	
+	}
+	input.pass {
+		background: #cfcfcf url('../design/ico-pass.png') no-repeat center left;
+		width:140px;	
+	}
+	input.reset {
+		background: #cfcfcf url('../design/ico-reset.png') no-repeat center left;
+		width:125px;	
+	}
+	.add-row {
+		background: #fcbabc;
+	}

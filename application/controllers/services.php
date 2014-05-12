@@ -1,11 +1,28 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Services extends CI_Controller {
+	function checkSession() {
+		if($this->session->userdata('loggedin'))
+			return;
+		else {
+			$this->session->sess_destroy();
+			$data['title'] = "Login";
+			$details['error'] = "Please login first!";
+
+			echo $this->load->view('template/header',$data,TRUE);
+			echo $this->load->view('template/login', $details,TRUE);
+			echo $this->load->view('template/footer',array(),TRUE);
+			exit;
+		}
+	}
 	function index()
 	{
+		$this->checkSession();
 		$this->viewServices();
 	}
 	function viewServices($arg = "none", $cid = "none")
 	{
+		$this->checkSession();
 		$data['title'] = 'Services';
 		$this->load->view('template/header',$data);
 
@@ -53,6 +70,7 @@ class Services extends CI_Controller {
 	
 	function modServices($arg = "none")
 	{
+		$this->checkSession();
 		$data['title'] = 'Services';
 		$this->load->view('template/header',$data);
 
@@ -91,6 +109,7 @@ class Services extends CI_Controller {
 
 	function remService($cid="none")
 	{
+		$this->checkSession();
 		$sname = $this->input->post('sname');
 		if($cid != "none" && $sname) {
 			$this->load->model("services_model");
@@ -101,6 +120,7 @@ class Services extends CI_Controller {
 
 	function forgotCID()
 	{
+		$this->checkSession();
 		$data['title'] = 'Services';
 		$this->load->view('template/header',$data);
 
@@ -123,6 +143,7 @@ class Services extends CI_Controller {
 
 	function setSession($cid)
 	{
+		$this->checkSession();
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)

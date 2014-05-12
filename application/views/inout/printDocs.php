@@ -5,31 +5,31 @@
 <table style='margin:0px auto' class="nostyle" style="margin-bottom: 25px;">
 		<tbody>
 		<tr>
-			<td>Name of the Personnel </td>
+			<td>Name of the Personnel </td><td>:</td>
 			<td><?php echo $client['name']; ?></td>
 		</tr>
 		
 		<tr>
-			<td>Company Name </td>
+			<td>Company Name </td><td>:</td>
 			<td><?php echo $client['cmpname']; ?></td>
 		</tr>
 		
 		<tr>
-			<td>Client ID </td>
+			<td>Client ID </td><td>:</td>
 			<td><?php echo $client['cid']; ?></td>
 		</tr>
 		
 		<tr>
-			<td>Legal Structure </td>
+			<td>Legal Structure </td><td>:</td>
 			<td><?php echo $client['status_cat1']; ?></td>
 		</tr>
 		
 		<tr>
-			<td>Office Address </td>
+			<td>Office Address </td><td>:</td>
 			<td><?php echo $client['addr1_gn']." <br />\n"; ?></td>
 		</tr>
 		<tr>
-			<td></td>
+			<td></td><td></td>
 			<td><?php
 					echo $client['addr1_ds']." <br />\n";
 					echo $client['addr1_st']." <br />\n";
@@ -39,7 +39,7 @@
 		</tr>
 
 		<tr>
-			<td>Phone numbers </td>
+			<td>Phone numbers </td><td>:</td>
 			<td><?php echo $client['phnos'] ?></td>
 		</tr>
 	</tbody>

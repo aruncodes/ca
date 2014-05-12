@@ -38,7 +38,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td style="text-align: right;"><input type='submit' class='input-submit' /></td>
+		<td style="text-align: right;"><input type='submit' value="Change Password" class='image-button pass' /></td>
 	</tr>
 </table>
 </fieldset>

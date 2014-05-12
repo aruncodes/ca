@@ -2,6 +2,11 @@
 	<fieldset>
 	<legend> Team <?php echo $teamid; ?> </legend>
 	<?php if(isset($msg)) echo $msg; ?>
+	<?php
+					echo form_open('admin/addNewTeam');					
+					echo "<input type='submit' value='Add New Team' class='image-button add'/>";					
+					echo form_close();
+	?>
 	<table>
 		<tr>
 			<th>
@@ -28,14 +33,15 @@
 						echo '</td></tr>';
 					}
 					if(count($non_members) > 0) {
+						echo '<tr style="height:15px;"> <td colspan="2"></td><tr>';
 						echo form_open('admin/addMember/'.$teamid);
-						echo '<tr><td>';
+						echo '<tr class="add-row"><td>';
 						echo '<select name="eid">';
 						foreach($non_members as $mem) {
 							echo '<option value="'.$mem['eid'].'">'.$mem['name'].'</option>';						
 						}
 						echo '</select>';
-						echo "</td><td><input type='image' src='".base_url('design/ico-done.gif')."' />";
+						echo "</td><td><input type='submit' value ='Add' class='image-button addsmall' />";
 						echo '</td></tr>';
 						echo form_close();
 					}
@@ -58,14 +64,15 @@
 						echo '</td></tr>';
 					}
 					if(count($non_clients) > 0) {
+						echo '<tr style="height:15px;"> <td colspan="2"></td><tr>';
 						echo form_open('admin/addClient/'.$teamid);
-						echo '<tr><td>';
+						echo '<tr class="add-row"><td>';
 						echo '<select name="cid">';
 						foreach($non_clients as $mem) {
 							echo '<option value="'.$mem['cid'].'">'.$mem['name'].'</option>';						
 						}
 						echo '</select>';
-						echo "</td><td><input type='image' src='".base_url('design/ico-done.gif')."' />";
+						echo "</td><td><input type='submit' value ='Add' class='image-button addsmall' />";
 						echo '</td></tr>';
 						echo form_close();
 					}

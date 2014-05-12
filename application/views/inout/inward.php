@@ -17,10 +17,10 @@
 		<tr>
 			<td> Client ID: </td>
 			<td> <input type="text" class="input-text" name="cid" <?php if(isset($cid)) echo 'value="'.$cid.'"'; ?> /> </td>
-			<td> <input type="submit" class="input-submit" value="Show" /> </td>
+			<td> <input type="submit" class="image-button show" value="Show" /> </td>
 			<td>
 			<?php if(isset($cid))
-				echo "<input type='button' value='Print Documents' class='input-submit' onClick='printDocs($cid);' />\n";
+				echo "<input type='button' value='Print Documents' class='image-button print' onClick='printDocs($cid);' />\n";
 			?>
 			</td>
 		</tr>

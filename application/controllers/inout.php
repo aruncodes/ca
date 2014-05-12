@@ -1,7 +1,22 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Inout extends CI_Controller {
+	function checkSession() {
+		if($this->session->userdata('loggedin'))
+			return;
+		else {
+			$this->session->sess_destroy();
+			$data['title'] = "Login";
+			$details['error'] = "Please login first!";
+
+			echo $this->load->view('template/header',$data,TRUE);
+			echo $this->load->view('template/login', $details,TRUE);
+			echo $this->load->view('template/footer',array(),TRUE);
+			exit;
+		}
+	}
 	function index()
 	{
+		$this->checkSession();
 		$cid = $this->session->userdata('cid');
 
 		if($cid == FALSE)
@@ -11,6 +26,7 @@ class Inout extends CI_Controller {
 	}
 	function inward()
 	{
+		$this->checkSession();
 		$cid = $this->session->userdata('cid');
 
 		if($cid == FALSE) {
@@ -36,6 +52,7 @@ class Inout extends CI_Controller {
 
 	function add_doc()
 	{
+		$this->checkSession();
 		$data['title'] = 'Add Document';
 		$this->load->view('template/header',$data);
 
@@ -61,6 +78,7 @@ class Inout extends CI_Controller {
 
 	function outward()
 	{
+		$this->checkSession();
 		$cid = $this->session->userdata('cid');
 
 		if($cid == FALSE) {
@@ -84,7 +102,9 @@ class Inout extends CI_Controller {
 		}
 	}
 
-	function show($p="in", $cid=0, $msg = "none") {		
+	function show($p="in", $cid=0, $msg = "none") 
+	{		
+		$this->checkSession();
 
 		if($cid == 0) {
 			$cid = $this->input->post('cid');
@@ -144,7 +164,9 @@ class Inout extends CI_Controller {
 
 	}
 
-	function remove($p="in",$cid=100,$inout_id = -1) {
+	function remove($p="in",$cid=100,$inout_id = -1) 
+	{
+		$this->checkSession();
 		if($inout_id == -1) {
 			$inout_id = $this->input->post('inout_id');
 		}
@@ -157,7 +179,9 @@ class Inout extends CI_Controller {
 			$this->show($p,$cid,"delete_error");
 	}
 
-	function add($p="in",$cid=100) {		
+	function add($p="in",$cid=100) 
+	{		
+		$this->checkSession();
 		$doc_id = $this->input->post('new_doc');
 		
 		if($doc_id > 0) {
@@ -171,6 +195,7 @@ class Inout extends CI_Controller {
 
 	function printDocs($cid)
 	{
+		$this->checkSession();
 		$this->load->model('inout_model');
 		$details['inward'] = $this->inout_model->get_inward($cid);
 		$details['outward'] = $this->inout_model->get_outward($cid);
@@ -182,6 +207,7 @@ class Inout extends CI_Controller {
 
 	function forgotCID($page)
 	{
+		$this->checkSession();
 		$data['title'] = 'Inward Outward';
 		$this->load->view('template/header',$data);
 
@@ -206,6 +232,7 @@ class Inout extends CI_Controller {
 
 	function setSession($cid, $page = "none")
 	{
+		$this->checkSession();
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)

@@ -8,7 +8,7 @@
 	else
 		echo form_open('clientdb/addClient/modify');
 ?>
-	<fieldset>
+	<fieldset> <!-- DONT REMOVE THIS FIELDSET, JS depends on it -->
 		<?php
 		if(isset($new))
 			echo "<legend>Add a new Client</legend>\n";
@@ -21,7 +21,7 @@
 
 			<!-- NAME -->
 			<tr>
-				<td>Name of the personnel</td>
+				<td>Name of the personnel</td><td>:</td>
 				<td><input type="text" size="40" name="name" class="input-text" value="<?php if(isset($name)) echo $name; ?>"></td>
 			</tr>
 		
@@ -37,7 +37,7 @@
 
 			<!-- Gender -->
 			<tr>
-				<td>Gender</td>
+				<td>Gender</td><td>:</td>
 				<td>
 					<input name="sex" <?php
 						if(isset($sex))
@@ -53,14 +53,14 @@
 
 			<!-- Date of Birth -->
 			<tr>
-				<td>DOB</td>
+				<td>DOB</td><td>:</td>
 				<td><input name="dob" type="text" size=40 class="input-text" value="<?php if(isset($dob)) echo $dob; ?>" /></td>
 			</tr>
 
 			
 			<!-- Company Name -->
 			<tr>
-				<td>Company name</td>
+				<td>Company name</td><td>:</td>
 				<td><input type="text" size="40" name="cmpname" class="input-text" value="<?php if(isset($cmpname)) echo $cmpname; ?>" /></td>
 			</tr>
 
@@ -68,14 +68,14 @@
 
 			<!-- Client ID -->
 			<tr>
-				<td>Client ID</td>
+				<td>Client ID</td><td>:</td>
 				<td><input type="text" size="40" name="cid" class="input-text" value = "<?php echo $cid; ?>" readonly="readonly"></td>
 			</tr>
 
 
 			<!-- Legal Structure - Category 1 -->
 			<tr>
-				<td>Legal Structure</td>
+				<td>Legal Structure</td><td>:</td>
 				<td>
 					<select name="status_cat1">
 						<option value="LB" <?php if(isset($status_cat1)) giveAttrib("LB",$status_cat1,"selected='selected'"); ?>>LLB</option>
@@ -92,7 +92,7 @@
 
 			<!-- Business Category - Category 2 -->
 			<tr>
-				<td>Business Category</td>
+				<td>Business Category</td><td>:</td>
 				<td>
 					<select name="bus_cat2">
 						<option value="HL" <?php if(isset($bus_cat2)) giveAttrib("HL",$bus_cat2,"selected='selected'"); ?>>Health Care</option>
@@ -119,7 +119,7 @@
 
 			<!-- Registration no -->
 			<tr>
-				<td>Registration No</td>
+				<td>Registration No</td><td>:</td>
 				<td><input type="text" size="40" name="regno" class="input-text" value="<?php if(isset($regno)) echo $regno; ?>" /></td>
 			</tr>
 			
@@ -128,14 +128,14 @@
 
 			<!-- Office Address -->
 			<tr>
-				<td class="va-top">Office Address</td>
+				<td class="va-top">Office Address</td><td>:</td>
 				<td>
-					<textarea name="addr1_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
+					<textarea name="addr1_gn" cols="40" rows="6" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
 			<tr>
-				<td>District</td>
+				<td>District</td><td>:</td>
 				<td>
 					<select name="addr1_ds">
 						<option value="CLT" <?php if(isset($addr1_ds)) giveAttrib("CLT",$addr1_ds,"selected='selected'"); ?>>Calicut</option>
@@ -151,7 +151,7 @@
 			</tr>
 			<!-- State -->
 			<tr>
-				<td>State</td>
+				<td>State</td><td>:</td>
 				<td><input type="text" size="40" name="addr1_st" class="input-text" value="<?php
 				if(isset($addr1_st))
 					echo $addr1_st;
@@ -161,7 +161,7 @@
 			</tr>
 			<!-- PIN -->
 			<tr>
-				<td>PIN</td>
+				<td>PIN</td><td>:</td>
 				<td><input type="text" size="40" name="addr1_pin" class="input-text" value="<?php if(isset($addr1_pin)) echo $addr1_pin; ?>"></td>
 			</tr>
 			
@@ -169,14 +169,14 @@
 
 			<!-- Residence Address -->
 			<tr>
-				<td class="va-top">Residence Address</td>
+				<td class="va-top">Residence Address</td><td>:</td>
 				<td>
-					<textarea name="addr2_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
+					<textarea name="addr2_gn" cols="40" rows="6" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
 			<tr>
-				<td>District</td>
+				<td>District</td><td>:</td>
 				<td>
 					<select name="addr2_ds">
 						<option value="CLT" <?php if(isset($addr2_ds)) giveAttrib("CLT",$addr2_ds,"selected='selected'"); ?>>Calicut</option>
@@ -192,7 +192,7 @@
 			</tr>
 			<!-- State -->
 			<tr>
-				<td>State</td>
+				<td>State</td><td>:</td>
 				<td><input type="text" size="40" name="addr2_st" class="input-text" value="<?php
 				if(isset($addr2_st))
 					echo $addr2_st;
@@ -202,7 +202,7 @@
 			</tr>
 			<!-- PIN -->
 			<tr>
-				<td>PIN</td>
+				<td>PIN</td><td>:</td>
 				<td><input type="text" size="40" name="addr2_pin" class="input-text" value="<?php if(isset($addr2_pin)) echo $addr2_pin; ?>"></td>
 			</tr>
 
@@ -210,9 +210,9 @@
 
 			<!-- Phone Numbers -->
 			<tr>
-				<td class="va-top">Phone numbers</td>
+				<td class="va-top">Phone numbers</td><td>:</td>
 				<td>
-					<textarea name="phnos" cols="40" rows="3" class="input-text"><?php if(isset($phnos)) echo $phnos; ?></textarea>
+					<textarea name="phnos" cols="40" rows="6" class="input-text"><?php if(isset($phnos)) echo $phnos; ?></textarea>
 				</td>
 			</tr>
 
@@ -221,7 +221,7 @@
 
 			<!-- PAN No -->
 			<tr>
-				<td>PAN No</td>
+				<td>PAN No</td><td>:</td>
 				<td><input type="text" size="40" name="pan" class="input-text" value="<?php if(isset($pan)) echo $pan; ?>" /></td>
 			</tr>
 			
@@ -229,11 +229,11 @@
 
 			<!-- Digital Auth name and expiry date -->
 			<tr>
-				<td>Digital auth name</td>
+				<td>Digital auth name</td><td>:</td>
 				<td><input type="text" size="40" name="da_name" class="input-text" value="<?php if(isset($da_name)) echo $da_name; ?>" /></td>
 			</tr>
 			<tr>
-				<td>Digital auth Expiry Date</td>
+				<td>Digital auth Expiry Date</td><td>:</td>
 				<td><input type="text" size="40" name="da_exp" class="input-text" value="<?php if(isset($da_exp)) echo $da_exp; ?>" /></td>
 			</tr>
 			
@@ -241,32 +241,32 @@
 
 			<!-- IT and Sales Tax Uname, Password -->
 			<tr>
-				<td>IT & Sales Tax Username</td>
+				<td>IT & Sales Tax Username</td><td>:</td>
 				<td><input type="text" size="40" name="st_uname" class="input-text" value="<?php if(isset($st_uname)) echo $st_uname; ?>" /></td>
 			</tr>
 			<tr>
-				<td>IT & Sales Tax Password</td>
+				<td>IT & Sales Tax Password</td><td>:</td>
 				<td><input type="text" size="40" name="st_pass" class="input-text" value="<?php if(isset($st_pass)) echo $st_pass; ?>" /></td>
 			</tr>
 
 
 
 			<!-- Team Assigned -->
-			<tr>
+			<!-- <tr>
 				<td>Team Assigned</td>
 				<td>
 					<select name="tid">
 						<option value="0">Team A</option>
 					</select>
 				</td>
-			</tr>
-			
+			</tr> -->
+			<input type="hidden" name="tid" value="-" />
 
 
 
 			<!-- Status of Filing -->
 			<tr>
-				<td>Status of filing</td>
+				<td>Status of filing</td><td>:</td>
 				<td>
 					<input name="stat_filing" type="radio" value="Y" <?php if(isset($stat_filing)) giveAttrib("Y",$stat_filing,"checked='checked'"); ?>>Yes
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -283,7 +283,7 @@
 
 			<!-- Last visited date -->
 			<tr>
-				<td>Last date of visit</td>
+				<td>Last date of visit</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="lvdate" class="input-text" value="<?php
 					if(isset($lvdate))
@@ -298,31 +298,31 @@
 
 			<!-- Bank Details -->
 			<tr>
-				<td>Bank Name</td>
+				<td>Bank Name</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="bank_name" class="input-text" value="<?php if(isset($bank_name)) echo $bank_name; ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td>Account No.</td>
+				<td>Account No.</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="acno" class="input-text" value="<?php if(isset($acno)) echo $acno; ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td>MICR Code</td>
+				<td>MICR Code</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="micr" class="input-text" value="<?php if(isset($micr)) echo $micr; ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td>IFSC Code</td>
+				<td>IFSC Code</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="ifsc" class="input-text" value="<?php if(isset($ifsc)) echo $ifsc; ?>" />
 				</td>
 			</tr>
 			<tr>
-				<td>Branch name</td>
+				<td>Branch name</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="branch" class="input-text" value="<?php if(isset($branch)) echo $branch; ?>" />
 				</td>
@@ -334,12 +334,12 @@
 				<td>
 					<?php
 					if(isset($new))
-						echo "<p><input type='submit' class='input-submit' name='submit' value='Insert Client' /></p>\n";
+						echo "<p><input type='submit' class='image-button add' name='submit' value='Insert Client' /></p>\n";
 					else
-						echo "<p><input id='edit' onClick='showSave();' type='button' class='input-submit' name='edit' value='Edit' /></p>\n";
+						echo "<p><input id='edit' onClick='showSave();' type='button' class='image-button edit' name='edit' value='Edit' /></p>\n";
 					?>
-				</td>
-				<td align="right"><input name="save" type="submit" class='input-submit' id="save" style="display:none;" value="Save" /></td>
+				</td><td></td>
+				<td align="right"><input name="save" type="submit" class='image-button save' id="save" style="display:none;" value="Save" /></td>
 			</tr>
 		</tbody>
 		</table>
@@ -350,9 +350,11 @@
 			function enableAll()
 			{
 				console.log("enableAll");
-				var inputs = document.getElementsByTagName('input');
+				var inputs = document.querySelectorAll("fieldset input[type=text]");//document.getElementsByTagName('input');
 				for(var i = 0; i < inputs.length; i++) {
-					inputs[i].disabled = false;
+					//inputs[i].disabled = false;
+					inputs[i].setAttribute('class','input-text');
+					inputs[i].removeAttribute('readonly');
 				}
 				var selects = document.getElementsByTagName('select');
 				for(var i = 0; i < selects.length; i++) {
@@ -360,23 +362,36 @@
 				}
 				var ta = document.getElementsByTagName('textarea');
 				for(var i = 0; i < ta.length; i++) {
-					ta[i].disabled = false;
+					//ta[i].disabled = false;
+					ta[i].removeAttribute('class');
+					ta[i].removeAttribute('readonly');
+				}
+				var radios = document.querySelectorAll("fieldset input[type=radio]");
+				for(var i = 0; i < radios.length; i++) {					
+					radios[i].disabled = false;
 				}
 			}
 			function disableAll()
 			{
 				console.log("disableAll");
-				var inputs = document.getElementsByTagName('input');
+				var inputs = document.querySelectorAll("fieldset input[type=text]");//document.getElementsByTagName('input');
 				for(var i = 0; i < inputs.length; i++) {
-					inputs[i].disabled = true;
+					//inputs[i].disabled = true;
+					inputs[i].setAttribute('class','show-as-text');
+					inputs[i].setAttribute('readonly','readonly');
 				}
 				var selects = document.getElementsByTagName('select');
-				for(var i = 0; i < selects.length; i++) {
+				for(var i = 0; i < selects.length; i++) {					
 					selects[i].disabled = true;
 				}
 				var ta = document.getElementsByTagName('textarea');
 				for(var i = 0; i < ta.length; i++) {
-					ta[i].disabled = true;
+					ta[i].setAttribute('class','show-as-text');
+					ta[i].setAttribute('readonly','readonly');
+				}
+				var radios = document.querySelectorAll("fieldset input[type=radio]");
+				for(var i = 0; i < radios.length; i++) {					
+					radios[i].disabled = true;
 				}
 
 				document.getElementById('edit').disabled = false;

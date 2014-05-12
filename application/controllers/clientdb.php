@@ -1,12 +1,33 @@
-<?php
+<?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Clientdb extends CI_Controller {
+
+	function checkSession() {
+		if($this->session->userdata('loggedin')) {
+			return;
+		}
+		else {
+			$this->session->sess_destroy();
+			$data['title'] = "Login";
+			$details['error'] = "Please login first!";
+
+			echo $this->load->view('template/header',$data,TRUE);
+			echo $this->load->view('template/login', $details,TRUE);
+			echo $this->load->view('template/footer',array(),TRUE);
+			exit;
+		}
+	}
 	function index()
 	{
+		$this->checkSession();
 		$this->existingClient();
 	}
 
 	function existingClient($arg = "none")
 	{
+		$this->checkSession();
+		
+
 		$data['title'] = 'Client DB';
 		$this->load->view('template/header',$data);
 
@@ -46,6 +67,7 @@ class Clientdb extends CI_Controller {
 
 	function addClient($arg = "none")
 	{
+		$this->checkSession();
 		$data['title'] = 'Client DB';
 		$this->load->view('template/header',$data);
 
@@ -114,6 +136,7 @@ class Clientdb extends CI_Controller {
 
 	function forgotCID()
 	{
+		$this->checkSession();
 		$data['title'] = 'Client DB';
 		$this->load->view('template/header', $data);
 
@@ -136,6 +159,7 @@ class Clientdb extends CI_Controller {
 
 	function setSession($cid)
 	{
+		$this->checkSession();
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)
@@ -147,6 +171,7 @@ class Clientdb extends CI_Controller {
 
 	function listClients()
 	{
+		$this->checkSession();
 		$data['title'] = 'Client DB';
 		$this->load->view('template/header', $data);
 

@@ -1,11 +1,28 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Projects extends CI_Controller {
+	function checkSession() {
+		if($this->session->userdata('loggedin'))
+			return;
+		else {
+			$this->session->sess_destroy();
+			$data['title'] = "Login";
+			$details['error'] = "Please login first!";
+
+			echo $this->load->view('template/header',$data,TRUE);
+			echo $this->load->view('template/login', $details,TRUE);
+			echo $this->load->view('template/footer',array(),TRUE);
+			exit;
+		}
+	}
 	function index()
 	{
+		$this->checkSession();
 		$this->existingTeams();
 	}
-	function existingTeams($team_id=0,$msg="none")
+	function existingTeams($team_id="0",$msg="none")
 	{
+		$this->checkSession();
 		$data['title'] = 'Projects';
 		$this->load->view('template/header',$data);
 
@@ -15,7 +32,7 @@ class Projects extends CI_Controller {
 		$this->load->model('team_model');
 		$data['teams'] = $this->team_model->getTeams();
 		
-		if($team_id == 0)
+		if($team_id == "0")
 			$team_id = $this->team_model->getFirstTeamID();
 		$data['teamid'] = $team_id;
 		
@@ -36,7 +53,9 @@ class Projects extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
-	function removeClient($team_id) {
+	function removeClient($team_id)
+	 {
+	 	$this->checkSession();
 		$this->load->model('team_model');
 		$cid = $this->input->post('cid');
 
@@ -45,7 +64,9 @@ class Projects extends CI_Controller {
 		$this->existingTeams($team_id,"success_client");
 	}
 
-	function addClient($team_id) {
+	function addClient($team_id) 
+	{
+		$this->checkSession();
 		$this->load->model('team_model');
 		$eid = $this->input->post('cid');
 

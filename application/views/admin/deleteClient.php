@@ -1,5 +1,6 @@
 <div id='content'>
-<h1>Client List</h1>
+<fieldset>
+	<legend>Client List</legend>
 
 <?php
 if(isset($error)) {
@@ -116,5 +117,5 @@ if(isset($error)) {
 <script type="text/javascript">
 	populateAll();
 </script>
-
+</fieldset>
 </div>

@@ -167,7 +167,7 @@
 				<input type="text" name="location" class="input-text" />
 			</td>
 			<td>
-				<input type="submit" value="Add" class="input-submit" />
+				<input type="submit" value="Add" class="image-button addsmall" />
 			</td>
 		</tr>
 	</table>

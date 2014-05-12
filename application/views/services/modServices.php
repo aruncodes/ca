@@ -21,7 +21,7 @@
 	<tr>
 		<td>Service Name: </td>
 		<td><input type="text" class="input-text" name="sname" /></td>
-		<td><input type="submit" class="input-submit" value="Add" /></td>
+		<td><input type="submit" class="image-button addsmall" value="Add" /></td>
 	</tr>
 </table>
 </fieldset>
@@ -46,7 +46,7 @@
 		?>
 		</select>
 		</td>
-		<td><input type="submit" class="input-submit" value="Delete" <?php if($flag == 0) echo "disabled='disabled' "; ?>/></td>
+		<td><input type="submit" class="image-button del" value="Delete" <?php if($flag == 0) echo "disabled='disabled' "; ?>/></td>
 	</tr>
 	</table>
 </fieldset>

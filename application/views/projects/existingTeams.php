@@ -42,14 +42,15 @@
 						echo '</td></tr>';
 					}
 					if(count($non_clients) > 0) {
+						echo '<tr style="height:15px;"> <td colspan="2"></td><tr>';
 						echo form_open('projects/addClient/'.$teamid);
-						echo '<tr><td>';
+						echo '<tr  class="add-row"><td>';
 						echo '<select name="cid">';
 						foreach($non_clients as $mem) {
 							echo '<option value="'.$mem['cid'].'">'.$mem['name'].'</option>';						
 						}
 						echo '</select>';
-						echo "</td><td><input type='image' src='".base_url('design/ico-done.gif')."' />";
+						echo "</td><td><input type='submit' value ='Add' class='image-button addsmall' />";
 						echo '</td></tr>';
 						echo form_close();
 					}

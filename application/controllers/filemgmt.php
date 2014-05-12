@@ -1,12 +1,29 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
 class Filemgmt extends CI_Controller {
+	function checkSession() {
+		if($this->session->userdata('loggedin'))
+			return;
+		else {
+			$this->session->sess_destroy();
+			$data['title'] = "Login";
+			$details['error'] = "Please login first!";
+
+			echo $this->load->view('template/header',$data,TRUE);
+			echo $this->load->view('template/login', $details,TRUE);
+			echo $this->load->view('template/footer',array(),TRUE);
+			exit;
+		}
+	}
 	function index()
 	{
+		$this->checkSession();
 		$this->showFiles();
 	}
 
 	function addFile()
 	{
+		$this->checkSession();
 		$details['cid'] = $this->session->userdata('cid');
 		$details['fid'] = $this->input->post('fid');
 		$details['file_type'] = $this->input->post('file_type');
@@ -22,6 +39,7 @@ class Filemgmt extends CI_Controller {
 
 	function showFiles($msg = "none")
 	{
+		$this->checkSession();
 		$data['title'] = 'File Management';
 		$this->load->view('template/header',$data);
 
@@ -70,6 +88,7 @@ class Filemgmt extends CI_Controller {
 	
 	function remFile()
 	{
+		$this->checkSession();
 		$id = $this->input->post('id');
 		if($id) {
 			$this->load->model("file_model");
@@ -80,6 +99,7 @@ class Filemgmt extends CI_Controller {
 
 	function modFile()
 	{
+		$this->checkSession();
 		$id = $this->input->post('id');
 		$data['file_type'] = $this->input->post('file_type');
 		$data['priority'] = $this->input->post('priority');
@@ -93,6 +113,7 @@ class Filemgmt extends CI_Controller {
 
 	function forgotCID()
 	{
+		$this->checkSession();
 		$data['title'] = 'File Management';
 		$this->load->view('template/header',$data);
 
@@ -115,6 +136,7 @@ class Filemgmt extends CI_Controller {
 
 	function setSession($cid)
 	{
+		$this->checkSession();
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)

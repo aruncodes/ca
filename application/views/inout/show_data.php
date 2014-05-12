@@ -31,13 +31,18 @@
 								echo '</td></tr>';
 						 	} 
 						 	echo form_open('inout/add/'.$p.'/'.$cid); ?>
-						 	<tr><td>
+						 	<tr style="height:30px;">
+						 	<td colspan="2">
+						 		
+						 	</td>
+						 	</tr>
+						 	<tr class="add-row"><td>
 								 	<select name="new_doc">
 									 	<?php	foreach ($INOUT[$i] as $doc) {
 									 	 	echo '<option value="'.$doc['id'].'">'.$doc['doc_name'].'</option>';
 									 	}	?>
 								 	</select>
-						 		</td> <td>  <?php echo "<input type='image' src='".base_url('design/ico-done.gif')."' />";	 ?> </td>
+						 		</td> <td>  <?php echo "<input type='submit' value ='Add' class='image-button addsmall' />";	 ?></td>
 						 	</tr>
 						 	<?php echo form_close(); ?>
 					 </table>

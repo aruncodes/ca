@@ -64,7 +64,7 @@
 		}
 	?>
 	</select>
-	<input type="submit" value="Add" class="input-submit" <?php if($flag == 0) echo "disabled='disabled' "; ?>/>
+	<input type="submit" value="Add" class="image-button addsmall" <?php if($flag == 0) echo "disabled='disabled' "; ?>/>
 </form>
 
 </fieldset>

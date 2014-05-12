@@ -22,8 +22,8 @@
 		}
 
 		function getTeams() {
-			$query1 = $this->db->query("SELECT DISTINCT teamid FROM `users` WHERE teamid != 0 ORDER BY teamid;");
-			$query2 = $this->db->query("SELECT DISTINCT tid as teamid FROM `client` WHERE tid != 0 ORDER BY tid;");
+			$query1 = $this->db->query("SELECT DISTINCT teamid FROM `users` WHERE teamid != '-' ORDER BY teamid;");
+			$query2 = $this->db->query("SELECT DISTINCT tid as teamid FROM `client` WHERE tid != '-' ORDER BY tid;");
 
 			$result = array();
 			foreach ($query1->result_array() as $row) {
@@ -47,13 +47,15 @@
 		}
 
 		function getFirstTeamID() {
-			
-			return min($this->getTeams());
+			$teams = $this->getTeams();
+			if(count($teams) == 0)
+				return NULL;
+			return min($teams);
 		}
 
 		function getNoTeamMembers() {
 			$this->db->select('eid,name');
-			$this->db->where(array('teamid'=>0));
+			$this->db->where(array('teamid'=>"-",'uname !='=>'admin'));
 
 			$query = $this->db->get('users');
 
@@ -62,7 +64,7 @@
 		function getNoTeamClients(){
 
 			$this->db->select('cid,name');
-			$this->db->where(array('tid'=>0));
+			$this->db->where(array('tid'=>"-"));
 
 			$query = $this->db->get('client');
 
@@ -80,11 +82,11 @@
 		}
 
 		function removeMemberFromTeam($eid) {
-			$this->setTeamForMember($eid,0);
+			$this->setTeamForMember($eid,"-");
 		}
 
 		function removeClientFromTeam($cid) {
-			$this->setTeamForClient($cid,0);
+			$this->setTeamForClient($cid,"-");
 		}
 	}
 ?>

@@ -7,7 +7,7 @@
 		<tr>
 			<td> Client ID: </td>
 			<td> <input id="getCidBox" type="text" class="input-text" name="cid" <?php if(isset($cid)) echo 'value="'.$cid.'"'; ?> /> </td>
-			<td> <input id="getCidBut" type="submit" class="input-submit" value="Show" /> </td>
+			<td> <input id="getCidBut" type="submit" class="image-button show" value="Show" /> </td>
 		</tr>
 	</table>
 	</form>

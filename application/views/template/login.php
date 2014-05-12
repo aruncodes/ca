@@ -7,9 +7,17 @@
 		<div id="content" class="box loginfield">
 
 			<h1>Company Name</h1>
+				<?php
+				if(isset($error))
+					echo "<p class='msg error'>$error</p>\n";
+				?>
+				<?php
+					if(isset($info))
+						echo "<p class='msg info'>$info</p>\n";
+				?>
+				<?php echo form_open('login/details'); ?>
 	<fieldset>
 				<legend>Login</legend>
-				<?php echo form_open('login/details'); ?>
 				<table class="nostyle">
 					<tr>
 						<td style="width:70px;">Username:</td>
@@ -28,14 +36,5 @@
 				</form>
 				<a href="<?php echo base_url('index.php/login/forgotpass'); ?>">Forgot Password</a>
 			</fieldset>
-			<?php
-				if(isset($error))
-					echo "<p class='msg error'>$error</p>\n";
-			?>
-			<?php
-				if(isset($info))
-					echo "<p class='msg info'>$info</p>\n";
-			?>
-
 			
 		</div> <!-- /content -->

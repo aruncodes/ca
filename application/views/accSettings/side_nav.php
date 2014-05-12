@@ -26,6 +26,8 @@
 			?>
 			<ul class="box">
 				<li<?php echo giveSubID('changePassword', $page); ?>><a href="<?php echo base_url('index.php/userControl/changePassword'); ?>">Change Password</a></li>
+				<li<?php echo giveSubID('viewDetails', $page); ?>><a href="<?php echo base_url('index.php/userControl/showUser'); ?>">View Profile</a></li>
+				<li<?php echo giveSubID('editDetails', $page); ?>><a href="<?php echo base_url('index.php/userControl/editUser'); ?>">Edit Profile</a></li>
 			</ul>
 
 		</div> <!-- /aside -->
