@@ -94,6 +94,7 @@ class Clientdb extends CI_Controller {
 			$clientData['status_cat1'] = $this->input->post('status_cat1');
 			$clientData['bus_cat2'] = $this->input->post('bus_cat2');
 			$clientData['regno'] = $this->input->post('regno');
+			$clientData['email'] = $this->input->post('email');
 			$clientData['addr1_gn'] = $this->input->post('addr1_gn');
 			$clientData['addr1_ds'] = $this->input->post('addr1_ds');
 			$clientData['addr1_st'] = $this->input->post('addr1_st');

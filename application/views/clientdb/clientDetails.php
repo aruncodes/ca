@@ -124,6 +124,11 @@
 			</tr>
 			
 
+			<!-- Mail ID -->
+			<tr>
+				<td>E-mail ID</td><td>:</td>
+				<td><input type="text" size="40" name="email" class="input-text" value="<?php if(isset($email)) echo $email; ?>" /></td>
+			</tr>
 
 
 			<!-- Office Address -->
