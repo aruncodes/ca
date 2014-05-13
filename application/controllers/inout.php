@@ -50,7 +50,7 @@ class Inout extends CI_Controller {
 		}
 	}
 
-	function add_doc()
+	function add_doc($arg = "none")
 	{
 		$this->checkSession();
 		$data['title'] = 'Add Document';
@@ -62,18 +62,37 @@ class Inout extends CI_Controller {
 		$data['page'] = "add_doc";
 		$this->load->view('inout/side_nav', $data);
 		
-		if($this->input->post('submit') == "Add") {
+		if($arg == "fromRem") {
+			$data['msg'] = '<p class="msg done">Document deleted</p>';
+		} else if($this->input->post('submit') == "Add") {
 			$this->load->model('inout_model');
 			$doc_name = $this->input->post('doc_name');
 			$cat = $this->input->post('doc_type');
-			$this->inout_model->addNewDoc($doc_name,$cat);
-
-			$data['msg'] = '<p class="msg done"> New document added successfully!!</p>';			
+			if($this->inout_model->addNewDoc($doc_name,$cat))
+				$data['msg'] = '<p class="msg done"> New document added successfully!!</p>';
+			else
+				$data['msg'] = '<p class="msg error">Document already added</p>';
 		}
 
 		$data['title'] = "Add new document";
+
+		$this->load->model('inout_model');
+		$data['inward'] = $this->inout_model->get_inward();
+		$data['outward'] = $this->inout_model->get_outward();
+
 		$this->load->view('inout/add_doc',$data);
 		$this->load->view('template/footer');		
+	}
+
+	function rem_doc($id = "none")
+	{
+		$this->checkSession();
+		if($id != "none"){
+			$this->load->model('inout_model');
+			$this->inout_model->delDocName($id);
+			$this->add_doc("fromRem");
+		} else
+			$this->add_doc();
 	}
 
 	function outward()

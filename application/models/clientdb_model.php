@@ -2,7 +2,8 @@
 class Clientdb_model extends CI_Model {
 	function insert($clientData)
 	{
-		$this->db->insert('client', $clientData);
+		if(!$this->isPresent($clientData['cid']))
+			$this->db->insert('client', $clientData);
 	}
 	function modify($clientData)
 	{
@@ -73,6 +74,5 @@ class Clientdb_model extends CI_Model {
 			return array('error'=>TRUE);
 		return array('cids'=>$query->result_array());
 	}
-
 }
 ?>

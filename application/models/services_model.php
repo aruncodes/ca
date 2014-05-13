@@ -25,11 +25,13 @@ class Services_model extends CI_Model {
 	function getServiceNames($cid = "none")
 	{
 		$this->db->select('sname');
+		if($cid == "none")
+			$this->db->where('scode >',6);
 		$this->db->order_by('sname', 'asc');
 		$query = $this->db->get('service_names');
 		$res = array();
 
-		if($cid != "none") {
+		if($cid != "none" && $cid != "all") {
 			$existingServices = $this->getExistingServices($cid);
 			foreach($query->result_array() as $row) {
 				if(!in_array($row['sname'], $existingServices))
@@ -57,7 +59,7 @@ class Services_model extends CI_Model {
 
 
 	function isAlreadyPresent($sname) {
-		$services = $this->getServiceNames();
+		$services = $this->getServiceNames("all");
 		return (in_array($sname, $services));
 	}
 	function insertService($sname)

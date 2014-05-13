@@ -29,11 +29,11 @@
 
 <?php echo form_open('services/modServices/remService'); ?>
 <fieldset>
-	<legend>Delete a Service Category</legend>
+	<legend>Delete a User Added Service Category</legend>
 	<table class="nostyle">
 	<tr>
 		<td>
-		<select name="sname">
+		<select name="sname" style="min-width:250px">
 		<?php
 			$flag = count($serviceNames);
 			if($flag == 0) {

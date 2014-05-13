@@ -28,9 +28,19 @@
 			return $query->result_array()[0]['fid'] + 1;
 		}
 
+		function isFilePresent($cid, $fid)
+		{
+			$this->db->where(array('fid'=>$fid, 'cid'=>$cid));
+			$query = $this->db->get('files');
+			if($query->num_rows() == 0)
+				return FALSE;
+			return TRUE;
+		}
+
 		function insert($details)
 		{
-			$this->db->insert('files', $details);
+			if(!$this->isFilePresent($details['cid'], $details['fid']))
+				$this->db->insert('files', $details);
 		}
 
 		function remFile($id)

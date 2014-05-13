@@ -39,7 +39,7 @@
 			<ul class="box">
 				<li<?php echo giveSubID('inward', $page); ?>><a href="<?php echo base_url($inward_url); ?>">Inward</a></li>
 				<li<?php echo giveSubID('outward', $page); ?>><a href="<?php echo base_url($outward_url); ?>">Outward</a></li>
-				<li<?php echo giveSubID('add_doc', $page); ?>><a href="<?php echo base_url($add_doc_url); ?>">Add Document</a></li>
+				<li<?php echo giveSubID('add_doc', $page); ?>><a href="<?php echo base_url($add_doc_url); ?>">Modify Documents</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

@@ -19,12 +19,15 @@
 	    		return TRUE;
 	    	return FALSE;
 	    }
-		function get_inward($cid) {
+		function get_inward($cid = "none") {
 
-			if( !$this->thereExistsClient($cid))
-				return FALSE;
-
-			$query = $this->db->query('SELECT inout.id,doc_name,doc_id,category FROM `inout` LEFT JOIN `doc_names` ON inout.doc_id = doc_names.id WHERE (category = "INA" OR category = "INN" OR category = "INO") AND cid = '.$cid.' ORDER BY doc_name' );
+			if($cid == "none") {
+				$query = $this->db->query('SELECT id,doc_name,category FROM `doc_names` WHERE (category = "INA" OR category = "INN" OR category = "INO") AND id > 64 ORDER BY doc_name');
+			} else {
+				if( !$this->thereExistsClient($cid))
+					return FALSE;
+				$query = $this->db->query('SELECT inout.id,doc_name,doc_id,category FROM `inout` LEFT JOIN `doc_names` ON inout.doc_id = doc_names.id WHERE (category = "INA" OR category = "INN" OR category = "INO") AND cid = '.$cid.' ORDER BY doc_name' );
+			}
 
 			$result = array(0 => array(array(-1,"---")),
 							1 => array(array(-1,"---")),
@@ -41,16 +44,18 @@
 				    else if($row->category == "INO")				    	
 				    	$result[2][$k++] = array($row->id,$row->doc_name);
 				}
-			} 
+			}
 			return $result;
 		}
 
-		function get_outward($cid) {
-
-			if( !$this->thereExistsClient($cid))
-				return FALSE;
-
-			$query = $this->db->query('SELECT inout.id,doc_name FROM `inout` LEFT JOIN `doc_names` ON inout.doc_id = doc_names.id WHERE category = "OUT" AND cid = '.$cid.' ORDER BY doc_name' );
+		function get_outward($cid = "none") {
+			if($cid == "none") {
+				$query = $this->db->query('SELECT id,doc_name FROM `doc_names` WHERE category = "OUT" AND id > 64 ORDER BY doc_name' );
+			} else {
+				if( !$this->thereExistsClient($cid))
+					return FALSE;
+				$query = $this->db->query('SELECT inout.id,doc_name FROM `inout` LEFT JOIN `doc_names` ON inout.doc_id = doc_names.id WHERE category = "OUT" AND cid = '.$cid.' ORDER BY doc_name' );
+			}
 
 			$result =  array(0 => array(array(-1,"No documents found!!")));
 			$i = 0;
@@ -83,14 +88,41 @@
 			$this->db->delete('inout', array('id' => $id)); 
 		}
 
-		function addDoc($cid,$doc_id) {
-			$data = array('cid'=>$cid, 'doc_id'=>$doc_id);
-			$this->db->insert('inout',$data);
+		function isDocPresent($data)
+		{
+			$this->db->where($data);
+			$query = $this->db->get('inout');
+			if($query->num_rows() != 0)
+				return TRUE;
+			return FALSE;
 		}
 
+		function addDoc($cid,$doc_id) {
+			$data = array('cid'=>$cid, 'doc_id'=>$doc_id);
+			if(!$this->isDocPresent($data))
+				$this->db->insert('inout',$data);
+		}
+
+		function isDocNamePresent($data)
+		{
+			$this->db->where($data);
+			$query = $this->db->get('doc_names');
+			if($query->num_rows() != 0)
+				return TRUE;
+			return FALSE;
+		}
 		function addNewDoc($doc_name, $cat) {
 			$data = array('doc_name'=>$doc_name, 'category'=>$cat);
-			$this->db->insert('doc_names',$data);	
+			if(!$this->isDocNamePresent($data)) {
+				$this->db->insert('doc_names',$data);
+				return TRUE;
+			}
+			return FALSE;
+		}
+
+		function delDocName($id)
+		{
+			$this->db->delete('doc_names', array('id'=>$id));
 		}
 	}
 ?>

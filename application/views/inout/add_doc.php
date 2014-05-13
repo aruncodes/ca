@@ -22,4 +22,82 @@
 			</table>
 		<?php echo form_close(); ?>
 	</fieldset>
+
+
+
+<!-- Delete a user added document name -->
+<?php echo form_open('inout/rem_doc'); ?>
+<?php
+$redCross = "<img src = '".base_url("design/ico-delete.gif")."'></img>";
+?>
+<fieldset>
+<legend>Delete a User Added Document</legend>
+	<table style='margin:0px auto;'>
+	<tr>
+	<td>
+		<table name="inward" style='border:1px solid black; margin-right: 30px'>
+		<tr>
+			<th colspan="3" style='border-bottom: 1px solid black;'>Inward Documents</th>
+		</tr>
+		<tr>
+			<td>
+				<table name="accountDocs" style='margin-right: 30px;'>
+					<tr>
+						<th style='border-bottom: 1px solid black;' colspan=2>Account Documents</th>
+					</tr>
+					<?php foreach($inward[0] as $doc) {?>
+						<tr>
+						<td><?php echo $doc[1] ?></td>
+						<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php echo $redCross; ?></a></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</td>
+			<td>
+				<table name="noticeDocs" style='margin-right: 30px;'>
+					<tr>
+						<th style='border-bottom: 1px solid black;' colspan=2>Notice Documents</th>
+					</tr>
+					<?php foreach($inward[1] as $doc) { ?>
+						<tr>
+						<td><?php echo $doc[1]; ?></td>
+						<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php echo $redCross; ?></a></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</td>
+			<td>
+				<table name="otherDocs" style='margin-right: 30px;'>
+					<tr>
+						<th style='border-bottom: 1px solid black;' colspan=2>Other Documents</th>
+					</tr>
+					<?php foreach($inward[2] as $doc) { ?>
+						<tr>
+						<td><?php echo $doc[1]; ?></td>
+						<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php echo $redCross; ?></a></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+	<td>
+		<table name="outward" style='border:1px solid black;'>
+			<tr>
+				<th style='border-bottom: 1px solid black;' colspan=2>Outward Documents</th>
+			</tr>
+			<?php foreach($outward[0] as $doc) { ?>
+				<tr>
+				<td><?php echo $doc[1]; ?></td>
+				<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php echo $redCross; ?></a></td>
+				</tr>
+			<?php } ?>
+		</table>
+	</td>
+	</tr>
+</table>
+</fieldset>
+</form>
+
 </div>

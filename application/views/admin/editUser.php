@@ -20,8 +20,10 @@
 			document.getElementById('uname_msg').innerHTML = "";
 		} else if(contains(uname_array,uname))	{
 			document.getElementById('uname_msg').innerHTML = "<p class='msg small warning'> Sorry, that username already exists! </p>";
+			document.getElementById('submit').disabled = true;
 		} else {
 			document.getElementById('uname_msg').innerHTML = "<p class='msg small done'> Username available! </p>";
+			document.getElementById('submit').disabled = false;
 		}
 	}
 </script>
@@ -191,7 +193,7 @@
 					<td></td> <td></td>
 					<td> 
 					<?php if($mode != "show") { ?>
-						<input class="image-button save" size="40" type="submit" name="pin" value="SAVE" >
+						<input class="image-button save" size="40" type="submit" name="pin" value="SAVE" id="submit">
 					<?php } else if($mode == "show" && ($this->session->userdata['isa'] == 'y') || $this->session->userdata['uname'] == $emp['uname']) {
 								echo form_close();
 								if($this->session->userdata['isa'] == 'y')
