@@ -193,7 +193,7 @@
 					<td></td> <td></td>
 					<td> 
 					<?php if($mode != "show") { ?>
-						<input class="image-button save" size="40" type="submit" name="pin" value="SAVE" id="submit">
+						<input class="image-button save" size="40" type="submit" name="save" value="SAVE" id="submit">
 					<?php } else if($mode == "show" && ($this->session->userdata['isa'] == 'y') || $this->session->userdata['uname'] == $emp['uname']) {
 								echo form_close();
 								if($this->session->userdata['isa'] == 'y')

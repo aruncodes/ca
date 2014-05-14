@@ -134,7 +134,7 @@ class UserControl extends CI_Controller {
 		$data['dob'] = $this->input->post('dob');
 		$data['doj'] = $this->input->post('doj');
 		$data['qualification'] = $this->input->post('quali');
-		if($this->input->post('sal_structure'))
+		if($this->input->post('sal'))
 			$data['sal_structure'] = $this->input->post('sal');
 		if($this->input->post('leaves'))
 			$data['leaves'] = $this->input->post('leaves');

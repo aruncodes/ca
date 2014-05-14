@@ -122,6 +122,16 @@ class Admin extends CI_Controller {
 				$mode="edit";
 				unset($eid);
 			}
+		} else if($update_mode == "change" && $mode=="edit") {
+			if($this->updateUser()) {
+				$data['msg'] = '<p class="msg done"> Successfully updated employee details!</p>';
+				$mode="show";
+				$eid = $this->input->post('eid');
+			} else {
+				$data['msg'] = '<p class="msg error"> Could not edit employee details!</p>';
+				$mode="edit";
+				unset($eid);
+			}
 		}
 
 		$data['mode'] = $mode;
@@ -161,6 +171,33 @@ class Admin extends CI_Controller {
 
 		$this->load->model('empmgmt_model');
 		return $this->empmgmt_model->insertUser($data);
+	}
+
+	function updateUser() {
+		$this->checkSession();
+
+		$data['name'] = $this->input->post('name');
+		$data['sex'] = $this->input->post('sex');
+		if($this->input->post('isadmin'))
+			$data['isadmin'] = $this->input->post('isadmin');
+		$data['dob'] = $this->input->post('dob');
+		$data['doj'] = $this->input->post('doj');
+		$data['qualification'] = $this->input->post('quali');
+		if($this->input->post('sal'))
+			$data['sal_structure'] = $this->input->post('sal');
+		if($this->input->post('leaves'))
+			$data['leaves'] = $this->input->post('leaves');
+		$data['email'] = $this->input->post('email');
+		$data['contact'] = $this->input->post('contact');
+		$data['em_contact'] = $this->input->post('em_contact');
+		$data['addr_gn'] = $this->input->post('addr');
+		$data['state'] = $this->input->post('state');
+		$data['pin'] = $this->input->post('pin');
+
+		$eid = $this->input->post('eid');
+
+		$this->load->model('empmgmt_model');
+		return $this->empmgmt_model->updateUser($data,$eid);
 	}
 
 	function removeEmployee() {

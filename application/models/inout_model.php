@@ -57,7 +57,7 @@
 				$query = $this->db->query('SELECT inout.id,doc_name FROM `inout` LEFT JOIN `doc_names` ON inout.doc_id = doc_names.id WHERE category = "OUT" AND cid = '.$cid.' ORDER BY doc_name' );
 			}
 
-			$result =  array(0 => array(array(-1,"No documents found!!")));
+			$result =  array(0 => array(array(-1,"---")));
 			$i = 0;
 			if ($query->num_rows() > 0)
 			{
@@ -70,15 +70,11 @@
 		}
 
 		function getInwardAddOptions($cid, $cat) {
-			// $this->db->select('id','doc_name');
-			// $this->db->where('category',$cat);
-			// $query = $this->db->get('doc_names');
-
+			
 			$q = sprintf("SELECT DISTINCT result1.doc_name, result1.id
 					FROM (SELECT id,doc_name FROM doc_names WHERE category='%s') AS result1 LEFT JOIN (SELECT doc_id FROM `inout` WHERE cid='%s') 
 					AS result2 ON result1.id = result2.doc_id WHERE result2.doc_id IS NULL ORDER BY result1.doc_name;",$cat,$cid);
-			//this is actually set difference in mysql. dont go too deep :P
-			//now try doing this using db functions :P
+			//this is actually set difference in mysql. 
 			$query = $this->db->query($q);
 
 			return $query->result_array();

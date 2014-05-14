@@ -32,9 +32,23 @@
 			?>
 
 	<!-- Menu -->
+	<style type="text/css">
+	div#menu  ul.box li {
+		list-style-type: none;
+	    text-align: center;
+	    float: left;
+	    width: 16%;
+	}
+	div#menu  ul.box li span {
+		min-width: 75px;
+		max-width: 175px;
+	}
+
+	</style>
 	<div id="menu" class="box">
 
-		<ul class="box" style="margin:0px auto; width:700px;">
+		<ul class="box" >
+
 			<li<?php echo giveID('clientdb', $page); ?>><a href="<?php echo base_url('index.php/clientdb'); ?>"><span>Client Database</span></a></li>
 			<li<?php echo giveID('inout', $page); ?>><a href="<?php echo base_url('index.php/inout'); ?>"><span>Inward/Outward</span></a></li>
 			<li<?php echo giveID('filemgmt', $page); ?>><a href="<?php echo base_url('index.php/filemgmt'); ?>"><span>File Management</span></a></li>
@@ -49,7 +63,6 @@
 					echo "'><span>Administration</span></a></li>\n";
 				}
 			?>
-			
 		</ul>
 
 	</div> <!-- /header -->
