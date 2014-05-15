@@ -37,7 +37,9 @@
 			?><tr>
 			<td><?php echo $service['service']; ?></td>
 			<td>
-			<?php echo form_open("services/remService/".$cid); ?>
+			<?php 
+			$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this service from client?');");
+			echo form_open("services/remService/".$cid,$attrib); ?>
 				<input type="hidden" name="sname" value="<?php echo $service['service']; ?>" />
 				<input type="image" src="<?php echo base_url('design/ico-delete.gif'); ?>" />
 			</form>

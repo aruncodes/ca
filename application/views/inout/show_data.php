@@ -23,7 +23,8 @@
 						 <?php foreach( $result[$i] as $doc) { 
 						 	 echo '<tr><td>'.$doc[1].'</td><td>'; 
 						 	 if($doc[0] > 0) {
-						 	 	echo form_open('inout/remove/'.$p.'/'.$cid);
+						 	 	$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove the document?');");
+						 	 	echo form_open('inout/remove/'.$p.'/'.$cid,$attrib);
 						 		echo "<input type='hidden' name='inout_id' value='".$doc[0]."' />";
 								echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />";
 								echo form_close();

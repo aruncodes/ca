@@ -122,7 +122,8 @@
 				echo "</td>\n";
 
 				echo "<td>\n";
-				echo form_open("filemgmt/remFile");
+				$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this file?');");
+				echo form_open("filemgmt/remFile",$attrib);
 				echo "<input type='hidden' name='id' value='".$file['id']."' />\n";
 				echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />\n";
 				echo "</form>\n";

@@ -27,7 +27,9 @@
 </fieldset>
 </form>
 
-<?php echo form_open('services/modServices/remService'); ?>
+<?php 
+$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this service?');");
+echo form_open('services/modServices/remService',$attrib); ?>
 <fieldset>
 	<legend>Delete a User Added Service Category</legend>
 	<table class="nostyle">

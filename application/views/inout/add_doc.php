@@ -48,7 +48,7 @@ $redCross = "<img src = '".base_url("design/ico-delete.gif")."'></img>";
 					<?php foreach($inward[0] as $doc) {?>
 						<tr>
 						<td><?php echo $doc[1]; ?></td>
-						<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
+						<td><a onclick="return confirm('Are you sure you want to remove this document?');" href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
 						</tr>
 					<?php } ?>
 				</table>
@@ -61,7 +61,7 @@ $redCross = "<img src = '".base_url("design/ico-delete.gif")."'></img>";
 					<?php foreach($inward[1] as $doc) { ?>
 						<tr>
 						<td><?php echo $doc[1]; ?></td>
-						<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
+						<td><a onclick="return confirm('Are you sure you want to remove this document?');" href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
 						</tr>
 					<?php } ?>
 				</table>
@@ -74,7 +74,7 @@ $redCross = "<img src = '".base_url("design/ico-delete.gif")."'></img>";
 					<?php foreach($inward[2] as $doc) { ?>
 						<tr>
 						<td><?php echo $doc[1]; ?></td>
-						<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
+						<td><a onclick="return confirm('Are you sure you want to remove this document?');" href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
 						</tr>
 					<?php } ?>
 				</table>
@@ -90,7 +90,7 @@ $redCross = "<img src = '".base_url("design/ico-delete.gif")."'></img>";
 			<?php foreach($outward[0] as $doc) { ?>
 				<tr>
 				<td><?php echo $doc[1]; ?></td>
-				<td><a href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
+				<td><a onclick="return confirm('Are you sure you want to remove this document?');" href="<?php echo base_url('index.php/inout/rem_doc').'/'.$doc[0]; ?>"><?php if($doc[0]>0) echo $redCross; ?></a></td>
 				</tr>
 			<?php } ?>
 		</table>

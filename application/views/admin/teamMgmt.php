@@ -26,7 +26,8 @@
 						echo '<tr><td>';
 						echo $mem['name'];
 						echo '</td><td>';
-						echo form_open('admin/removeMember/'.$teamid);
+						$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this employee from team?');");
+						echo form_open('admin/removeMember/'.$teamid,$attrib);
 						echo "<input type='hidden' name='eid' value='".$mem['eid']."' />";
 						echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />";
 						echo form_close();
@@ -57,7 +58,8 @@
 						echo '<tr><td>';
 						echo $client['name'];
 						echo '</td><td>';
-						echo form_open('admin/removeClient/'.$teamid);
+						$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this client from team?');");
+						echo form_open('admin/removeClient/'.$teamid,$attrib);
 						echo "<input type='hidden' name='cid' value='".$client['cid']."' />";
 						echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />";
 						echo form_close();

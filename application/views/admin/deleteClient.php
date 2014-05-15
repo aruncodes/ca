@@ -87,7 +87,7 @@ if(isset($error)) {
 			cell1.innerHTML = "<a href='"+clients[i].retAddr+"'>"+clients[i].cid+"</a>";
 			cell2.innerHTML = clients[i].name;
 			cell3.innerHTML = clients[i].cmpname;
-			cell4.innerHTML = "<a href='"+clients[i].delAddr+"'>"+"<?php echo $redCross; ?>"+"</a>";
+			cell4.innerHTML = "<a onclick=\"return confirm('Are you sure you want to remove this client?');\" href='"+clients[i].delAddr+"'>"+"<?php echo $redCross; ?>"+"</a>";
 		}
 	}
 </script>

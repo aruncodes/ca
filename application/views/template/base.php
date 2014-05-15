@@ -33,14 +33,14 @@
 
 	<!-- Menu -->
 	<style type="text/css">
-	div#menu  ul.box li {
+/*	div#menu  ul.box li {
 		list-style-type: none;
 	    text-align: center;
 	    float: left;
 	    width: 16%;
-	}
+	}*/
 	div#menu  ul.box li span {
-		min-width: 75px;
+		min-width: 100px;
 		max-width: 175px;
 	}
 

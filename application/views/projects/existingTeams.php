@@ -35,7 +35,8 @@
 						echo '<tr><td>';
 						echo $client['name'];
 						echo '</td><td>';
-						echo form_open('projects/removeClient/'.$teamid);
+						$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this client from team?');");
+						echo form_open('projects/removeClient/'.$teamid,$attrib);
 						echo "<input type='hidden' name='cid' value='".$client['cid']."' />";
 						echo "<input type='image' src='".base_url('design/ico-delete.gif')."' />";
 						echo form_close();
