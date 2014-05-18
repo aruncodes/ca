@@ -18,6 +18,8 @@
 	}
 ?>
 
+<script type="text/javascript" src="<?php echo base_url('js/scw.js'); ?>"></script>
+
 	<fieldset> <!-- DONT REMOVE THIS FIELDSET, JS depends on it -->
 		<?php
 		if(isset($new))
@@ -56,7 +58,11 @@
 			<!-- Date of Birth -->
 			<tr>
 				<td>DOB</td><td>:</td>
-				<td><input name="dob" id="dob" type="date" size=40 class="input-text" required="required" value="<?php if(isset($dob)) echo $dob; ?>" /></td>
+				<td>
+				<input name="dob" id="dob" type="text" placeholder='mm/dd/yyyy' value="<?php if(isset($dob)) echo $dob; ?>" />
+				</td>
+
+				<!--td><input name="dob" id="dob" type="date" size=40 class="input-text" required="required" value="<?php if(isset($dob)) echo $dob; ?>" /></td-->
 			</tr>
 
 			
@@ -231,7 +237,6 @@
 
 
 
-
 			<!-- PAN No -->
 			<tr>
 				<td>PAN No</td><td>:</td>
@@ -299,20 +304,25 @@
 			<tr>
 				<td>Last date of visit</td><td>:</td>
 				<td>
-				<?php if(isset($lvdate)) echo $lvdate;
-					else echo "---";
+				<?php if(isset($lvdate)) {
+						echo $lvdate;
+						echo form_hidden('lvdate',$lvdate);
+					}
+					else if(isset($new)) {
+						echo date('d/m/Y');
+						echo form_hidden('lvdate',date('d/m/Y'));
+					}
+					else {
+						echo "---";
+						echo form_hidden('lvdate',' --- ');
+					}
 				?>
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				<?php if(!isset($new)) { ?>
 				<input type="button" id="LVUpdate" value="Update" onclick="LVUpdateFn();" />
+				<?php } ?>
 				</td>
-				<!--td>
-					<input type="text" size="40" name="lvdate" class="input-text" value="<?php
-					if(isset($lvdate))
-						echo $lvdate;
-					else
-						echo date('d/m/Y');
-					?>">
-				</td-->
 			</tr>
 
 
@@ -364,17 +374,20 @@
 		</tbody>
 		</table>
 		<script type="text/javascript">
-			<?php if(!isset($new))
+			<?php if(!isset($new)) {
 					echo "disableAll();\n";
+				}
 				else{
 					echo "showSelStatusOfFiling();\n";
 					echo "showSelGender();\n";
+					echo "enableDOB();\n";
 				}
 			?>
 
 			function LVUpdateFn()
 			{
-				window.location = "<?php echo base_url('index.php/clientdb/updateLVDate/'.$cid); ?>";
+				if(confirm("Do you really want to update Last visited date?"))
+					window.location = "<?php echo base_url('index.php/clientdb/updateLVDate/'.$cid); ?>";
 			}
 
 			function showSelStatusOfFiling()
@@ -440,6 +453,22 @@
 				document.getElementById("genderDiv").innerHTML = text;
 			}
 
+			function enableDOB()
+			{
+				document.getElementById('dob').setAttribute('class','input-text');
+				document.getElementById('dob').setAttribute('readonly','readonly');
+				document.getElementById('dob').onclick = function() {
+					scwShow(scwID('dob'),onclick);
+				}
+			}
+
+			function disableDOB()
+			{
+				document.getElementById('dob').setAttribute('class','show-as-text');
+				document.getElementById('dob').setAttribute('readonly','readonly');
+				document.getElementById('dob').removeAttribute('onclick');
+			}
+
 			function enableAll()
 			{
 				console.log("enableAll");
@@ -472,6 +501,10 @@
 					mails[i].setAttribute('class','input-text');
 					mails[i].removeAttribute('readonly');
 				}
+
+
+				enableDOB();
+
 				showSelGender();
 				showSelStatusOfFiling();
 				hideLVUpdate();
@@ -508,6 +541,9 @@
 					mails[i].setAttribute('class','show-as-text');
 					mails[i].setAttribute('readonly', 'readonly');
 				}
+
+				disableDOB();
+
 				showGender();
 				showStatusOfFiling();
 				showLVUpdate();
@@ -547,9 +583,11 @@
 		//client name
 		//frmValidator.addValidation("name","req","Please enter your Name");
 		frmValidator.addValidation("name","maxlen=50","Name can't exceed 50 characters");
-
+		frmValidator.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
+		
 		//fatname
 		frmValidator.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
+		frmValidator.addValidation("fatname","regexp=^[a-zA-Z\ \.]*$","Father's name invalid");
 
 
 		//dob
