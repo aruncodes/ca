@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="<?php echo base_url('js/toggle.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('js/ui.core.js'); ?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('js/ui.tabs.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('js/gen_validatorv4.js'); ?>"></script>
 	<script type="text/javascript">
 	$(document).ready(function(){
 		$(".tabs > ul").tabs();

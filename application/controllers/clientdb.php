@@ -58,6 +58,9 @@ class Clientdb extends CI_Controller {
 				$details = $this->clientdb_model->getData($cid);
 			$details['cid'] = $cid;
 
+			$this->load->model('team_model');
+			$details['teams'] = $this->team_model->getTeams();
+
 			$this->load->view('clientdb/getCid', $details);
 			$this->load->view('clientdb/clientDetails', $details);
 		} else {
@@ -84,10 +87,15 @@ class Clientdb extends CI_Controller {
 		if($arg == "none") {
 			$data['cid'] = $this->clientdb_model->getCid();
 			$data['new'] = TRUE;
+			
+			$this->load->model('team_model');
+			$data['teams'] = $this->team_model->getTeams();
+			
 			$this->load->view('clientdb/clientDetails', $data);
 		} else if ($arg == "add" || $arg == "modify") {
 			$clientData['cid'] = $this->input->post('cid');
 			$clientData['name'] = $this->input->post('name');
+			$clientData['fatname'] = $this->input->post('fatname');
 			$clientData['sex'] = $this->input->post('sex');
 			$clientData['dob'] = $this->input->post('dob');
 			$clientData['cmpname'] = $this->input->post('cmpname');
@@ -129,6 +137,10 @@ class Clientdb extends CI_Controller {
 			$this->session->set_userdata(array('cid'=>$cid));
 			$details = $this->clientdb_model->getData($cid);
 			$details['success'] = "Successful";
+
+			$this->load->model('team_model');
+			$details['teams'] = $this->team_model->getTeams();
+
 			$this->load->view('clientdb/clientDetails', $details);
 		}
 
@@ -186,6 +198,16 @@ class Clientdb extends CI_Controller {
 		$this->load->view('clientdb/clientList', $clients);
 
 		$this->load->view('template/footer');
+	}
+
+	function updateLVDate($cid = "none")
+	{
+		$this->checkSession();
+		if($cid != "none") {
+			$this->load->model("clientdb_model");
+			$this->clientdb_model->updateLVDate($cid);
+		}
+		$this->index();
 	}
 }
 ?>

@@ -4,10 +4,20 @@
 	if(isset($success))
 		echo "<p class='msg done'>".$success."</p>";
 	if(isset($new))
-		echo form_open('clientdb/addClient/add');
+		echo form_open('clientdb/addClient/add', array('id'=>"addClient"));
 	else
-		echo form_open('clientdb/addClient/modify');
+		echo form_open('clientdb/addClient/modify', array('id'=>"addClient"));
 ?>
+
+<!-- Function - check if equal and echo attrib -->	
+<?php
+	function giveAttrib($val1, $val2, $attrib)
+	{
+		if($val1 == $val2)
+			echo $attrib;
+	}
+?>
+
 	<fieldset> <!-- DONT REMOVE THIS FIELDSET, JS depends on it -->
 		<?php
 		if(isset($new))
@@ -19,34 +29,26 @@
 		<table class="nostyle">
 		<tbody>
 
+			
 			<!-- NAME -->
 			<tr>
 				<td>Name of the personnel</td><td>:</td>
 				<td><input type="text" size="40" name="name" class="input-text" value="<?php if(isset($name)) echo $name; ?>"></td>
 			</tr>
-		
-			<!-- Function - check if equal and echo attrib -->	
-			<?php
-				function giveAttrib($val1, $val2, $attrib)
-				{
-					if($val1 == $val2)
-						echo $attrib;
-				}
-			?>
+			
+			<!-- Father's NAME -->
+			<tr>
+				<td>Father's name</td><td>:</td>
+				<td><input type="text" size="40" name="fatname" class="input-text" value="<?php if(isset($fatname)) echo $fatname; ?>"></td>
+			</tr>
 		
 
 			<!-- Gender -->
 			<tr>
 				<td>Gender</td><td>:</td>
 				<td>
-					<input name="sex" <?php
-						if(isset($sex))
-							giveAttrib("M",$sex,"checked='checked' ");
-						else
-							echo "checked='checked' "; 
-					?>type="radio" value="M">Male
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input name="sex" <?php if(isset($sex)) giveAttrib("F",$sex,"checked='checked' "); ?>type="radio" value="F">Female
+					<div id="genderDiv">
+					</div>
 				</td>
 			</tr>
 
@@ -54,7 +56,7 @@
 			<!-- Date of Birth -->
 			<tr>
 				<td>DOB</td><td>:</td>
-				<td><input name="dob" type="text" size=40 class="input-text" value="<?php if(isset($dob)) echo $dob; ?>" /></td>
+				<td><input name="dob" id="dob" type="date" size=40 class="input-text" required="required" value="<?php if(isset($dob)) echo $dob; ?>" /></td>
 			</tr>
 
 			
@@ -69,7 +71,9 @@
 			<!-- Client ID -->
 			<tr>
 				<td>Client ID</td><td>:</td>
-				<td><input type="text" size="40" name="cid" class="input-text" value = "<?php echo $cid; ?>" readonly="readonly"></td>
+				<td><?php echo $cid; ?></td>
+				<?php echo form_hidden('cid',$cid); ?>
+				<!--td><input type="text" size="40" name="cid" class="input-text" value = "<?php echo $cid; ?>" readonly="readonly"></td-->
 			</tr>
 
 
@@ -78,6 +82,7 @@
 				<td>Legal Structure</td><td>:</td>
 				<td>
 					<select name="status_cat1">
+						<option value="--" <?php if(!isset($status_cat1)) giveAttrib("000","000", "selected='selected'"); ?>>---</option>
 						<option value="LB" <?php if(isset($status_cat1)) giveAttrib("LB",$status_cat1,"selected='selected'"); ?>>LLB</option>
 						<option value="FM" <?php if(isset($status_cat1)) giveAttrib("FM",$status_cat1,"selected='selected'"); ?>>Firm</option>
 						<option value="CO" <?php if(isset($status_cat1)) giveAttrib("CO",$status_cat1,"selected='selected'"); ?>>Company</option>
@@ -95,6 +100,7 @@
 				<td>Business Category</td><td>:</td>
 				<td>
 					<select name="bus_cat2">
+						<option value="--" <?php if(!isset($bus_cat2)) giveAttrib("000","000", "selected='selected'"); ?>>---</option>
 						<option value="HL" <?php if(isset($bus_cat2)) giveAttrib("HL",$bus_cat2,"selected='selected'"); ?>>Health Care</option>
 						<option value="MD" <?php if(isset($bus_cat2)) giveAttrib("MD",$bus_cat2,"selected='selected'"); ?>>Media</option>
 						<option value="JW" <?php if(isset($bus_cat2)) giveAttrib("JW",$bus_cat2,"selected='selected'"); ?>>Jewellery</option>
@@ -127,7 +133,7 @@
 			<!-- Mail ID -->
 			<tr>
 				<td>E-mail ID</td><td>:</td>
-				<td><input type="text" size="40" name="email" class="input-text" value="<?php if(isset($email)) echo $email; ?>" /></td>
+				<td><input type="email" size="40" name="email" class="input-text" value="<?php if(isset($email)) echo $email; ?>" /></td>
 			</tr>
 
 
@@ -135,7 +141,7 @@
 			<tr>
 				<td class="va-top">Office Address</td><td>:</td>
 				<td>
-					<textarea name="addr1_gn" cols="40" rows="6" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
+					<textarea name="addr1_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
@@ -143,6 +149,7 @@
 				<td>District</td><td>:</td>
 				<td>
 					<select name="addr1_ds">
+						<option value="--" <?php if(!isset($addr1_ds)) giveAttrib("--", "--", "selected='selected'"); ?>> --- </option>
 						<option value="CLT" <?php if(isset($addr1_ds)) giveAttrib("CLT",$addr1_ds,"selected='selected'"); ?>>Calicut</option>
 						<option value="MPM" <?php if(isset($addr1_ds)) giveAttrib("MPM",$addr1_ds,"selected='selected'"); ?>>Malappuram</option>
 						<option value="KNR" <?php if(isset($addr1_ds)) giveAttrib("KNR",$addr1_ds,"selected='selected'"); ?>>Kannur</option>
@@ -176,7 +183,7 @@
 			<tr>
 				<td class="va-top">Residence Address</td><td>:</td>
 				<td>
-					<textarea name="addr2_gn" cols="40" rows="6" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
+					<textarea name="addr2_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
@@ -184,6 +191,7 @@
 				<td>District</td><td>:</td>
 				<td>
 					<select name="addr2_ds">
+						<option value="--" <?php if(!isset($addr2_ds)) giveAttrib("--", "--", "selected='selected'"); ?>> --- </option>
 						<option value="CLT" <?php if(isset($addr2_ds)) giveAttrib("CLT",$addr2_ds,"selected='selected'"); ?>>Calicut</option>
 						<option value="MPM" <?php if(isset($addr2_ds)) giveAttrib("MPM",$addr2_ds,"selected='selected'"); ?>>Malappuram</option>
 						<option value="KNR" <?php if(isset($addr2_ds)) giveAttrib("KNR",$addr2_ds,"selected='selected'"); ?>>Kannur</option>
@@ -217,7 +225,7 @@
 			<tr>
 				<td class="va-top">Phone numbers</td><td>:</td>
 				<td>
-					<textarea name="phnos" cols="40" rows="6" class="input-text"><?php if(isset($phnos)) echo $phnos; ?></textarea>
+					<textarea name="phnos" cols="40" rows="3" class="input-text"><?php if(isset($phnos)) echo $phnos; ?></textarea>
 				</td>
 			</tr>
 
@@ -257,15 +265,22 @@
 
 
 			<!-- Team Assigned -->
-			<!-- <tr>
-				<td>Team Assigned</td>
+			<tr>
+				<td>Team Assigned</td><td>:</td>
 				<td>
 					<select name="tid">
-						<option value="0">Team A</option>
+						<option value="--" <?php if(!isset($tid)) { ?>selected='selected'<?php }?>> --- </option>
+						<?php
+							foreach ($teams as $team) {
+								echo "<option value='$team' ";
+								if(isset($tid)) giveAttrib($tid, $team, "selected='selected'");
+								echo ">$team</option>\n";
+							}
+						?>
 					</select>
 				</td>
-			</tr> -->
-			<input type="hidden" name="tid" value="-" />
+			</tr>
+			<!--input type="hidden" name="tid" value="-" /-->
 
 
 
@@ -273,14 +288,8 @@
 			<tr>
 				<td>Status of filing</td><td>:</td>
 				<td>
-					<input name="stat_filing" type="radio" value="Y" <?php if(isset($stat_filing)) giveAttrib("Y",$stat_filing,"checked='checked'"); ?>>Yes
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input name="stat_filing" type="radio" value="N" <?php
-						if(isset($stat_filing))
-							giveAttrib("N",$stat_filing,"checked='checked'");
-						else
-							echo "checked='checked'";
-					?>>No
+					<div id = "statusOfFilingDiv">
+					</div>
 				</td>
 			</tr>
 
@@ -290,13 +299,20 @@
 			<tr>
 				<td>Last date of visit</td><td>:</td>
 				<td>
+				<?php if(isset($lvdate)) echo $lvdate;
+					else echo "---";
+				?>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="LVUpdate" value="Update" onclick="LVUpdateFn();" />
+				</td>
+				<!--td>
 					<input type="text" size="40" name="lvdate" class="input-text" value="<?php
 					if(isset($lvdate))
 						echo $lvdate;
 					else
 						echo date('d/m/Y');
 					?>">
-				</td>
+				</td-->
 			</tr>
 
 
@@ -333,7 +349,6 @@
 				</td>
 			</tr>
 
-
 			<!-- Edit, Save and Add Buttons -->
 			<tr>
 				<td>
@@ -350,24 +365,96 @@
 		</table>
 		<script type="text/javascript">
 			<?php if(!isset($new))
-				echo "disableAll();\n";
+					echo "disableAll();\n";
+				else{
+					echo "showSelStatusOfFiling();\n";
+					echo "showSelGender();\n";
+				}
 			?>
+
+			function LVUpdateFn()
+			{
+				window.location = "<?php echo base_url('index.php/clientdb/updateLVDate/'.$cid); ?>";
+			}
+
+			function showSelStatusOfFiling()
+			{
+				var text="";
+				text += '<input name="stat_filing" type="radio" value="Y" ';
+				text += '<?php if(isset($stat_filing)) giveAttrib("Y",$stat_filing,'checked="checked"'); ?>>Yes'+"\n";
+				text += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+"\n";
+				text += '<input name="stat_filing" type="radio" value="N" ';
+				text += '<?php
+						if(isset($stat_filing))
+							giveAttrib("N",$stat_filing,'checked="checked"');
+						else
+							echo 'checked="checked"';
+					?>';
+				text += '>No'+"\n";
+				document.getElementById("statusOfFilingDiv").innerHTML = text;
+			}
+
+			function showStatusOfFiling()
+			{
+				var text = "<?php 
+					if(isset($stat_filing)) {
+						if($stat_filing == 'Y')
+							echo 'Yes';
+						else
+							echo 'No';
+					} else
+						echo 'unspecified';
+				?>";
+				document.getElementById("statusOfFilingDiv").innerHTML = text;
+			}
+
+			function showSelGender()
+			{
+				var text = "";
+				text += '<input name="sex" ';
+				text += "<?php
+					if(isset($sex))
+						giveAttrib("M",$sex,"checked='checked' ");
+					else
+						echo "checked='checked' "; 
+				?>";
+				text += 'type="radio" value="M">Male'+"\n";
+				text += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+"\n";
+				text += '<input name="sex" ';
+				text += "<?php if(isset($sex)) giveAttrib("F",$sex,"checked='checked' "); ?>";
+				text += 'type="radio" value="F">Female'+"\n";
+				document.getElementById("genderDiv").innerHTML = text;
+			}
+
+			function showGender()
+			{
+				var text = "<?php 
+					if(isset($sex)) {
+						if($sex == 'M')
+							echo 'Male';
+						else
+							echo 'Female';
+					} else
+						echo 'unspecified';
+				?>";
+				document.getElementById("genderDiv").innerHTML = text;
+			}
+
 			function enableAll()
 			{
 				console.log("enableAll");
-				var inputs = document.querySelectorAll("fieldset input[type=text]");//document.getElementsByTagName('input');
+				var inputs = document.querySelectorAll("fieldset input[type=text]");
 				for(var i = 0; i < inputs.length; i++) {
-					//inputs[i].disabled = false;
 					inputs[i].setAttribute('class','input-text');
 					inputs[i].removeAttribute('readonly');
 				}
 				var selects = document.getElementsByTagName('select');
 				for(var i = 0; i < selects.length; i++) {
 					selects[i].disabled = false;
+					selects[i].removeAttribute('class');
 				}
 				var ta = document.getElementsByTagName('textarea');
 				for(var i = 0; i < ta.length; i++) {
-					//ta[i].disabled = false;
 					ta[i].removeAttribute('class');
 					ta[i].removeAttribute('readonly');
 				}
@@ -375,19 +462,32 @@
 				for(var i = 0; i < radios.length; i++) {					
 					radios[i].disabled = false;
 				}
+				var dates = document.querySelectorAll("fieldset input[type=date]");
+				for(var i = 0; i < dates.length; i++) {
+					dates[i].disabled = false;
+					dates[i].setAttribute('class', 'input-text')
+				}
+				var mails = document.querySelectorAll("fieldset input[type=email]");
+				for(var i = 0; i < mails.length; i++) {
+					mails[i].setAttribute('class','input-text');
+					mails[i].removeAttribute('readonly');
+				}
+				showSelGender();
+				showSelStatusOfFiling();
+				hideLVUpdate();
 			}
 			function disableAll()
 			{
 				console.log("disableAll");
-				var inputs = document.querySelectorAll("fieldset input[type=text]");//document.getElementsByTagName('input');
+				var inputs = document.querySelectorAll("fieldset input[type=text]");
 				for(var i = 0; i < inputs.length; i++) {
-					//inputs[i].disabled = true;
 					inputs[i].setAttribute('class','show-as-text');
 					inputs[i].setAttribute('readonly','readonly');
 				}
 				var selects = document.getElementsByTagName('select');
-				for(var i = 0; i < selects.length; i++) {					
+				for(var i = 0; i < selects.length; i++) {			
 					selects[i].disabled = true;
+					selects[i].setAttribute('class','show-as-text');
 				}
 				var ta = document.getElementsByTagName('textarea');
 				for(var i = 0; i < ta.length; i++) {
@@ -398,17 +498,145 @@
 				for(var i = 0; i < radios.length; i++) {					
 					radios[i].disabled = true;
 				}
-
-				document.getElementById('edit').disabled = false;
-				document.getElementById('getCidBox').disabled = false;
-				document.getElementById('getCidBut').disabled = false;
+				var dates = document.querySelectorAll("fieldset input[type=date]");
+				for(var i = 0; i < dates.length; i++) {
+					dates[i].disabled = true;
+					dates[i].setAttribute('class', 'show-as-text')
+				}
+				var mails = document.querySelectorAll("fieldset input[type=email]");
+				for(var i = 0; i < mails.length; i++) {
+					mails[i].setAttribute('class','show-as-text');
+					mails[i].setAttribute('readonly', 'readonly');
+				}
+				showGender();
+				showStatusOfFiling();
+				showLVUpdate();
 			}
 			function showSave()
 			{
 				enableAll();
 				document.getElementById("save").style.display="table-row";
 			}
+			function hideLVUpdate()
+			{
+				document.getElementById("LVUpdate").style.display="none";
+			}
+			function showLVUpdate()
+			{
+				document.getElementById("LVUpdate").style.display="table-row";
+			}
 		</script>
 	</fieldset>
 	</form>
+
+
+	<!-- VALIDATION -->
+	<script type="text/javascript">
+	/*function DoCustomValidation()
+	{
+		var frm = document.forms["addClient"];
+		if(frm.dob.value == "mm/dd/yyyy") {
+			sfm_show_error_msg('Please enter a valid DOB');
+			return false;
+		}
+		return true;
+	}*/
+	
+		var frmValidator = new Validator("addClient");
+
+		//client name
+		//frmValidator.addValidation("name","req","Please enter your Name");
+		frmValidator.addValidation("name","maxlen=50","Name can't exceed 50 characters");
+
+		//fatname
+		frmValidator.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
+
+
+		//dob
+		//frmValidator.addValidation("dob", "req", "Please enter your DOB");
+		//frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+
+		//cmpname
+		frmValidator.addValidation("cmpname","maxlen=100","Company name can't exceed 100 characters");
+
+		//status_cat1
+		//frmValidator.addValidation("status_cat1","dontselect='--'","Choose Legal Structure");
+
+		//bus_cat2
+		//frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
+
+		//regno
+		frmValidator.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
+
+		//email
+		frmValidator.addValidation("email","maxlen=150","Email ID can't exceed 150 characters");
+
+		//addr1_gn
+
+		//addr1_ds
+		//frmValidator.addValidation("addr1_ds","dontselect=--","Choose District (Office Address)");
+
+		//addr1_st
+		frmValidator.addValidation("addr1_st", "maxlen=20", "State (Office Address) can't exceed 20 characters");
+
+		//addr1_pin
+		frmValidator.addValidation("addr1_pin","maxlen=6","Please enter a valid PIN Code (Office Address)");
+		//frmValidator.addValidation("addr1_pin","minlen=6","Please enter a valid PIN Code (Office Address)");
+		frmValidator.addValidation("addr1_pin","num","Please enter a valid PIN Code (Office Address)");
+		
+
+		//addr2_gn
+
+		//addr2_ds
+		//frmValidator.addValidation("addr2_ds","dontselect=--","Choose District (Residence Address)");
+
+		//addr2_st
+		frmValidator.addValidation("addr2_st", "maxlen=20", "State (Residence Address) can't exceed 20 characters");
+
+		//addr2_pin
+		frmValidator.addValidation("addr2_pin","maxlen=6","Please enter a valid PIN Code (Residence Address)");
+		//frmValidator.addValidation("addr2_pin","minlen=6","Please enter a valid PIN Code (Residence Address)");
+		frmValidator.addValidation("addr2_pin","num","Please enter a valid PIN Code (Residence Address)");
+
+		//phnos
+
+		//pan
+		frmValidator.addValidation("pan", "maxlen=10", "Please enter a valid PAN number");
+		frmValidator.addValidation("pan", "minlen=10", "Please enter a valid PAN number");
+		frmValidator.addValidation("pan", "alnum", "Please enter a valid PAN number");
+
+		//da_name
+		frmValidator.addValidation("da_name", "maxlen=50", "Digital Auth name can't exceed 50 characters");
+
+		//da_exp
+
+		//st_uname
+		frmValidator.addValidation("st_uname", "maxlen=30", "Sales Tax username can't exceed 30 characters");
+
+		//st_pass
+		frmValidator.addValidation("st_pass", "maxlen=30", "Sales Tax password can't exceed 30 characters");
+
+		//tid
+		//frmValidator.addValidation("tid","dontselect=--","Choose Team");
+
+		//lvdate
+
+		//bank_name
+		frmValidator.addValidation("bank_name", "maxlen=50", "Bank name can't exceed 50 characters");
+
+		//acno
+		frmValidator.addValidation("acno", "maxlen=30", "Account Number can't exceed 30 characters");
+
+		//micr
+		frmValidator.addValidation("micr", "maxlen=20", "MICR Code can't exceed 20 characters");
+
+		//ifsc
+		frmValidator.addValidation("ifsc", "alnum", "Please enter a valid IFSC Code");
+		frmValidator.addValidation("ifsc", "maxlen=11", "Please enter a valid IFSC Code");
+		//frmValidator.addValidation("ifsc", "minlen=11", "Please enter a valid IFSC Code");
+
+		//branch
+		frmValidator.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
+
+	</script>
 </div>

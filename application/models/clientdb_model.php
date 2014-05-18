@@ -74,5 +74,11 @@ class Clientdb_model extends CI_Model {
 			return array('error'=>TRUE);
 		return array('cids'=>$query->result_array());
 	}
+
+	function updateLVDate($cid)
+	{
+		$this->db->where('cid',$cid);
+		$this->db->update('client', array('lvdate'=>date('d/m/Y')));
+	}
 }
 ?>
