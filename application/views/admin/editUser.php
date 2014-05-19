@@ -100,7 +100,7 @@
 				<!-- Username -->
 				<tr>
 					<td>Username</td> <td>: </td>
-					<td> <input required="required" <?php changeInput($mode); ?> size="40" type="text"  name="uname" <?php if($mode == "edit") echo "disabled"; ?> value="<?php if($mode != "new" && isset($emp['uname'])) echo $emp['uname']; ?>" onkeyup="checkUserExists(this.value);" ></td>
+					<td> <input required="required" <?php changeInput($mode); ?> size="40" type="text"  name="uname" <?php if($mode == "edit") echo "disabled"; ?> value="<?php if($mode != "new" && isset($emp['uname'])) echo $emp['uname']; ?>" onblur="checkUserExists(this.value);" onkeyup="checkUserExists(this.value);" onchange="checkUserExists(this.value);" ></td>
 					<td id="uname_msg">
 						
 					</td>
@@ -131,13 +131,13 @@
 				<!-- Date of Birth -->
 				<tr>
 					<td>Date of Birth</td> <td>: </td>
-					<td> <input required="required" type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="dob" id="dob" value="<?php if($mode != "new" && isset($emp['dob'])) echo $emp['dob']; ?>" ></td>
+					<td> <input required="required" readonly='readonly' type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="dob" id="dob" <?php if($mode == "show") echo 'disabled="disabled" '; ?>value="<?php if($mode != "new" && isset($emp['dob'])) echo $emp['dob']; ?>" ></td>
 				</tr>
 
 				<!-- Date of Joining -->
 				<tr>
 					<td>Date of Joining</td> <td>: </td>
-					<td> <input required="required" type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="doj" id="doj" value="<?php if($mode != "new" && isset($emp['doj'])) echo $emp['doj']; ?>" ></td>
+					<td> <input required="required" readonly='readonly' type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="doj" <?php if($mode == "show") echo 'disabled="disabled" '; ?>id="doj" value="<?php if($mode != "new" && isset($emp['doj'])) echo $emp['doj']; ?>" ></td>
 				</tr>
 
 				<!-- Qualification -->

@@ -3,6 +3,16 @@
 		echo "<div id='content'>";
 	if(isset($success))
 		echo "<p class='msg done'>".$success."</p>";
+	?>
+	
+	<style type="text/css">
+		#addClient_errorloc a ul {margin:0 0 0 25px !important; list-style-type:square !important;}
+		#addClient_errorloc a ul li {padding:0 !important; background:none !important;}
+		#addClient_errorloc a {color:red;}
+	</style>
+	<div id="addClient_errorloc" style="color:red; padding-bottom: 10px;"></div>
+	
+	<?php
 	if(isset($new))
 		echo form_open('clientdb/addClient/add', array('id'=>"addClient"));
 	else
@@ -134,7 +144,7 @@
 			<!-- Mail ID -->
 			<tr>
 				<td>E-mail ID</td><td>:</td>
-				<td><input type="email" size="40" name="email" class="input-text" value="<?php if(isset($email)) echo $email; ?>" /></td>
+				<td><input type="text" size="40" name="email" class="input-text" value="<?php if(isset($email)) echo $email; ?>" /></td>
 			</tr>
 
 
@@ -247,7 +257,9 @@
 			</tr>
 			<tr>
 				<td>Digital auth Expiry Date</td><td>:</td>
-				<td><input type="text" size="40" name="da_exp" class="input-text" value="<?php if(isset($da_exp)) echo $da_exp; ?>" /></td>
+				<td>
+				<input name="da_exp" id="da_exp" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($da_exp)) echo $da_exp; ?>" />
+				</td>
 			</tr>
 			
 
@@ -269,7 +281,7 @@
 				<td>Team Assigned</td><td>:</td>
 				<td>
 					<select name="tid">
-						<option value="--" <?php if(!isset($tid)) { ?>selected='selected'<?php }?>> --- </option>
+						<option value="-" <?php if(!isset($tid)) { ?>selected='selected'<?php }?>> --- </option>
 						<?php
 							foreach ($teams as $team) {
 								echo "<option value='$team' ";
@@ -462,12 +474,19 @@
 				document.getElementById('dob').setAttribute('class','input-text');
 				document.getElementById('dob').disabled = false;
 				$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
+
+				document.getElementById('da_exp').setAttribute('class','input-text');
+				document.getElementById('da_exp').disabled = false;
+				$('#da_exp').datepick({dateFormat: 'dd/mm/yyyy'});
 			}
 
 			function disableDOB()
 			{
 				document.getElementById('dob').setAttribute('class','show-as-text');
 				document.getElementById('dob').disabled = true;
+
+				document.getElementById('da_exp').setAttribute('class','show-as-text');
+				document.getElementById('da_exp').disabled = true;
 			}
 
 			function enableAll()
@@ -569,17 +588,10 @@
 
 	<!-- VALIDATION -->
 	<script type="text/javascript">
-	/*function DoCustomValidation()
-	{
-		var frm = document.forms["addClient"];
-		if(frm.dob.value == "mm/dd/yyyy") {
-			sfm_show_error_msg('Please enter a valid DOB');
-			return false;
-		}
-		return true;
-	}*/
-	
 		var frmValidator = new Validator("addClient");
+
+		frmValidator.EnableOnPageErrorDisplaySingleBox();
+		frmValidator.EnableMsgsTogether();
 
 		//client name
 		//frmValidator.addValidation("name","req","Please enter your Name");
@@ -587,15 +599,16 @@
 		frmValidator.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
 		
 		//fatname
+		//frmValidator.addValidation("fatname","req","Please enter Father's Name");
 		frmValidator.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
 		frmValidator.addValidation("fatname","regexp=^[a-zA-Z\ \.]*$","Father's name invalid");
 
 
 		//dob
-		//frmValidator.addValidation("dob", "req", "Please enter your DOB");
-		//frmvalidator.setAddnlValidationFunction("DoCustomValidation");
+		//frmValidator.addValidation("dob", "req", "Please enter DOB");
 
 		//cmpname
+		//frmValidator.addValidation("cmpname","req","Please enter Company Name");
 		frmValidator.addValidation("cmpname","maxlen=100","Company name can't exceed 100 characters");
 
 		//status_cat1
@@ -605,17 +618,22 @@
 		//frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
 
 		//regno
+		//frmValidator.addValidation("regno","req","Please enter Registration Number");
 		frmValidator.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
 
 		//email
+		//frmValidator.addValidation("email","req","Please enter Email ID");
 		frmValidator.addValidation("email","maxlen=150","Email ID can't exceed 150 characters");
+		frmValidator.addValidation("email","email","Please enter a valid Email ID");
 
 		//addr1_gn
+		//frmValidator.addValidation("addr1_gn","req","Please enter Office Address");
 
 		//addr1_ds
 		//frmValidator.addValidation("addr1_ds","dontselect=--","Choose District (Office Address)");
 
 		//addr1_st
+		//frmValidator.addValidation("addr1_st","req","Please enter State (Office Address)");
 		frmValidator.addValidation("addr1_st", "maxlen=20", "State (Office Address) can't exceed 20 characters");
 
 		//addr1_pin
@@ -625,11 +643,13 @@
 		
 
 		//addr2_gn
+		//frmValidator.addValidation("addr2_gn","req","Please enter Residence Address");
 
 		//addr2_ds
 		//frmValidator.addValidation("addr2_ds","dontselect=--","Choose District (Residence Address)");
 
 		//addr2_st
+		//frmValidator.addValidation("addr2_st","req","Please enter State (Residence Address)");
 		frmValidator.addValidation("addr2_st", "maxlen=20", "State (Residence Address) can't exceed 20 characters");
 
 		//addr2_pin
@@ -638,6 +658,7 @@
 		frmValidator.addValidation("addr2_pin","num","Please enter a valid PIN Code (Residence Address)");
 
 		//phnos
+		//frmValidator.addValidation("phnos","req","Please enter contact numbers");
 
 		//pan
 		frmValidator.addValidation("pan", "maxlen=10", "Please enter a valid PAN number");
@@ -646,27 +667,35 @@
 
 		//da_name
 		frmValidator.addValidation("da_name", "maxlen=50", "Digital Auth name can't exceed 50 characters");
+		//frmValidator.addValidation("da_name", "req", "Please enter Digital Auth Name");
 
 		//da_exp
+		//frmValidator.addValidation("da_exp", "req", "Please enter Digital Auth Expiry Date");
 
 		//st_uname
+		//frmValidator.addValidation("st_uname", "req", "Please enter Sales Tax Username");
 		frmValidator.addValidation("st_uname", "maxlen=30", "Sales Tax username can't exceed 30 characters");
 
 		//st_pass
+		//frmValidator.addValidation("st_pass", "req", "Please enter Sales Tax Password");
 		frmValidator.addValidation("st_pass", "maxlen=30", "Sales Tax password can't exceed 30 characters");
 
 		//tid
-		//frmValidator.addValidation("tid","dontselect=--","Choose Team");
+		//frmValidator.addValidation("tid","dontselect=-","Choose Team");
 
 		//lvdate
+		//frmValidator.addValidation("lvdate", "req", "Please enter Last Visited Date");
 
 		//bank_name
+		//frmValidator.addValidation("bank_name", "req", "Please enter Bank Name");
 		frmValidator.addValidation("bank_name", "maxlen=50", "Bank name can't exceed 50 characters");
 
 		//acno
+		//frmValidator.addValidation("acno", "req", "Please enter Bank Account Number");
 		frmValidator.addValidation("acno", "maxlen=30", "Account Number can't exceed 30 characters");
 
 		//micr
+		//frmValidator.addValidation("micr", "req", "Please enter MICR Code");
 		frmValidator.addValidation("micr", "maxlen=20", "MICR Code can't exceed 20 characters");
 
 		//ifsc
@@ -675,6 +704,7 @@
 		//frmValidator.addValidation("ifsc", "minlen=11", "Please enter a valid IFSC Code");
 
 		//branch
+		//frmValidator.addValidation("branch", "req", "Please enter Bank Branch");
 		frmValidator.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
 
 	</script>
