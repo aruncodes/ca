@@ -17,9 +17,6 @@
 			echo $attrib;
 	}
 ?>
-
-<script type="text/javascript" src="<?php echo base_url('js/scw.js'); ?>"></script>
-
 	<fieldset> <!-- DONT REMOVE THIS FIELDSET, JS depends on it -->
 		<?php
 		if(isset($new))
@@ -59,10 +56,9 @@
 			<tr>
 				<td>DOB</td><td>:</td>
 				<td>
-				<input name="dob" id="dob" type="text" placeholder='mm/dd/yyyy' value="<?php if(isset($dob)) echo $dob; ?>" />
+				<input name="dob" id="dob" type="text" placeholder='dd/mm/yyyy' value="<?php if(isset($dob)) echo $dob; ?>" />
 				</td>
 
-				<!--td><input name="dob" id="dob" type="date" size=40 class="input-text" required="required" value="<?php if(isset($dob)) echo $dob; ?>" /></td-->
 			</tr>
 
 			
@@ -373,6 +369,16 @@
 			</tr>
 		</tbody>
 		</table>
+				<link rel="stylesheet" href="<?php echo base_url('css/jquery.datepick.css'); ?>" type="text/css" />
+				<script type="text/javascript" src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
+				<script type="text/javascript" src="<?php echo base_url('js/jquery.plugin.js'); ?>"></script>
+				<script type="text/javascript" src="<?php echo base_url('js/jquery.datepick.js'); ?>"></script>
+			    <script type="text/javascript">
+			    		$(function() {
+							$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
+						});
+			    		</script>
+
 		<script type="text/javascript">
 			<?php if(!isset($new)) {
 					echo "disableAll();\n";
@@ -456,17 +462,13 @@
 			function enableDOB()
 			{
 				document.getElementById('dob').setAttribute('class','input-text');
-				document.getElementById('dob').setAttribute('readonly','readonly');
-				document.getElementById('dob').onclick = function() {
-					scwShow(scwID('dob'),onclick);
-				}
+				//document.getElementById('dob').setAttribute('readonly','readonly');
 			}
 
 			function disableDOB()
 			{
 				document.getElementById('dob').setAttribute('class','show-as-text');
 				document.getElementById('dob').setAttribute('readonly','readonly');
-				document.getElementById('dob').removeAttribute('onclick');
 			}
 
 			function enableAll()

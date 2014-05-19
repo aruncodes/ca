@@ -20,7 +20,7 @@
 <table class="nostyle">
 	<tr>
 		<td>Service Name: </td>
-		<td><input type="text" class="input-text" name="sname" /></td>
+		<td><input type="text" class="input-text" name="sname" required/></td>
 		<td><input type="submit" class="image-button addsmall" value="Add" /></td>
 	</tr>
 </table>

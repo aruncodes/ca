@@ -6,7 +6,7 @@
 			<table class="nostyle">
 				<tr>
 					<td> Document Name :</td> 
-					<td> <input type="text" name="doc_name" class="input-text" placeholder="Document Name"/></td>
+					<td> <input type="text" name="doc_name" class="input-text" required placeholder="Document Name"/></td>
 					<td>
 						<select name="doc_type" style="height:30px;">
 							<optgroup label="Inward"> 

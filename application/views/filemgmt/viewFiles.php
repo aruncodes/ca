@@ -165,7 +165,7 @@
 				</select>
 			</td>
 			<td>
-				<input type="text" name="location" class="input-text" />
+				<input type="text" name="location" class="input-text" required/>
 			</td>
 			<td>
 				<input type="submit" value="Add" class="image-button addsmall" />

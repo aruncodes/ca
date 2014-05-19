@@ -53,12 +53,19 @@
 
 			if(isset($msg)) echo $msg;
 		?>
-		
+
+		<style type="text/css">
+		#emp_detail_errorloc a ul {margin:0 0 0 25px !important; list-style-type:square !important;}
+		#emp_detail_errorloc a ul li {padding:0 !important; background:none !important;}
+		#emp_detail_errorloc a {color:red;}
+		</style>
+		<div id="emp_detail_errorloc" style="color:red; padding-bottom: 10px;"></div>
+
 		<?php 
 			if($page == "editDetails") {
-				echo form_open('userControl/editUser/--/update');
+				echo form_open('userControl/editUser/--/update',array('id'=>'emp_detail'));
 			}else {
-				echo form_open('admin/editUser/'.$mode.'/0/change');
+				echo form_open('admin/editUser/'.$mode.'/0/change',array('id'=>'emp_detail'));
 			} ?>
 		<table class="nostyle">
 			<tbody>
@@ -124,13 +131,13 @@
 				<!-- Date of Birth -->
 				<tr>
 					<td>Date of Birth</td> <td>: </td>
-					<td> <input required="required" type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="dob" value="<?php if($mode != "new" && isset($emp['dob'])) echo $emp['dob']; ?>" ></td>
+					<td> <input required="required" type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="dob" id="dob" value="<?php if($mode != "new" && isset($emp['dob'])) echo $emp['dob']; ?>" ></td>
 				</tr>
 
 				<!-- Date of Joining -->
 				<tr>
 					<td>Date of Joining</td> <td>: </td>
-					<td> <input required="required" type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="doj" value="<?php if($mode != "new" && isset($emp['doj'])) echo $emp['doj']; ?>" ></td>
+					<td> <input required="required" type="text" <?php changeInput($mode); ?> size="40" placeholder="dd/mm/yyyy" name="doj" id="doj" value="<?php if($mode != "new" && isset($emp['doj'])) echo $emp['doj']; ?>" ></td>
 				</tr>
 
 				<!-- Qualification -->
@@ -213,4 +220,32 @@
 		</table>
 		<?php echo form_close(); ?>
 	</fieldset>	
+	<!-- VALIDATION -->
+	<script type="text/javascript">
+		var frmValidator = new Validator("emp_detail");
+
+		frmValidator.EnableOnPageErrorDisplaySingleBox();
+		frmValidator.EnableMsgsTogether();
+
+		frmValidator.addValidation("name","maxlen=50","Name can't exceed 50 characters");
+		frmValidator.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
+
+		frmValidator.addValidation("uname","minlen=6","Username should be atleast 6 characters long");
+		frmValidator.addValidation("uname","maxlen=30","Username should not exceed 30 characters long");
+		frmValidator.addValidation("uname","alnum","Username should contain alphabets and numericals only");
+
+		frmValidator.addValidation("pin","num","Please enter a valid PIN Code");
+
+	</script>
+
+	<link rel="stylesheet" href="<?php echo base_url('css/jquery.datepick.css'); ?>" type="text/css" />
+	<script type="text/javascript" src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('js/jquery.plugin.js'); ?>"></script>
+	<script type="text/javascript" src="<?php echo base_url('js/jquery.datepick.js'); ?>"></script>
+    <script type="text/javascript">
+    		$(function() {
+				$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
+				$('#doj').datepick({dateFormat: 'dd/mm/yyyy'});
+			});
+    		</script>
 </div>
