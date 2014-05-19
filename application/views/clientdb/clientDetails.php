@@ -56,7 +56,7 @@
 			<tr>
 				<td>DOB</td><td>:</td>
 				<td>
-				<input name="dob" id="dob" type="text" placeholder='dd/mm/yyyy' value="<?php if(isset($dob)) echo $dob; ?>" />
+				<input name="dob" id="dob" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($dob)) echo $dob; ?>" />
 				</td>
 
 			</tr>
@@ -75,7 +75,6 @@
 				<td>Client ID</td><td>:</td>
 				<td><?php echo $cid; ?></td>
 				<?php echo form_hidden('cid',$cid); ?>
-				<!--td><input type="text" size="40" name="cid" class="input-text" value = "<?php echo $cid; ?>" readonly="readonly"></td-->
 			</tr>
 
 
@@ -281,7 +280,6 @@
 					</select>
 				</td>
 			</tr>
-			<!--input type="hidden" name="tid" value="-" /-->
 
 
 
@@ -374,10 +372,10 @@
 				<script type="text/javascript" src="<?php echo base_url('js/jquery.plugin.js'); ?>"></script>
 				<script type="text/javascript" src="<?php echo base_url('js/jquery.datepick.js'); ?>"></script>
 			    <script type="text/javascript">
-			    		$(function() {
-							$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
-						});
-			    		</script>
+			    //$(function() {
+					//$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
+				//});
+				</script>
 
 		<script type="text/javascript">
 			<?php if(!isset($new)) {
@@ -462,13 +460,14 @@
 			function enableDOB()
 			{
 				document.getElementById('dob').setAttribute('class','input-text');
-				//document.getElementById('dob').setAttribute('readonly','readonly');
+				document.getElementById('dob').disabled = false;
+				$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
 			}
 
 			function disableDOB()
 			{
 				document.getElementById('dob').setAttribute('class','show-as-text');
-				document.getElementById('dob').setAttribute('readonly','readonly');
+				document.getElementById('dob').disabled = true;
 			}
 
 			function enableAll()

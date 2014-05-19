@@ -385,7 +385,7 @@
 			monthsToJump: 12,
 			useMouseWheel: true,
 			changeMonth: true,
-			yearRange: 'c-10:c+10',
+			yearRange: 'c-200:c+200',
 			shortYearCutoff: '+10',
 			showOtherMonths: false,
 			selectOtherMonths: false,
