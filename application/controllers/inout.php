@@ -154,6 +154,9 @@ class Inout extends CI_Controller {
 			$result = $this->inout_model->get_outward($cid);
 		}
 		
+		if($result == FALSE)
+			$this->session->unset_userdata('cid');
+
 		$data['result'] = $result;
 		$data['page_end'] = FALSE;
 		$data['cid'] = $cid;

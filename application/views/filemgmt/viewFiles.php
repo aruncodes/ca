@@ -149,7 +149,7 @@
 		<tr>
 			<td><?php echo $fn; ?></td>
 			<td>
-				<?php echo $clientData['status_cat1']."/"; 
+				<?php echo $clientData['status_cat1']."/";
 				echo $clientData['addr1_ds']."/".$clientData['bus_cat2']."/".$cid."/";
 				?>
 				<select name="file_type">

@@ -264,13 +264,24 @@
 			
 
 
-			<!-- IT and Sales Tax Uname, Password -->
+			<!-- IT Uname, Password -->
 			<tr>
-				<td>IT & Sales Tax Username</td><td>:</td>
+				<td>IT Username</td><td>:</td>
+				<td><input type="text" size="40" name="it_uname" class="input-text" value="<?php if(isset($it_uname)) echo $it_uname; ?>" /></td>
+			</tr>
+			<tr>
+				<td>IT Password</td><td>:</td>
+				<td><input type="text" size="40" name="it_pass" class="input-text" value="<?php if(isset($it_pass)) echo $it_pass; ?>" /></td>
+			</tr>
+
+
+			<!-- Sales Tax Uname, Password -->
+			<tr>
+				<td>Sales Tax Username</td><td>:</td>
 				<td><input type="text" size="40" name="st_uname" class="input-text" value="<?php if(isset($st_uname)) echo $st_uname; ?>" /></td>
 			</tr>
 			<tr>
-				<td>IT & Sales Tax Password</td><td>:</td>
+				<td>Sales Tax Password</td><td>:</td>
 				<td><input type="text" size="40" name="st_pass" class="input-text" value="<?php if(isset($st_pass)) echo $st_pass; ?>" /></td>
 			</tr>
 
@@ -594,76 +605,76 @@
 		frmValidator.EnableMsgsTogether();
 
 		//client name
-		//frmValidator.addValidation("name","req","Please enter your Name");
+		frmValidator.addValidation("name","req","Name not entered.");
 		frmValidator.addValidation("name","maxlen=50","Name can't exceed 50 characters");
 		frmValidator.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
 		
 		//fatname
-		//frmValidator.addValidation("fatname","req","Please enter Father's Name");
+		frmValidator.addValidation("fatname","req","Father's Name not entered");
 		frmValidator.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
 		frmValidator.addValidation("fatname","regexp=^[a-zA-Z\ \.]*$","Father's name invalid");
 
 
 		//dob
-		//frmValidator.addValidation("dob", "req", "Please enter DOB");
+		frmValidator.addValidation("dob", "req", "DOB not entered");
 
 		//cmpname
-		//frmValidator.addValidation("cmpname","req","Please enter Company Name");
+		frmValidator.addValidation("cmpname","req","Company Name not entered");
 		frmValidator.addValidation("cmpname","maxlen=100","Company name can't exceed 100 characters");
 
 		//status_cat1
-		//frmValidator.addValidation("status_cat1","dontselect='--'","Choose Legal Structure");
+		frmValidator.addValidation("status_cat1","dontselect='--'","Choose Legal Structure");
 
 		//bus_cat2
-		//frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
+		frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
 
 		//regno
-		//frmValidator.addValidation("regno","req","Please enter Registration Number");
+		frmValidator.addValidation("regno","req","Registration Number not entered");
 		frmValidator.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
 
 		//email
-		//frmValidator.addValidation("email","req","Please enter Email ID");
+		frmValidator.addValidation("email","req","Email ID not entered");
 		frmValidator.addValidation("email","maxlen=150","Email ID can't exceed 150 characters");
-		frmValidator.addValidation("email","email","Please enter a valid Email ID");
+		frmValidator.addValidation("email","email","Invalid Email ID");
 
 		//addr1_gn
-		//frmValidator.addValidation("addr1_gn","req","Please enter Office Address");
+		frmValidator.addValidation("addr1_gn","req","Office Address not entered");
 
 		//addr1_ds
-		//frmValidator.addValidation("addr1_ds","dontselect=--","Choose District (Office Address)");
+		frmValidator.addValidation("addr1_ds","dontselect=--","Choose District (Office Address)");
 
 		//addr1_st
-		//frmValidator.addValidation("addr1_st","req","Please enter State (Office Address)");
+		frmValidator.addValidation("addr1_st","req","State (Office Address) not entered");
 		frmValidator.addValidation("addr1_st", "maxlen=20", "State (Office Address) can't exceed 20 characters");
 
 		//addr1_pin
-		frmValidator.addValidation("addr1_pin","maxlen=6","Please enter a valid PIN Code (Office Address)");
-		//frmValidator.addValidation("addr1_pin","minlen=6","Please enter a valid PIN Code (Office Address)");
-		frmValidator.addValidation("addr1_pin","num","Please enter a valid PIN Code (Office Address)");
+		frmValidator.addValidation("addr1_pin","maxlen=6","Invalid PIN Code (Office Address)");
+		frmValidator.addValidation("addr1_pin","minlen=6","Invalid PIN Code (Office Address)");
+		frmValidator.addValidation("addr1_pin","num","Invalid PIN Code (Office Address)");
 		
 
 		//addr2_gn
-		//frmValidator.addValidation("addr2_gn","req","Please enter Residence Address");
+		frmValidator.addValidation("addr2_gn","req","Residence Address not entered");
 
 		//addr2_ds
-		//frmValidator.addValidation("addr2_ds","dontselect=--","Choose District (Residence Address)");
+		frmValidator.addValidation("addr2_ds","dontselect=--","Choose District (Residence Address)");
 
 		//addr2_st
-		//frmValidator.addValidation("addr2_st","req","Please enter State (Residence Address)");
+		frmValidator.addValidation("addr2_st","req","State (Residence Address) not entered");
 		frmValidator.addValidation("addr2_st", "maxlen=20", "State (Residence Address) can't exceed 20 characters");
 
 		//addr2_pin
-		frmValidator.addValidation("addr2_pin","maxlen=6","Please enter a valid PIN Code (Residence Address)");
-		//frmValidator.addValidation("addr2_pin","minlen=6","Please enter a valid PIN Code (Residence Address)");
-		frmValidator.addValidation("addr2_pin","num","Please enter a valid PIN Code (Residence Address)");
+		frmValidator.addValidation("addr2_pin","maxlen=6","Invalid PIN Code (Residence Address)");
+		frmValidator.addValidation("addr2_pin","minlen=6","Invalid PIN Code (Residence Address)");
+		frmValidator.addValidation("addr2_pin","num","Invalid PIN Code (Residence Address)");
 
 		//phnos
-		//frmValidator.addValidation("phnos","req","Please enter contact numbers");
+		frmValidator.addValidation("phnos","req","Contact numbers not entered");
 
 		//pan
-		frmValidator.addValidation("pan", "maxlen=10", "Please enter a valid PAN number");
-		frmValidator.addValidation("pan", "minlen=10", "Please enter a valid PAN number");
-		frmValidator.addValidation("pan", "alnum", "Please enter a valid PAN number");
+		frmValidator.addValidation("pan", "maxlen=10", "Invalid PAN number");
+		frmValidator.addValidation("pan", "minlen=10", "Invalid PAN number");
+		frmValidator.addValidation("pan", "alnum", "Invalid PAN number");
 
 		//da_name
 		frmValidator.addValidation("da_name", "maxlen=50", "Digital Auth name can't exceed 50 characters");
@@ -672,39 +683,47 @@
 		//da_exp
 		//frmValidator.addValidation("da_exp", "req", "Please enter Digital Auth Expiry Date");
 
+		//it_uname
+		//frmValidator.addValidation("it_uname", "req", "IT Username not entered");
+		frmValidator.addValidation("it_uname", "maxlen=30", "IT username can't exceed 30 characters");
+
+		//it_pass
+		//frmValidator.addValidation("it_pass", "req", "IT Password not entered");
+		frmValidator.addValidation("it_pass", "maxlen=30", "IT password can't exceed 30 characters");
+
 		//st_uname
-		//frmValidator.addValidation("st_uname", "req", "Please enter Sales Tax Username");
+		//frmValidator.addValidation("st_uname", "req", "Sales Tax Username not entered");
 		frmValidator.addValidation("st_uname", "maxlen=30", "Sales Tax username can't exceed 30 characters");
 
 		//st_pass
-		//frmValidator.addValidation("st_pass", "req", "Please enter Sales Tax Password");
+		//frmValidator.addValidation("st_pass", "req", "Sales Tax Password not entered");
 		frmValidator.addValidation("st_pass", "maxlen=30", "Sales Tax password can't exceed 30 characters");
 
 		//tid
-		//frmValidator.addValidation("tid","dontselect=-","Choose Team");
+		frmValidator.addValidation("tid","dontselect=-","Choose Team");
 
 		//lvdate
 		//frmValidator.addValidation("lvdate", "req", "Please enter Last Visited Date");
 
 		//bank_name
-		//frmValidator.addValidation("bank_name", "req", "Please enter Bank Name");
+		frmValidator.addValidation("bank_name", "req", "Bank Name not entered");
 		frmValidator.addValidation("bank_name", "maxlen=50", "Bank name can't exceed 50 characters");
 
 		//acno
-		//frmValidator.addValidation("acno", "req", "Please enter Bank Account Number");
+		frmValidator.addValidation("acno", "req", "Bank Account Number not entered");
 		frmValidator.addValidation("acno", "maxlen=30", "Account Number can't exceed 30 characters");
 
 		//micr
-		//frmValidator.addValidation("micr", "req", "Please enter MICR Code");
+		frmValidator.addValidation("micr", "req", "MICR Code not entered");
 		frmValidator.addValidation("micr", "maxlen=20", "MICR Code can't exceed 20 characters");
 
 		//ifsc
-		frmValidator.addValidation("ifsc", "alnum", "Please enter a valid IFSC Code");
-		frmValidator.addValidation("ifsc", "maxlen=11", "Please enter a valid IFSC Code");
-		//frmValidator.addValidation("ifsc", "minlen=11", "Please enter a valid IFSC Code");
+		frmValidator.addValidation("ifsc", "alnum", "Invalid IFSC Code");
+		frmValidator.addValidation("ifsc", "maxlen=11", "Invalid IFSC Code");
+		frmValidator.addValidation("ifsc", "minlen=11", "Invalid IFSC Code");
 
 		//branch
-		//frmValidator.addValidation("branch", "req", "Please enter Bank Branch");
+		frmValidator.addValidation("branch", "req", "Bank Branch not entered");
 		frmValidator.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
 
 	</script>
