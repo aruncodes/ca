@@ -52,6 +52,7 @@ class UserControl extends CI_Controller {
 		$this->load->view('accSettings/side_nav', $data);
 
 		$this->load->view('accSettings/changePassword');
+		$this->load->view('template/footer');
 	}
 	function showUser($uname="--") {
 		$this->checkSession();

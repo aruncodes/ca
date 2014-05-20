@@ -230,7 +230,7 @@
 		frmValidator.addValidation("name","maxlen=50","Name can't exceed 50 characters");
 		frmValidator.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
 
-		frmValidator.addValidation("uname","minlen=6","Username should be atleast 6 characters long");
+		frmValidator.addValidation("uname","minlen=4","Username should be atleast 4 characters long");
 		frmValidator.addValidation("uname","maxlen=30","Username should not exceed 30 characters long");
 		frmValidator.addValidation("uname","alnum","Username should contain alphabets and numericals only");
 

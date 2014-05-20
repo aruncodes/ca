@@ -6,6 +6,9 @@
 	left:0;
 	background:#0085cc;
 }
+div#content {
+	margin-bottom:30px;
+}
 
 input.image-button{    
 	    padding-left: 16px;
