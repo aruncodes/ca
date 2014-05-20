@@ -29,7 +29,6 @@ class UserControl extends CI_Controller {
 		if($this->input->post('currentPassword')) {
 			$inputPass = $this->input->post('currentPassword');
 			$newPassword = $this->input->post('newPassword');
-			//$newPassConf = $this->input->post('newPasswordConfirm');
 
 			if($inputPass == $currentPass) {
 				$data['msg'] = "Password Changed Successfully for '$currentUser'";
@@ -52,6 +51,8 @@ class UserControl extends CI_Controller {
 		$this->load->view('accSettings/side_nav', $data);
 
 		$this->load->view('accSettings/changePassword');
+
+		$this->load->view('template/footer');
 	}
 	function showUser($uname="--") {
 		$this->checkSession();

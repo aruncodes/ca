@@ -22,8 +22,8 @@ class Clientdb_model extends CI_Model {
 	{
 		$this->db->select_max('cid');
 		$query = $this->db->get('client');
-		if($query->num_rows() == 0)
-			return 1;
+		if($query->result_array()[0]['cid'] == "")
+			return 100;
 		return $query->result_array()[0]['cid'] + 1;
 	}
 
