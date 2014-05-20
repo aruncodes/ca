@@ -72,9 +72,9 @@
 		function updateUser($data,$eid) {
 			$this->db->where('eid',$eid);
 			$this->db->update('users',$data);
-			if($this->db->affected_rows() > 0)
-				return TRUE;
-			return FALSE;
+			// if($this->db->affected_rows() > 0)
+			// 	return TRUE;
+			return TRUE;
 		}
 	}
 ?>
