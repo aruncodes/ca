@@ -66,6 +66,8 @@ class Clientdb extends CI_Controller {
 		} else {
 			$this->load->view('clientdb/getCid',array('close'=>TRUE));
 		}
+
+		$this->load->view('template/footer');
 	}
 
 	function addClient($arg = "none")
@@ -170,6 +172,8 @@ class Clientdb extends CI_Controller {
 			$data['pan'] = $pan;
 		}
 		$this->load->view('clientdb/forgotCID', $data);
+
+		$this->load->view('template/footer');
 	}
 
 	function setSession($cid)
