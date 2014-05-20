@@ -6,6 +6,9 @@
 	left:0;
 	background:url("../design/menu.gif") 0 0 repeat-x;
 }
+div#content {
+	margin-bottom:30px;
+}
 
 input.image-button{    
 	    padding-left: 16px;
