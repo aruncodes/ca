@@ -203,7 +203,7 @@
 						<input class="image-button save" size="40" type="submit" name="save" value="SAVE" id="submit">
 					<?php } else if($mode == "show" && ($this->session->userdata['isa'] == 'y') || $this->session->userdata['uname'] == $emp['uname']) {
 								echo form_close();
-								if($this->session->userdata['isa'] == 'y')
+								if($this->session->userdata['isa'] == 'y' && $this->session->userdata['uname'] != $emp['uname'])
 									echo form_open('admin/editUser/edit/'.$emp["eid"]);
 								else
 									echo form_open('userControl/editUser');

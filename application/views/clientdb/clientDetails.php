@@ -407,14 +407,15 @@
 				</script>
 
 		<script type="text/javascript">
-			<?php if(!isset($new)) {
-					echo "disableAll();\n";
-				}
-				else{
-					echo "showSelStatusOfFiling();\n";
-					echo "showSelGender();\n";
-					echo "enableDOB();\n";
-				}
+			<?php if(!isset($new)) { ?>
+					disableAll();
+				<?php }
+				else{ ?>
+					showSelStatusOfFiling();
+					showSelGender();
+					enableDOB();
+					document.getElementById('useSameAddress').style.display = "block";
+				<?php }
 			?>
 
 			function LVUpdateFn()

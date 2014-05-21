@@ -45,6 +45,7 @@ class Clientdb extends CI_Controller {
 				$details['error'] = "Specified client does not exist";
 				$details['cid'] = $this->input->post('cid');
 				$this->load->view('clientdb/getCid', $details);
+				$this->load->view('template/footer');
 				return;
 			} else {
 				$details['cid'] = $cid;

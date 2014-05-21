@@ -41,6 +41,7 @@ class Services extends CI_Controller {
 				$details['error'] = "Specified client does not exist";
 				$details['cid'] = $cid;
 				$this->load->view('services/getCid', $details);
+				$this->load->view('template/footer');
 				return;
 			} else {
 				$details['cid'] = $cid;
