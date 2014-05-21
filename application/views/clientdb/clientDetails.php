@@ -150,16 +150,16 @@
 
 			<!-- Office Address -->
 			<tr>
-				<td class="va-top">Office Address</td><td>:</td>
+				<td class="va-top">Office Address</td><td class="va-top">:</td>
 				<td>
-					<textarea name="addr1_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
+					<textarea id="addr1_gn" name="addr1_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
 			<tr>
 				<td>District</td><td>:</td>
 				<td>
-					<select name="addr1_ds">
+					<select name="addr1_ds" id="addr1_ds">
 						<option value="--" <?php if(!isset($addr1_ds)) giveAttrib("--", "--", "selected='selected'"); ?>> --- </option>
 						<option value="CLT" <?php if(isset($addr1_ds)) giveAttrib("CLT",$addr1_ds,"selected='selected'"); ?>>Calicut</option>
 						<option value="MPM" <?php if(isset($addr1_ds)) giveAttrib("MPM",$addr1_ds,"selected='selected'"); ?>>Malappuram</option>
@@ -175,7 +175,7 @@
 			<!-- State -->
 			<tr>
 				<td>State</td><td>:</td>
-				<td><input type="text" size="40" name="addr1_st" class="input-text" value="<?php
+				<td><input type="text" size="40" id="addr1_st" name="addr1_st" class="input-text" value="<?php
 				if(isset($addr1_st))
 					echo $addr1_st;
 				else
@@ -185,23 +185,29 @@
 			<!-- PIN -->
 			<tr>
 				<td>PIN</td><td>:</td>
-				<td><input type="text" size="40" name="addr1_pin" class="input-text" value="<?php if(isset($addr1_pin)) echo $addr1_pin; ?>"></td>
+				<td><input type="text" size="40" id="addr1_pin" name="addr1_pin" class="input-text" value="<?php if(isset($addr1_pin)) echo $addr1_pin; ?>"></td>
 			</tr>
 			
 
-
+			<tr>
+			<td>
+			<div id="useSameAddress" style="display:none">
+				<input type="checkbox" id="checkSameAddress" onclick="useSameAddrFn();" /> Use the same address for Residence
+			</div>
+			</td>
+			</tr>
 			<!-- Residence Address -->
 			<tr>
-				<td class="va-top">Residence Address</td><td>:</td>
+				<td class="va-top">Residence Address</td><td class="va-top">:</td>
 				<td>
-					<textarea name="addr2_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
+					<textarea name="addr2_gn" id="addr2_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
 			<tr>
 				<td>District</td><td>:</td>
 				<td>
-					<select name="addr2_ds">
+					<select name="addr2_ds" id="addr2_ds">
 						<option value="--" <?php if(!isset($addr2_ds)) giveAttrib("--", "--", "selected='selected'"); ?>> --- </option>
 						<option value="CLT" <?php if(isset($addr2_ds)) giveAttrib("CLT",$addr2_ds,"selected='selected'"); ?>>Calicut</option>
 						<option value="MPM" <?php if(isset($addr2_ds)) giveAttrib("MPM",$addr2_ds,"selected='selected'"); ?>>Malappuram</option>
@@ -217,7 +223,7 @@
 			<!-- State -->
 			<tr>
 				<td>State</td><td>:</td>
-				<td><input type="text" size="40" name="addr2_st" class="input-text" value="<?php
+				<td><input type="text" size="40" name="addr2_st" id="addr2_st" class="input-text" value="<?php
 				if(isset($addr2_st))
 					echo $addr2_st;
 				else
@@ -227,14 +233,14 @@
 			<!-- PIN -->
 			<tr>
 				<td>PIN</td><td>:</td>
-				<td><input type="text" size="40" name="addr2_pin" class="input-text" value="<?php if(isset($addr2_pin)) echo $addr2_pin; ?>"></td>
+				<td><input type="text" size="40" name="addr2_pin" id="addr2_pin" class="input-text" value="<?php if(isset($addr2_pin)) echo $addr2_pin; ?>"></td>
 			</tr>
 
 
 
 			<!-- Phone Numbers -->
 			<tr>
-				<td class="va-top">Phone numbers</td><td>:</td>
+				<td class="va-top">Phone numbers</td><td class="va-top">:</td>
 				<td>
 					<textarea name="phnos" cols="40" rows="3" class="input-text"><?php if(isset($phnos)) echo $phnos; ?></textarea>
 				</td>
@@ -539,6 +545,8 @@
 				showSelGender();
 				showSelStatusOfFiling();
 				hideLVUpdate();
+
+				document.getElementById('useSameAddress').style.display = "block";
 			}
 			function disableAll()
 			{
@@ -578,6 +586,8 @@
 				showGender();
 				showStatusOfFiling();
 				showLVUpdate();
+
+				document.getElementById('useSameAddress').style.display ="none";
 			}
 			function showSave()
 			{
@@ -591,6 +601,22 @@
 			function showLVUpdate()
 			{
 				document.getElementById("LVUpdate").style.display="table-row";
+			}
+
+
+			function useSameAddrFn()
+			{
+				if(document.getElementById("checkSameAddress").checked) {
+					document.getElementById("addr2_gn").value = document.getElementById("addr1_gn").value;
+					document.getElementById("addr2_ds").selectedIndex = document.getElementById("addr1_ds").selectedIndex;
+					document.getElementById("addr2_st").value = document.getElementById("addr1_st").value;
+					document.getElementById("addr2_pin").value = document.getElementById("addr1_pin").value;
+				} else {
+					document.getElementById("addr2_gn").value = "";
+					document.getElementById("addr2_ds").selectedIndex= 0;
+					document.getElementById("addr2_st").value = "";
+					document.getElementById("addr2_pin").value = "";
+				}
 			}
 		</script>
 	</fieldset>

@@ -3,7 +3,7 @@
 <script type="text/javascript">
 	function printDocs(cid)
 	{
-		window.open('<?php echo base_url("index.php/inout/printDocs"); ?>/'+cid, '_blank', 'top=100, left=100, width=1000, height=500');
+		window.open('<?php echo base_url("index.php/inout/printDocs"); ?>/'+cid, '_blank', 'top=100, left=100, width=1000, height=700');
 	}
 </script>
 

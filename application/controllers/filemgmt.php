@@ -132,6 +132,7 @@ class Filemgmt extends CI_Controller {
 			$data['pan'] = $pan;
 		}
 		$this->load->view('filemgmt/forgotCID', $data);
+		$this->load->view('template/footer');
 	}
 
 	function setSession($cid)

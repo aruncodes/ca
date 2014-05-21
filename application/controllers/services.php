@@ -139,6 +139,7 @@ class Services extends CI_Controller {
 			$data['pan'] = $pan;
 		}
 		$this->load->view('services/forgotCID', $data);
+		$this->load->view('template/footer');
 	}
 
 	function setSession($cid)

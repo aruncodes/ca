@@ -250,6 +250,7 @@ class Inout extends CI_Controller {
 		}
 		$data['page'] = $page;
 		$this->load->view('inout/forgotCID', $data);
+		$this->load->view('template/footer');
 	}
 
 	function setSession($cid, $page = "none")

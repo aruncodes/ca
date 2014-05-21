@@ -116,6 +116,13 @@
 	</td>
 	</tr>
 </table>
+<br /><br /><br /><br /><br />
+<table name="signatures" style="border:0px solid black;margin:0px auto">
+<tr>
+	<td style="width:70%;align:left">Client</td>
+	<td style="width:70%;align:right">Team Leader</td>
+</tr>
+</table>
 
 <style type="text/css">
 	h2,h3 {
