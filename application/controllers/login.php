@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		if(!$this->session->userdata('isa')) {
 			$data['title'] = "Login";
+			$data['company_name']= $this->config->item('company_name');
 			$this->load->view('template/header',$data);
 			$this->load->view('template/login', $details);
 			$this->load->view('template/footer');

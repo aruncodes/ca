@@ -11,13 +11,8 @@
 	<!--[if lte IE 6]><link rel="stylesheet" media="screen,projection" type="text/css" href="css/main-ie6.css" /><![endif]--> <!-- MSIE6 -->
 	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?php echo base_url('css/style.css'); ?>" /> <!-- GRAPHIC THEME -->
 	<link rel="stylesheet" media="screen,projection" type="text/css" href="<?php echo base_url('css/mystyle.css'); ?>" /> <!-- WRITE YOUR CSS CODE HERE -->
-	<!--<script type="text/javascript" src="<?php echo base_url('js/jquery.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('js/switcher.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('js/toggle.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('js/ui.core.js'); ?>"></script>
-	<script type="text/javascript" src="<?php echo base_url('js/ui.tabs.js'); ?>"></script> -->
 	<script type="text/javascript" src="<?php echo base_url('js/gen_validatorv4.js'); ?>"></script>
-	<title><?php echo $title; ?></title>
+	<title><?php echo $title.' - '.$this->config->item('company_name'); ?></title>
 </head>
 
 <body>

@@ -4,7 +4,7 @@
 	<div id="tray" class="box">
 
 		<p class="f-left box">
-			<strong>Company Name</strong>
+			<strong><?php echo $this->config->item('company_name'); ?></strong>
 		</p>
 
 		<p class="f-right">

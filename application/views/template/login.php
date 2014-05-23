@@ -6,7 +6,7 @@
 		<!-- Content (Right Column) -->
 		<div id="content" class="box loginfield">
 
-			<h1>Company Name</h1>
+			<h1><?php echo $company_name; ?></h1>
 				<?php
 				if(isset($error))
 					echo "<p class='msg error'>$error</p>\n";

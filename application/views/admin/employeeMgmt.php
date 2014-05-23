@@ -40,7 +40,7 @@
 					echo '<td>'.$emp['eid'].'</td>';
 					echo '<td>'.$emp['name'].'</td>';
 					$gender = 'Male';
-					if($emp['sex'] == 'f') $gender = 'Female';
+					if($emp['sex'] == 'F') $gender = 'Female';
 					echo '<td>'.$gender.'</td>';
 					echo '<td>'.$emp['uname'].'</td>';
 					
