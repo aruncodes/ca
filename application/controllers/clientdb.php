@@ -88,7 +88,8 @@ class Clientdb extends CI_Controller {
 		
 		$this->load->model('clientdb_model');
 		if($arg == "none") {
-			$data['cid'] = $this->clientdb_model->getCid();
+			//$data['cid'] = $this->clientdb_model->getCid();
+			$data['cid'] = "___";
 			$data['new'] = TRUE;
 			
 			$this->load->model('team_model');
@@ -96,7 +97,9 @@ class Clientdb extends CI_Controller {
 			
 			$this->load->view('clientdb/clientDetails', $data);
 		} else if ($arg == "add" || $arg == "modify") {
-			$clientData['cid'] = $this->input->post('cid');
+			//$clientData['cid'] = $this->input->post('cid');
+			if($this->input->post('cid') != "___")
+				$clientData['cid'] = $this->input->post('cid');
 			$clientData['name'] = $this->input->post('name');
 			$clientData['fatname'] = $this->input->post('fatname');
 			$clientData['sex'] = $this->input->post('sex');
@@ -133,12 +136,13 @@ class Clientdb extends CI_Controller {
 
 			if($arg == "add") {
 				$this->clientdb_model->insert($clientData);
+				$cid = $this->clientdb_model->getCid($clientData['pan']);
 			}
 			else {
 				$this->clientdb_model->modify($clientData);
+				$cid = $this->input->post('cid');
 			}
 			$this->load->model('clientdb_model');
-			$cid = $this->input->post('cid');
 			$this->session->set_userdata(array('cid'=>$cid));
 			$details = $this->clientdb_model->getData($cid);
 			$details['success'] = "Successful";

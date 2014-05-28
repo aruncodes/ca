@@ -1,3 +1,10 @@
+<style type="text/css">
+.redtd {
+	color:red;
+	font-weight: bold;
+}
+</style>
+
 <?php
 	if(isset($new) || isset($success))
 		echo "<div id='content'>";
@@ -38,7 +45,16 @@
 		<table class="nostyle">
 		<tbody>
 
+			<!-- Client ID -->
+			<?php if($cid != '___') { ?>
+			<tr>
+				<td class="redtd">Client ID</td><td class="redtd">:</td>
+				<td class="redtd"><?php echo $cid; ?></td>
+				<?php echo form_hidden('cid',$cid); ?>
+			</tr>
+			<?php } ?>
 			
+
 			<!-- NAME -->
 			<tr>
 				<td>Name of the personnel</td><td>:</td>
@@ -78,14 +94,6 @@
 				<td><input type="text" size="40" name="cmpname" class="input-text" value="<?php if(isset($cmpname)) echo $cmpname; ?>" /></td>
 			</tr>
 
-
-
-			<!-- Client ID -->
-			<tr>
-				<td>Client ID</td><td>:</td>
-				<td><?php echo $cid; ?></td>
-				<?php echo form_hidden('cid',$cid); ?>
-			</tr>
 
 
 			<!-- Legal Structure - Category 1 -->
@@ -752,6 +760,5 @@
 		//branch
 		frmValidator.addValidation("branch", "req", "Bank Branch not entered");
 		frmValidator.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
-
 	</script>
 </div>

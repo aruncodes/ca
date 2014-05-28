@@ -13,10 +13,11 @@ if(isset($error)) {
 <br />
 
 <script type="text/javascript">
-	function Client(cid,name,cmpname,retAddr) {
+	function Client(cid,name,cmpname,status_cat1,retAddr) {
 		this.cid = cid;
 		this.name = name;
 		this.cmpname = cmpname;
+		this.ls = status_cat1;
 		this.retAddr = retAddr;
 	}
 	clients = new Array();
@@ -25,7 +26,7 @@ if(isset($error)) {
 	echo "var n = $n\n";
 	for($i = 0; $i < $n; $i++) {
 		$retAddr = base_url("index.php/clientdb/setSession")."/".$cids[$i]['cid'];
-		$arg = $cids[$i]['cid'].',"'.$cids[$i]['name'].'","'.$cids[$i]['cmpname'].'","'.$retAddr.'"';
+		$arg = $cids[$i]['cid'].',"'.$cids[$i]['name'].'","'.$cids[$i]['cmpname'].'","'.$cids[$i]['status_cat1'].'","'.$retAddr.'"';
 		echo "clients[$i] = new Client(".$arg.");\n";
 	}
 	?>
@@ -34,26 +35,28 @@ if(isset($error)) {
 	{
 		clearTable();
 		var sTerm = document.getElementById("search").value.toLowerCase();
-		if(sTerm == ""){
-			populateAll();
-			return;
-		}
 		
 		var table = document.getElementById('clientsList');
-		var row, cell1, cell2, cell3, name;
+		var row, cell1, cell2, cell3, name, cmpname, lsSel;
 		var tIndex = 1;
 		
+		lsSel = document.getElementById('legalStr').value;
 		for(var i = 0; i < n; i++) {
 			name = clients[i].name.toLowerCase();
-			if(name.indexOf(sTerm) != -1) {
-				row = table.insertRow(tIndex++);
-				cell1 = row.insertCell(0);
-				cell2 = row.insertCell(1);
-				cell3 = row.insertCell(2);
+			cmpname = clients[i].cmpname.toLowerCase();
+			if(lsSel == "AL" || lsSel == clients[i].ls) {
+				if(name.indexOf(sTerm) != -1 || cmpname.indexOf(sTerm) != -1) {
+					row = table.insertRow(tIndex++);
+					cell1 = row.insertCell(0);
+					cell2 = row.insertCell(1);
+					cell3 = row.insertCell(2);
+					cell4 = row.insertCell(3);
 
-				cell1.innerHTML = "<a href='"+clients[i].retAddr+"'>"+clients[i].cid+"</a>";
-				cell2.innerHTML = clients[i].name;
-				cell3.innerHTML = clients[i].cmpname;
+					cell1.innerHTML = "<a href='"+clients[i].retAddr+"'>"+clients[i].cid+"</a>";
+					cell2.innerHTML = clients[i].name;
+					cell3.innerHTML = clients[i].cmpname;
+					cell4.innerHTML = clients[i].ls;
+				}
 			}
 		}
 	}
@@ -65,28 +68,22 @@ if(isset($error)) {
 		for(var i = rowCount-1; i > 0; i--)
 			table.deleteRow(i);
 	}
-
-	function populateAll()
-	{
-		var table = document.getElementById('clientsList');
-		var row, cell1, cell2, cell3;
-		for(var i = 0; i < n; i++) {
-			row = table.insertRow(i+1);
-			cell1 = row.insertCell(0);
-			cell2 = row.insertCell(1);
-			cell3 = row.insertCell(2);
-
-			cell1.innerHTML = "<a href='"+clients[i].retAddr+"'>"+clients[i].cid+"</a>";
-			cell2.innerHTML = clients[i].name;
-			cell3.innerHTML = clients[i].cmpname;
-		}
-	}
 </script>
 
 <table class="nostyle" style="margin: 0px auto;">
 <tr>
 	<td style="font-size: 1.3em;">Search : </td>
-	<td><input id="search" type="text" placeholder="Search by name" class="input-text" autofocus="autofocus" onkeyup="search();" /></td>
+	<td><input id="search" type="text" placeholder="name/company" class="input-text" autofocus="autofocus" onkeyup="search();" /></td>
+	<td>
+		<select id="legalStr" onchange="search();">
+			<option value="AL" selected="selected">All</option>
+			<option value="LB">LLB</option>
+			<option value="FM">Firm</option>
+			<option value="CO">Company</option>
+			<option value="IL">Individual</option>
+			<option value="TR">Trust</option>
+		</select>
+	</td>
 </tr>
 </table>
 
@@ -98,6 +95,7 @@ if(isset($error)) {
 		<th>Client ID</th>
 		<th>Client Name</th>
 		<th>Company Name</th>
+		<th>Legal Structure</th>
 	</tr>
 	</thead>
 	<tbody>
@@ -105,7 +103,7 @@ if(isset($error)) {
 </table>
 
 <script type="text/javascript">
-	populateAll();
+	search();
 </script>
 </fieldset>
 </div>
