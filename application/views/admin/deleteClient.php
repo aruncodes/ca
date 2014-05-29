@@ -83,7 +83,7 @@ if(isset($error)) {
 	<td style="font-size: 1.3em;">Search : </td>
 	<td><input id="search" type="text" placeholder="name/company" class="input-text" autofocus="autofocus" onkeyup="search();" /></td>
 	<td>
-		<select id="legalStr" onchange="search();">
+		<select style="height:30px" id="legalStr" onchange="search();">
 		<option value="AL" selected="selected">All</option>
 		<option value="LB">LLB</option>
 		<option value="FM">Firm</option>

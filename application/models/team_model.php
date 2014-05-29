@@ -13,7 +13,7 @@
 
 		function getClients($team_id){
 
-			$this->db->select('name,cid');
+			$this->db->select('name,cid,cmpname');
 			$this->db->where(array('tid'=>$team_id));
 
 			$query = $this->db->get('client');
