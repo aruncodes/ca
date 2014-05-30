@@ -335,20 +335,56 @@ class Admin extends CI_Controller {
 		$this->load->view('template/footer');
 	}
 
+	private function getGender($gen) {
+		if($gen == "M")
+			return "Male";
+		return "Female";
+	}
+
+	private function yesNo($yn) {
+		if($yn == "Y")
+			return "Yes";
+		return "No";
+	}
+
 	function generate_xls()	{
 	   $this->load->helper('php-excel');
 	   $query = $this->db->get('client');
 	   $fields = (
-	   $field_array[] = array ("ID", "Name", "Surname")
+	   $field_array[] = array ("Client ID", "Name", "Fathers Name",
+	    "Gender","DOB","Company Name","Company Start Date",
+	    "Legal Structure","Business Category","Registration No.",
+	    "Email ID","Office Address","District","State","PIN",
+	    "Residence Address","District","State","PIN","Phone Numbers",
+	    "Personnel PAN","Company PAN","Digital auth name",
+	    "Digital Auth Expiry Date","IT Username","IT Password",
+	    "Sales Tax Username","Sales Tax Password","Team assigned",
+	    "Status of filling","Last date of Visit","Bank Name",
+	    "Account No","MICR Code","IFSC Code","Branch Name",
+	    "DSC Index No.","Signing Authority PAN",
+	    "Signing Authority's Father Name",
+	    "Carry Forward Lossess Details","Last year of Filling",
+	    "VAT Audit Applicable")
 	                   );
 	   foreach ($query->result() as $row)
 	         {
-	         $data_array[] = array( $row->cid, $row->name, $row->cmpname );
+	         $data_array[] = array( 
+	         	$row->cid,$row->name,$row->fatname,$this->getGender($row->sex),$row->dob,$row->cmpname,
+	         	$row->cmpdob,$row->status_cat1,$row->bus_cat2,$row->regno,$row->email,
+	         	$row->addr1_gn,$row->addr1_ds,$row->addr1_st,$row->addr1_pin,
+	         	$row->addr2_gn,$row->addr2_ds,$row->addr2_st,$row->addr2_pin,
+	         	$row->phnos,$row->pan,$row->cmppan,$row->da_name,$row->da_exp,
+	         	$row->it_uname,$row->it_pass,$row->st_uname,$row->st_pass,$row->tid,
+	         	$this->yesNo($row->stat_filing),$row->lvdate,$row->bank_name,$row->acno,$row->micr,
+	         	$row->ifsc,$row->branch,$row->dscindex,$row->signingauth_pan,
+	         	$row->signingauth_fat_name,$row->carry_fwd_losses,
+	         	$row->last_year_of_filing,$this->yesNo($row->vat_audit_applicable)
+	          );
 	         }
 	   $xls = new Excel_XML;
 	   $xls->addArray ($field_array);
 	   $xls->addArray ($data_array);
-	   $xls->generateXML ( "client_dump" );
+	   $xls->generateXML ( "client_list" );
 	}
 }
 ?>

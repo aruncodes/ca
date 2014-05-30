@@ -37,6 +37,7 @@
 				<li<?php echo giveSubID('employeeMgmt', $page); ?>><a href="<?php echo base_url('index.php/admin/employeeMgmt'); ?>">Employee Management</a></li>
 					<ul><li><a  href="<?php echo base_url('index.php/admin/editUser/new'); ?>">Add User</a></li></ul>
 				<li<?php echo giveSubID('delClient', $page); ?>><a href="<?php echo base_url('index.php/admin/deleteClient'); ?>">Client Management</a></li>
+					<ul><li><a  href="<?php echo base_url('index.php/admin/generate_xls'); ?>">Export Client List</a></li></ul>
 			</ul>
 
 		</div> <!-- /aside -->
