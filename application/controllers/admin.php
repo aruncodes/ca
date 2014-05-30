@@ -333,5 +333,21 @@ class Admin extends CI_Controller {
 
 		$this->load->view('template/footer');
 	}
+
+	function generate_xls()	{
+	   $this->load->helper('php-excel');
+	   $query = $this->db->get('client');
+	   $fields = (
+	   $field_array[] = array ("ID", "Name", "Surname")
+	                   );
+	   foreach ($query->result() as $row)
+	         {
+	         $data_array[] = array( $row->cid, $row->name, $row->cmpname );
+	         }
+	   $xls = new Excel_XML;
+	   $xls->addArray ($field_array);
+	   $xls->addArray ($data_array);
+	   $xls->generateXML ( "client_dump" );
+	}
 }
 ?>
