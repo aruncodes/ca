@@ -160,14 +160,14 @@
 			<tr>
 				<td class="va-top">Office Address</td><td class="va-top">:</td>
 				<td>
-					<textarea id="addr1_gn" name="addr1_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
+					<textarea onchange="useSameAddrFn();" id="addr1_gn" name="addr1_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr1_gn)) echo $addr1_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
 			<tr>
 				<td>District</td><td>:</td>
 				<td>
-					<select name="addr1_ds" id="addr1_ds">
+					<select name="addr1_ds" id="addr1_ds" onchange="useSameAddrFn();">
 						<option value="--" <?php if(!isset($addr1_ds)) giveAttrib("--", "--", "selected='selected'"); ?>> --- </option>
 						<option value="CLT" <?php if(isset($addr1_ds)) giveAttrib("CLT",$addr1_ds,"selected='selected'"); ?>>Calicut</option>
 						<option value="MPM" <?php if(isset($addr1_ds)) giveAttrib("MPM",$addr1_ds,"selected='selected'"); ?>>Malappuram</option>
@@ -188,19 +188,20 @@
 					echo $addr1_st;
 				else
 					echo "Kerala";
-				?>"></td>
+				?>" onchange="useSameAddrFn();" /></td>
 			</tr>
 			<!-- PIN -->
 			<tr>
 				<td>PIN</td><td>:</td>
-				<td><input type="text" size="40" id="addr1_pin" name="addr1_pin" class="input-text" value="<?php if(isset($addr1_pin)) echo $addr1_pin; ?>"></td>
+				<td><input type="text" size="40" id="addr1_pin" name="addr1_pin" class="input-text" value="<?php if(isset($addr1_pin)) echo $addr1_pin; ?>" onchange="useSameAddrFn();"></td>
 			</tr>
 			
 
 			<tr>
+			<td><td>
 			<td>
 			<div id="useSameAddress" style="display:none">
-				<input type="checkbox" id="checkSameAddress" onclick="useSameAddrFn();" /> Use the same address for Residence
+				<input type="checkbox" id="checkSameAddress" onclick="useSameAddrFn();" /> Use the same address for Residence Address
 			</div>
 			</td>
 			</tr>
@@ -208,14 +209,14 @@
 			<tr>
 				<td class="va-top">Residence Address</td><td class="va-top">:</td>
 				<td>
-					<textarea name="addr2_gn" id="addr2_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
+					<textarea onchange="useSameAddrFn();" name="addr2_gn" id="addr2_gn" cols="40" rows="3" class="input-text"><?php if(isset($addr2_gn)) echo $addr2_gn; ?></textarea>
 				</td>
 			</tr>
 			<!-- District -->
 			<tr>
 				<td>District</td><td>:</td>
 				<td>
-					<select name="addr2_ds" id="addr2_ds">
+					<select onchange="useSameAddrFn();" name="addr2_ds" id="addr2_ds">
 						<option value="--" <?php if(!isset($addr2_ds)) giveAttrib("--", "--", "selected='selected'"); ?>> --- </option>
 						<option value="CLT" <?php if(isset($addr2_ds)) giveAttrib("CLT",$addr2_ds,"selected='selected'"); ?>>Calicut</option>
 						<option value="MPM" <?php if(isset($addr2_ds)) giveAttrib("MPM",$addr2_ds,"selected='selected'"); ?>>Malappuram</option>
@@ -231,7 +232,7 @@
 			<!-- State -->
 			<tr>
 				<td>State</td><td>:</td>
-				<td><input type="text" size="40" name="addr2_st" id="addr2_st" class="input-text" value="<?php
+				<td><input onchange="useSameAddrFn();" type="text" size="40" name="addr2_st" id="addr2_st" class="input-text" value="<?php
 				if(isset($addr2_st))
 					echo $addr2_st;
 				else
@@ -241,7 +242,7 @@
 			<!-- PIN -->
 			<tr>
 				<td>PIN</td><td>:</td>
-				<td><input type="text" size="40" name="addr2_pin" id="addr2_pin" class="input-text" value="<?php if(isset($addr2_pin)) echo $addr2_pin; ?>"></td>
+				<td><input type="text" size="40" onchange="useSameAddrFn();" name="addr2_pin" id="addr2_pin" class="input-text" value="<?php if(isset($addr2_pin)) echo $addr2_pin; ?>"></td>
 			</tr>
 
 
@@ -408,11 +409,6 @@
 				<script type="text/javascript" src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
 				<script type="text/javascript" src="<?php echo base_url('js/jquery.plugin.js'); ?>"></script>
 				<script type="text/javascript" src="<?php echo base_url('js/jquery.datepick.js'); ?>"></script>
-			    <script type="text/javascript">
-			    //$(function() {
-					//$('#dob').datepick({dateFormat: 'dd/mm/yyyy'});
-				//});
-				</script>
 
 		<script type="text/javascript">
 			<?php if(!isset($new)) { ?>
@@ -620,11 +616,6 @@
 					document.getElementById("addr2_ds").selectedIndex = document.getElementById("addr1_ds").selectedIndex;
 					document.getElementById("addr2_st").value = document.getElementById("addr1_st").value;
 					document.getElementById("addr2_pin").value = document.getElementById("addr1_pin").value;
-				} else {
-					document.getElementById("addr2_gn").value = "";
-					document.getElementById("addr2_ds").selectedIndex= 0;
-					document.getElementById("addr2_st").value = "";
-					document.getElementById("addr2_pin").value = "";
 				}
 			}
 		</script>
