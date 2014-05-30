@@ -10,6 +10,7 @@ class Clientdb extends CI_Controller {
 			$this->session->sess_destroy();
 			$data['title'] = "Login";
 			$details['error'] = "Please login first!";
+			$details['company_name']= $this->config->item('company_name');
 
 			echo $this->load->view('template/header',$data,TRUE);
 			echo $this->load->view('template/login', $details,TRUE);
@@ -105,6 +106,7 @@ class Clientdb extends CI_Controller {
 			$clientData['sex'] = $this->input->post('sex');
 			$clientData['dob'] = $this->input->post('dob');
 			$clientData['cmpname'] = $this->input->post('cmpname');
+			$clientData['cmpdob'] = $this->input->post('cmpdob');
 			$clientData['status_cat1'] = $this->input->post('status_cat1');
 			$clientData['bus_cat2'] = $this->input->post('bus_cat2');
 			$clientData['regno'] = $this->input->post('regno');
@@ -119,6 +121,7 @@ class Clientdb extends CI_Controller {
 			$clientData['addr2_pin'] = $this->input->post('addr2_pin');
 			$clientData['phnos'] = $this->input->post('phnos');
 			$clientData['pan'] = $this->input->post('pan');
+			$clientData['cmppan'] = $this->input->post('cmppan');
 			$clientData['da_name'] = $this->input->post('da_name');
 			$clientData['da_exp'] = $this->input->post('da_exp');
 			$clientData['it_uname'] = $this->input->post('it_uname');
@@ -133,6 +136,12 @@ class Clientdb extends CI_Controller {
 			$clientData['micr'] = $this->input->post('micr');
 			$clientData['ifsc'] = $this->input->post('ifsc');
 			$clientData['branch'] = $this->input->post('branch');
+			$clientData['dscindex'] = $this->input->post('dscindex');
+			$clientData['signingauth_pan'] = $this->input->post('signingauth_pan');
+			$clientData['signingauth_fat_name'] = $this->input->post('signingauth_fat_name');
+			$clientData['carry_fwd_losses'] = $this->input->post('carry_fwd_losses');
+			$clientData['last_year_of_filing'] = $this->input->post('last_year_of_filing');
+			$clientData['vat_audit_applicable'] = $this->input->post('vat_audit_applicable');
 
 			if($arg == "add") {
 				$this->clientdb_model->insert($clientData);

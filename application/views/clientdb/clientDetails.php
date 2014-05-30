@@ -1,10 +1,11 @@
 <style type="text/css">
-.redtd {
-	color:red;
-	font-weight: bold;
-}
+	.redtd {
+		color:red;
+		font-weight: bold;
+		}
 </style>
 
+<!-- php starting div content, showing msg, styling errorloc, opening form -->
 <?php
 	if(isset($new) || isset($success))
 		echo "<div id='content'>";
@@ -34,12 +35,14 @@
 			echo $attrib;
 	}
 ?>
+
 	<fieldset> <!-- DONT REMOVE THIS FIELDSET, JS depends on it -->
+		<!-- legend -->
 		<?php
-		if(isset($new))
-			echo "<legend>Add a new Client</legend>\n";
-		else
-			echo "<legend>Client Details</legend>\n";
+			if(isset($new))
+				echo "<legend>Add a new Client</legend>\n";
+			else
+				echo "<legend>Client Details</legend>\n";
 		?>
 		
 		<table class="nostyle">
@@ -47,11 +50,11 @@
 
 			<!-- Client ID -->
 			<?php if($cid != '___') { ?>
-			<tr>
-				<td class="redtd">Client ID</td><td class="redtd">:</td>
-				<td class="redtd"><?php echo $cid; ?></td>
-				<?php echo form_hidden('cid',$cid); ?>
-			</tr>
+				<tr>
+					<td class="redtd">Client ID</td><td class="redtd">:</td>
+					<td class="redtd"><?php echo $cid; ?></td>
+					<?php echo form_hidden('cid',$cid); ?>
+				</tr>
 			<?php } ?>
 			
 
@@ -84,7 +87,6 @@
 				<td>
 				<input name="dob" id="dob" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($dob)) echo $dob; ?>" />
 				</td>
-
 			</tr>
 
 			
@@ -94,6 +96,14 @@
 				<td><input type="text" size="40" name="cmpname" class="input-text" value="<?php if(isset($cmpname)) echo $cmpname; ?>" /></td>
 			</tr>
 
+			
+			<!-- Company Date of Birth -->
+			<tr>
+				<td>Company DOB</td><td>:</td>
+				<td>
+				<input name="cmpdob" id="cmpdob" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($cmpdob)) echo $cmpdob; ?>" />
+				</td>
+			</tr>
 
 
 			<!-- Legal Structure - Category 1 -->
@@ -138,7 +148,6 @@
 					</select>
 				</td>
 			</tr>
-
 
 
 
@@ -197,14 +206,16 @@
 			</tr>
 			
 
+			<!--use same address -->
 			<tr>
-			<td><td>
-			<td>
-			<div id="useSameAddress" style="display:none">
-				<input type="checkbox" id="checkSameAddress" onclick="useSameAddrFn();" /> Use the same address for Residence Address
-			</div>
-			</td>
+				<td><td>
+				<td>
+				<div id="useSameAddress" style="display:none">
+					<input type="checkbox" id="checkSameAddress" onclick="useSameAddrFn();" /> Use the same address for Residence Address
+				</div>
+				</td>
 			</tr>
+
 			<!-- Residence Address -->
 			<tr>
 				<td class="va-top">Residence Address</td><td class="va-top">:</td>
@@ -246,7 +257,6 @@
 			</tr>
 
 
-
 			<!-- Phone Numbers -->
 			<tr>
 				<td class="va-top">Phone numbers</td><td class="va-top">:</td>
@@ -256,11 +266,17 @@
 			</tr>
 
 
-
 			<!-- PAN No -->
 			<tr>
-				<td>PAN No</td><td>:</td>
+				<td>Personnel PAN No</td><td>:</td>
 				<td><input type="text" size="40" name="pan" class="input-text" value="<?php if(isset($pan)) echo $pan; ?>" /></td>
+			</tr>
+
+
+			<!-- Company PAN No -->
+			<tr>
+				<td>Company PAN No</td><td>:</td>
+				<td><input type="text" size="40" name="cmppan" class="input-text" value="<?php if(isset($cmppan)) echo $cmppan; ?>" /></td>
 			</tr>
 			
 
@@ -273,7 +289,7 @@
 			<tr>
 				<td>Digital auth Expiry Date</td><td>:</td>
 				<td>
-				<input name="da_exp" id="da_exp" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($da_exp)) echo $da_exp; ?>" />
+				<input name="da_exp" id="da_exp" type="text" readonly='readonly' value="<?php if(isset($da_exp)) echo $da_exp; ?>" />
 				</td>
 			</tr>
 			
@@ -391,6 +407,57 @@
 				</td>
 			</tr>
 
+
+
+			<!-- DSC Index No. -->
+			<tr>
+				<td>DSC Index No.</td><td>:</td>
+				<td>
+					<input type="text" size="40" name="dscindex" class="input-text" value="<?php if(isset($dscindex)) echo $dscindex; ?>" />
+				</td>
+			</tr>
+
+			<!-- Signing authority PAN and Father's name -->
+			<tr>
+				<td>Signing Authority PAN</td><td>:</td>
+				<td>
+					<input type="text" size="40" name="signingauth_pan" class="input-text" value="<?php if(isset($signingauth_pan)) echo $signingauth_pan; ?>" />
+				</td>
+			</tr>
+			<tr>
+				<td>Signing Authority's Father's Name</td><td>:</td>
+				<td>
+					<input type="text" size="40" name="signingauth_fat_name" class="input-text" value="<?php if(isset($signingauth_fat_name)) echo $signingauth_fat_name; ?>" />
+				</td>
+			</tr>
+
+			<!-- Details of Carry Forward Losses -->
+			<tr>
+				<td class="va-top">Carry Forward Losses Details</td><td class="va-top">:</td>
+				<td>
+					<textarea name="carry_fwd_losses" cols="40" rows="4" class="input-text"><?php if(isset($carry_fwd_losses)) echo $carry_fwd_losses; ?></textarea>
+				</td>
+			</tr>
+
+			<!-- Last year of filing -->
+			<tr>
+				<td>Last year of Filing</td><td>:</td>
+				<td>
+					<input type="text" size="40" name="last_year_of_filing" class="input-text" value="<?php if(isset($last_year_of_filing)) echo $last_year_of_filing; ?>" />
+				</td>
+			</tr>
+
+			<!-- VAT Audit Applicable -->
+			<tr>
+				<td>VAT Audit Applicable</td><td>:</td>
+				<td>
+					<div id="vatAuditApplicableDiv">
+					</div>
+				</td>
+			</tr>
+
+
+
 			<!-- Edit, Save and Add Buttons -->
 			<tr>
 				<td>
@@ -405,18 +472,21 @@
 			</tr>
 		</tbody>
 		</table>
-				<link rel="stylesheet" href="<?php echo base_url('css/jquery.datepick.css'); ?>" type="text/css" />
-				<script type="text/javascript" src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
-				<script type="text/javascript" src="<?php echo base_url('js/jquery.plugin.js'); ?>"></script>
-				<script type="text/javascript" src="<?php echo base_url('js/jquery.datepick.js'); ?>"></script>
+		<link rel="stylesheet" href="<?php echo base_url('css/jquery.datepick.css'); ?>" type="text/css" />
+		<script type="text/javascript" src="<?php echo base_url('js/jquery.min.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo base_url('js/jquery.plugin.js'); ?>"></script>
+		<script type="text/javascript" src="<?php echo base_url('js/jquery.datepick.js'); ?>"></script>
 
 		<script type="text/javascript">
-			<?php if(!isset($new)) { ?>
+			//init disable, radiobuttons, use-same-address and dob-click
+			<?php
+				if(!isset($new)) { ?>
 					disableAll();
 				<?php }
 				else{ ?>
 					showSelStatusOfFiling();
 					showSelGender();
+					showSelVATAuditApplicable();
 					enableDOB();
 					document.getElementById('useSameAddress').style.display = "block";
 				<?php }
@@ -477,6 +547,23 @@
 				document.getElementById("genderDiv").innerHTML = text;
 			}
 
+			function showSelVATAuditApplicable()
+			{
+				var text="";
+				text += '<input name="vat_audit_applicable" type="radio" value="Y" ';
+				text += '<?php if(isset($vat_audit_applicable)) giveAttrib("Y",$vat_audit_applicable,'checked="checked"'); ?>>Yes'+"\n";
+				text += '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+"\n";
+				text += '<input name="vat_audit_applicable" type="radio" value="N" ';
+				text += '<?php
+						if(isset($vat_audit_applicable))
+							giveAttrib("N",$vat_audit_applicable,'checked="checked"');
+						else
+							echo 'checked="checked"';
+					?>';
+				text += '>No'+"\n";
+				document.getElementById("vatAuditApplicableDiv").innerHTML = text;
+			}
+
 			function showGender()
 			{
 				var text = "<?php 
@@ -491,6 +578,20 @@
 				document.getElementById("genderDiv").innerHTML = text;
 			}
 
+			function showVATAuditApplicable()
+			{
+				var text = "<?php
+					if(isset($vat_audit_applicable)) {
+						if($vat_audit_applicable == 'Y')
+							echo 'Yes';
+						else
+							echo 'No';
+					} else
+						echo 'unspecified';
+				?>";
+				document.getElementById("vatAuditApplicableDiv").innerHTML = text;
+			}
+
 			function enableDOB()
 			{
 				document.getElementById('dob').setAttribute('class','input-text');
@@ -500,6 +601,10 @@
 				document.getElementById('da_exp').setAttribute('class','input-text');
 				document.getElementById('da_exp').disabled = false;
 				$('#da_exp').datepick({dateFormat: 'dd/mm/yyyy'});
+
+				document.getElementById('cmpdob').setAttribute('class','input-text');
+				document.getElementById('cmpdob').disabled = false;
+				$('#cmpdob').datepick({dateFormat: 'dd/mm/yyyy'});
 			}
 
 			function disableDOB()
@@ -509,6 +614,9 @@
 
 				document.getElementById('da_exp').setAttribute('class','show-as-text');
 				document.getElementById('da_exp').disabled = true;
+
+				document.getElementById('cmpdob').setAttribute('class','show-as-text');
+				document.getElementById('cmpdob').disabled = true;
 			}
 
 			function enableAll()
@@ -549,6 +657,7 @@
 
 				showSelGender();
 				showSelStatusOfFiling();
+				showSelVATAuditApplicable();
 				hideLVUpdate();
 
 				document.getElementById('useSameAddress').style.display = "block";
@@ -589,6 +698,7 @@
 				disableDOB();
 
 				showGender();
+				showVATAuditApplicable();
 				showStatusOfFiling();
 				showLVUpdate();
 
@@ -648,6 +758,9 @@
 		frmValidator.addValidation("cmpname","req","Company Name not entered");
 		frmValidator.addValidation("cmpname","maxlen=100","Company name can't exceed 100 characters");
 
+		//cmpdob
+		//frmValidator.addValidation("cmpdob", "req", "Company DOB not entered");
+
 		//status_cat1
 		frmValidator.addValidation("status_cat1","dontselect='--'","Choose Legal Structure");
 
@@ -655,7 +768,7 @@
 		frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
 
 		//regno
-		frmValidator.addValidation("regno","req","Registration Number not entered");
+		//frmValidator.addValidation("regno","req","Registration Number not entered");
 		frmValidator.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
 
 		//email
@@ -701,6 +814,11 @@
 		frmValidator.addValidation("pan", "maxlen=10", "Invalid PAN number");
 		frmValidator.addValidation("pan", "minlen=10", "Invalid PAN number");
 		frmValidator.addValidation("pan", "alnum", "Invalid PAN number");
+
+		//company pan
+		frmValidator.addValidation("cmppan", "maxlen=10", "Invalid Company PAN number");
+		frmValidator.addValidation("cmppan", "minlen=10", "Invalid Company PAN number");
+		frmValidator.addValidation("cmppan", "alnum", "Invalid Company PAN number");
 
 		//da_name
 		frmValidator.addValidation("da_name", "maxlen=50", "Digital Auth name can't exceed 50 characters");
@@ -751,5 +869,19 @@
 		//branch
 		frmValidator.addValidation("branch", "req", "Bank Branch not entered");
 		frmValidator.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
+
+
+		//dscindex
+
+		//signingauth_pan
+
+		//signingauth_fat_name
+
+		//carry_fwd_losses
+
+		//last_year_of_filing
+
+		//vat_audit_applicable
+
 	</script>
 </div>

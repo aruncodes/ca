@@ -2,13 +2,12 @@
 class Clientdb_model extends CI_Model {
 	function insert($clientData)
 	{
-		//if(!$this->isPresent($clientData['cid']))
-		$this->db->insert('client', $clientData);
+		if(!$this->isPresentPAN($clientData['pan']))
+			$this->db->insert('client', $clientData);
 	}
 	function modify($clientData)
 	{
-		$this->db->delete('client', array('cid'=>$clientData['cid']));
-		$this->insert($clientData);
+		$this->db->update('client', $clientData, array('cid'=>$clientData['cid']));
 	}
 	function deleteClient($cid)
 	{
@@ -18,14 +17,6 @@ class Clientdb_model extends CI_Model {
 		$this->db->delete('services', array('cid'=>$cid));
 	}
 
-	/*function getCid()
-	{
-		$this->db->select_max('cid');
-		$query = $this->db->get('client');
-		if($query->result_array()[0]['cid'] == "")
-			return 100;
-		return $query->result_array()[0]['cid'] + 1;
-	}*/
 
 	function getCid($pan)
 	{
@@ -38,6 +29,14 @@ class Clientdb_model extends CI_Model {
 	{
 		$this->db->select('*');
 		$this->db->where(array('cid' => $cid));
+		$query = $this->db->get('client');
+		return $query->num_rows();
+	}
+
+	function isPresentPAN($pan)
+	{
+		$this->db->select('*');
+		$this->db->where(array('pan' => $pan));
 		$query = $this->db->get('client');
 		return $query->num_rows();
 	}

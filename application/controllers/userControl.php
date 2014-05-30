@@ -8,6 +8,7 @@ class UserControl extends CI_Controller {
 			$this->session->sess_destroy();
 			$data['title'] = "Login";
 			$details['error'] = "Please login first!";
+			$details['company_name']= $this->config->item('company_name');
 
 			echo $this->load->view('template/header',$data,TRUE);
 			echo $this->load->view('template/login', $details,TRUE);
