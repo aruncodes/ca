@@ -51,7 +51,7 @@
 				<li<?php echo giveSubID('existingClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/existingClient'); ?>">Existing Client</a></li>
 				<li<?php echo giveSubID('addNewClient', $page); ?>><a href="<?php echo base_url('index.php/clientdb/addClient'); ?>">New Client</a></li>
 				<li<?php echo giveSubID('listClients', $page); ?>><a href="<?php echo base_url('index.php/clientdb/listClients'); ?>">Search Clients</a></li>
-				<ul><li><a  href="<?php echo base_url('index.php/admin/generate_xls'); ?>">Export Client List</a></li></ul>
+				<li><a  href="<?php echo base_url('index.php/admin/generate_xls'); ?>">Export Client List</a></li>
 			</ul>
 
 		</div> <!-- /aside -->

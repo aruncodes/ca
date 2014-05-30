@@ -383,7 +383,8 @@ class Admin extends CI_Controller {
 	         }
 	   $xls = new Excel_XML;
 	   $xls->addArray ($field_array);
-	   $xls->addArray ($data_array);
+	   if(isset($data_array))
+	   		$xls->addArray ($data_array);
 	   $xls->generateXML ( "client_list" );
 	}
 }
