@@ -22,15 +22,15 @@ class Clientdb_model extends CI_Model {
 	{
 		$this->db->select('cid');
 
-		$this->db->where('name', $arg[0]);
-		$this->db->where('fatname', $arg[1]);
-		$this->db->where('dob', $arg[2]);
+		$this->db->where('status_cat1', $arg[0]);
+		$this->db->where('bus_cat2', $arg[1]);
+		$this->db->where('email', $arg[2]);
 		$this->db->where('cmpname', $arg[3]);
-		$this->db->where('cmpdob', $arg[4]);
-		$this->db->where('status_cat1', $arg[5]);
-		$this->db->where('bus_cat2', $arg[6]);
-		$this->db->where('regno', $arg[7]);
-		$this->db->where('email', $arg[8]);
+		$this->db->where('bank_name', $arg[4]);
+		$this->db->where('acno', $arg[5]);
+		$this->db->where('micr', $arg[6]);
+		$this->db->where('ifsc', $arg[7]);
+		$this->db->where('branch', $arg[8]);
 		$this->db->where('pan',$arg[9]);
 
 		$query = $this->db->get('client');

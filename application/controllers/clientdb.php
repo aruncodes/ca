@@ -145,15 +145,15 @@ class Clientdb extends CI_Controller {
 				$this->clientdb_model->insert($clientData);
 
 				$args = array();
-				$args[0] = $clientData['name'];
-				$args[1] = $clientData['fatname'];
-				$args[2] = $clientData['dob'];
+				$args[0] = $clientData['status_cat1'];
+				$args[1] = $clientData['bus_cat2'];
+				$args[2] = $clientData['email'];
 				$args[3] = $clientData['cmpname'];
-				$args[4] = $clientData['cmpdob'];
-				$args[5] = $clientData['status_cat1'];
-				$args[6] = $clientData['bus_cat2'];
-				$args[7] = $clientData['regno'];
-				$args[8] = $clientData['email'];
+				$args[4] = $clientData['bank_name'];
+				$args[5] = $clientData['acno'];
+				$args[6] = $clientData['micr'];
+				$args[7] = $clientData['ifsc'];
+				$args[8] = $clientData['branch'];
 				$args[9] = $clientData['pan'];
 
 				$cid = $this->clientdb_model->getCid($args);

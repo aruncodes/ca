@@ -59,20 +59,20 @@
 			
 
 			<!-- NAME -->
-			<tr>
+			<tr id="nameRow">
 				<td>Name of the personnel</td><td>:</td>
 				<td><input type="text" size="40" name="name" class="input-text" value="<?php if(isset($name)) echo $name; ?>"></td>
 			</tr>
 			
 			<!-- Father's NAME -->
-			<tr>
+			<tr id="fatnameRow">
 				<td>Father's name</td><td>:</td>
 				<td><input type="text" size="40" name="fatname" class="input-text" value="<?php if(isset($fatname)) echo $fatname; ?>"></td>
 			</tr>
 		
 
 			<!-- Gender -->
-			<tr>
+			<tr id="sexRow">
 				<td>Gender</td><td>:</td>
 				<td>
 					<div id="genderDiv">
@@ -82,7 +82,7 @@
 
 
 			<!-- Date of Birth -->
-			<tr>
+			<tr id="dobRow">
 				<td>DOB</td><td>:</td>
 				<td>
 				<input name="dob" id="dob" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($dob)) echo $dob; ?>" />
@@ -91,14 +91,14 @@
 
 			
 			<!-- Company Name -->
-			<tr>
+			<tr id="cmpnameRow">
 				<td>Company name</td><td>:</td>
 				<td><input type="text" size="40" name="cmpname" class="input-text" value="<?php if(isset($cmpname)) echo $cmpname; ?>" /></td>
 			</tr>
 
 			
 			<!-- Company Date of Birth -->
-			<tr>
+			<tr id="cmpdobRow">
 				<td>Company DOB</td><td>:</td>
 				<td>
 				<input name="cmpdob" id="cmpdob" type="text" placeholder='dd/mm/yyyy' readonly='readonly' value="<?php if(isset($cmpdob)) echo $cmpdob; ?>" />
@@ -110,9 +110,9 @@
 			<tr>
 				<td>Legal Structure</td><td>:</td>
 				<td>
-					<select name="status_cat1">
+					<select name="status_cat1" id="status_cat1" onchange="modifyFormAccToLegalStr();">
 						<option value="--" <?php if(!isset($status_cat1)) giveAttrib("000","000", "selected='selected'"); ?>>---</option>
-						<option value="LB" <?php if(isset($status_cat1)) giveAttrib("LB",$status_cat1,"selected='selected'"); ?>>LLB</option>
+						<option value="LP" <?php if(isset($status_cat1)) giveAttrib("LP",$status_cat1,"selected='selected'"); ?>>LLP</option>
 						<option value="FM" <?php if(isset($status_cat1)) giveAttrib("FM",$status_cat1,"selected='selected'"); ?>>Firm</option>
 						<option value="CO" <?php if(isset($status_cat1)) giveAttrib("CO",$status_cat1,"selected='selected'"); ?>>Company</option>
 						<option value="IL" <?php if(isset($status_cat1)) giveAttrib("IL",$status_cat1,"selected='selected'"); ?>>Individual</option>
@@ -152,7 +152,7 @@
 
 
 			<!-- Registration no -->
-			<tr>
+			<tr id="regnoRow">
 				<td>Registration No</td><td>:</td>
 				<td><input type="text" size="40" name="regno" class="input-text" value="<?php if(isset($regno)) echo $regno; ?>" /></td>
 			</tr>
@@ -274,7 +274,7 @@
 
 
 			<!-- Company PAN No -->
-			<tr>
+			<tr id="cmppanRow">
 				<td>Company PAN No</td><td>:</td>
 				<td><input type="text" size="40" name="cmppan" class="input-text" value="<?php if(isset($cmppan)) echo $cmppan; ?>" /></td>
 			</tr>
@@ -418,7 +418,7 @@
 			</tr>
 
 			<!-- Signing authority PAN and Father's name -->
-			<tr>
+			<tr id="signingauth_panRow">
 				<td>Signing Authority PAN</td><td>:</td>
 				<td>
 					<input type="text" size="40" name="signingauth_pan" class="input-text" value="<?php if(isset($signingauth_pan)) echo $signingauth_pan; ?>" />
@@ -432,7 +432,7 @@
 			</tr>
 
 			<!-- Details of Carry Forward Losses -->
-			<tr>
+			<tr id="carry_fwd_lossesRow">
 				<td class="va-top">Carry Forward Losses Details</td><td class="va-top">:</td>
 				<td>
 					<textarea name="carry_fwd_losses" cols="40" rows="4" class="input-text"><?php if(isset($carry_fwd_losses)) echo $carry_fwd_losses; ?></textarea>
@@ -736,152 +736,299 @@
 	<!-- VALIDATION -->
 	<script type="text/javascript">
 		var frmValidator = new Validator("addClient");
-
 		frmValidator.EnableOnPageErrorDisplaySingleBox();
 		frmValidator.EnableMsgsTogether();
+		frmValidator.EnableFocusOnError(false);
 
-		//client name
-		frmValidator.addValidation("name","req","Name not entered.");
-		frmValidator.addValidation("name","maxlen=50","Name can't exceed 50 characters");
-		frmValidator.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
-		
-		//fatname
-		frmValidator.addValidation("fatname","req","Father's Name not entered");
-		frmValidator.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
-		frmValidator.addValidation("fatname","regexp=^[a-zA-Z\ \.]*$","Father's name invalid");
+		//VALIDATIONS COMMON FOR EVERY LEGAL STRUCTURE
+		function setValidationsCommon(fv)
+		{
+			//cmpname
+			fv.addValidation("cmpname","req","Company Name not entered");
+			fv.addValidation("cmpname","maxlen=100","Company name can't exceed 100 characters");
+
+			//status_cat1
+			fv.addValidation("status_cat1","dontselect=--","Choose Legal Structure");
+
+			//bus_cat2
+			fv.addValidation("bus_cat2","dontselect=--","Choose Business Category");
+
+			//email
+			fv.addValidation("email","req","Email ID not entered");
+			fv.addValidation("email","maxlen=150","Email ID can't exceed 150 characters");
+			fv.addValidation("email","email","Invalid Email ID");
+
+			//addr1_gn
+			fv.addValidation("addr1_gn","req","Office Address not entered");
+
+			//addr1_ds
+			fv.addValidation("addr1_ds","dontselect=--","Choose District (Office Address)");
+
+			//addr1_st
+			fv.addValidation("addr1_st","req","State (Office Address) not entered");
+			fv.addValidation("addr1_st", "maxlen=20", "State (Office Address) can't exceed 20 characters");
+
+			//addr1_pin
+			fv.addValidation("addr1_pin","maxlen=6","Invalid PIN Code (Office Address)");
+			fv.addValidation("addr1_pin","minlen=6","Invalid PIN Code (Office Address)");
+			fv.addValidation("addr1_pin","num","Invalid PIN Code (Office Address)");
+			
+
+			//addr2_gn
+			fv.addValidation("addr2_gn","req","Residence Address not entered");
+
+			//addr2_ds
+			fv.addValidation("addr2_ds","dontselect=--","Choose District (Residence Address)");
+
+			//addr2_st
+			fv.addValidation("addr2_st","req","State (Residence Address) not entered");
+			fv.addValidation("addr2_st", "maxlen=20", "State (Residence Address) can't exceed 20 characters");
+
+			//addr2_pin
+			fv.addValidation("addr2_pin","maxlen=6","Invalid PIN Code (Residence Address)");
+			fv.addValidation("addr2_pin","minlen=6","Invalid PIN Code (Residence Address)");
+			fv.addValidation("addr2_pin","num","Invalid PIN Code (Residence Address)");
+
+			//phnos
+			fv.addValidation("phnos","req","Contact numbers not entered");
+
+			//pan
+			fv.addValidation("pan", "maxlen=10", "Invalid PAN number");
+			fv.addValidation("pan", "minlen=10", "Invalid PAN number");
+			fv.addValidation("pan", "alnum", "Invalid PAN number");
 
 
-		//dob
-		frmValidator.addValidation("dob", "req", "DOB not entered");
+			//da_name
+			fv.addValidation("da_name", "maxlen=50", "Digital Auth name can't exceed 50 characters");
+			//fv.addValidation("da_name", "req", "Please enter Digital Auth Name");
 
-		//cmpname
-		frmValidator.addValidation("cmpname","req","Company Name not entered");
-		frmValidator.addValidation("cmpname","maxlen=100","Company name can't exceed 100 characters");
+			//da_exp
+			//fv.addValidation("da_exp", "req", "Please enter Digital Auth Expiry Date");
 
+			//it_uname
+			//fv.addValidation("it_uname", "req", "IT Username not entered");
+			fv.addValidation("it_uname", "maxlen=30", "IT username can't exceed 30 characters");
+
+			//it_pass
+			//fv.addValidation("it_pass", "req", "IT Password not entered");
+			fv.addValidation("it_pass", "maxlen=30", "IT password can't exceed 30 characters");
+
+			//st_uname
+			//fv.addValidation("st_uname", "req", "Sales Tax Username not entered");
+			fv.addValidation("st_uname", "maxlen=30", "Sales Tax username can't exceed 30 characters");
+
+			//st_pass
+			//fv.addValidation("st_pass", "req", "Sales Tax Password not entered");
+			fv.addValidation("st_pass", "maxlen=30", "Sales Tax password can't exceed 30 characters");
+
+			//tid
+			fv.addValidation("tid","dontselect=-","Choose Team");
+
+			//bank_name
+			fv.addValidation("bank_name", "req", "Bank Name not entered");
+			fv.addValidation("bank_name", "maxlen=50", "Bank name can't exceed 50 characters");
+
+			//acno
+			fv.addValidation("acno", "req", "Bank Account Number not entered");
+			fv.addValidation("acno", "maxlen=30", "Account Number can't exceed 30 characters");
+
+			//micr
+			fv.addValidation("micr", "req", "MICR Code not entered");
+			fv.addValidation("micr", "maxlen=20", "MICR Code can't exceed 20 characters");
+
+			//ifsc
+			fv.addValidation("ifsc", "alnum", "Invalid IFSC Code");
+			fv.addValidation("ifsc", "maxlen=11", "Invalid IFSC Code");
+			fv.addValidation("ifsc", "minlen=11", "Invalid IFSC Code");
+
+			//branch
+			fv.addValidation("branch", "req", "Bank Branch not entered");
+			fv.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
+		}
+
+		//VALIDATIONS not yet HANDLED
+			//dscindex
+			//signingauth_fat_name
+			//last_year_of_filing
+			//vat_audit_applicable
+
+		function displayAllRows()
+		{
+			document.getElementById('fatnameRow').style.display = "table-row";
+			document.getElementById('regnoRow').style.display = "table-row";
+			document.getElementById('dobRow').style.display = "table-row";
+			document.getElementById('cmpdobRow').style.display = "table-row";
+			document.getElementById('cmppanRow').style.display = "table-row";
+			document.getElementById('signingauth_panRow').style.display = "table-row";
+			document.getElementById('carry_fwd_lossesRow').style.display = "table-row";
+			document.getElementById('nameRow').style.display = "table-row";
+			document.getElementById('sexRow').style.display = "table-row";
+		}
+
+		function validateCO_LP(fv)
+		{
+			fv.clearAllValidations();
+			setValidationsCommon(fv);
+			
+			//cmpdob
+			//fv.addValidation("cmpdob", "req", "Company DOB not entered");
+			
+			//company pan
+			fv.addValidation("cmppan", "maxlen=10", "Invalid Company PAN number");
+			fv.addValidation("cmppan", "minlen=10", "Invalid Company PAN number");
+			fv.addValidation("cmppan", "alnum", "Invalid Company PAN number");
+			
+			//signingauth_pan
+			//carry_fwd_losses
+			
+			//dob
+			fv.addValidation("dob", "req", "DOB not entered");
+
+			//client name
+			fv.addValidation("name","req","Name not entered.");
+			fv.addValidation("name","maxlen=50","Name can't exceed 50 characters");
+			fv.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
+
+			//NOT FOR COMPANIES --- fatname, regno
+			displayAllRows();
+			document.getElementById('fatnameRow').style.display = "none";
+			document.getElementById('regnoRow').style.display = "none";
+		}
+		function validateFM(fv)
+		{
+			fv.clearAllValidations();
+			setValidationsCommon(fv);
+
+			//cmpdob
+			//fv.addValidation("cmpdob", "req", "Company DOB not entered");
+					
+			//company pan
+			fv.addValidation("cmppan", "maxlen=10", "Invalid Company PAN number");
+			fv.addValidation("cmppan", "minlen=10", "Invalid Company PAN number");
+			fv.addValidation("cmppan", "alnum", "Invalid Company PAN number");
+			
+			//signingauth_pan
+			//carry_fwd_losses
+			
+			//client name
+			fv.addValidation("name","req","Name not entered.");
+			fv.addValidation("name","maxlen=50","Name can't exceed 50 characters");
+			fv.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
+			
+			//NOT FOR FIRMS --- fatname, dob and regno
+			displayAllRows();
+			document.getElementById('fatnameRow').style.display = "none";
+			document.getElementById('regnoRow').style.display = "none";
+			document.getElementById('dobRow').style.display = "none";
+		}
+		function validateIL(fv)
+		{
+			fv.clearAllValidations();
+			setValidationsCommon(fv);
+
+			//fatname
+			fv.addValidation("fatname","req","Father's Name not entered");
+			fv.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
+			fv.addValidation("fatname","regexp=^[a-zA-Z\ \.]*$","Father's name invalid");
+			
+			//dob
+			fv.addValidation("dob", "req", "DOB not entered");
+
+			//client name
+			fv.addValidation("name","req","Name not entered.");
+			fv.addValidation("name","maxlen=50","Name can't exceed 50 characters");
+			fv.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
+
+			//NOT FOR INDIVIDUALS - cmpdob, regno, company pan, signingauth_pan, carry_fwd_losses
+			displayAllRows();
+			document.getElementById('regnoRow').style.display = "none";
+			document.getElementById('cmpdobRow').style.display = "none";
+			document.getElementById('cmppanRow').style.display = "none";
+			document.getElementById('signingauth_panRow').style.display = "none";
+			document.getElementById('carry_fwd_lossesRow').style.display = "none";
+		}
+		function validateTR(fv)
+		{
+			fv.clearAllValidations();
+			setValidationsCommon(fv);
+			
+			//cmpdob
+			//fv.addValidation("cmpdob", "req", "Company DOB not entered");
+			
+			//regno
+			//fv.addValidation("regno","req","Registration Number not entered");
+			fv.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
+			
+			//company pan
+			fv.addValidation("cmppan", "maxlen=10", "Invalid Company PAN number");
+			fv.addValidation("cmppan", "minlen=10", "Invalid Company PAN number");
+			fv.addValidation("cmppan", "alnum", "Invalid Company PAN number");
+			
+			//signingauth_pan
+			//carry_fwd_losses
+			
+			//NOT FOR TRUSTS --- name, fatname, sex, dob
+			displayAllRows();
+			document.getElementById('fatnameRow').style.display = "none";
+			document.getElementById('dobRow').style.display = "none";
+			document.getElementById('nameRow').style.display = "none";
+			document.getElementById('sexRow').style.display = "none";
+		}
+
+		/*
+		//GUIDE---------------------VALIDATION
+		//NOT FOR INDIVIDUALS
 		//cmpdob
-		//frmValidator.addValidation("cmpdob", "req", "Company DOB not entered");
-
-		//status_cat1
-		frmValidator.addValidation("status_cat1","dontselect=--","Choose Legal Structure");
-
-		//bus_cat2
-		frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
-
+		//fv.addValidation("cmpdob", "req", "Company DOB not entered");
 		//regno
-		//frmValidator.addValidation("regno","req","Registration Number not entered");
-		frmValidator.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
-
-		//email
-		frmValidator.addValidation("email","req","Email ID not entered");
-		frmValidator.addValidation("email","maxlen=150","Email ID can't exceed 150 characters");
-		frmValidator.addValidation("email","email","Invalid Email ID");
-
-		//addr1_gn
-		frmValidator.addValidation("addr1_gn","req","Office Address not entered");
-
-		//addr1_ds
-		frmValidator.addValidation("addr1_ds","dontselect=--","Choose District (Office Address)");
-
-		//addr1_st
-		frmValidator.addValidation("addr1_st","req","State (Office Address) not entered");
-		frmValidator.addValidation("addr1_st", "maxlen=20", "State (Office Address) can't exceed 20 characters");
-
-		//addr1_pin
-		frmValidator.addValidation("addr1_pin","maxlen=6","Invalid PIN Code (Office Address)");
-		frmValidator.addValidation("addr1_pin","minlen=6","Invalid PIN Code (Office Address)");
-		frmValidator.addValidation("addr1_pin","num","Invalid PIN Code (Office Address)");
-		
-
-		//addr2_gn
-		frmValidator.addValidation("addr2_gn","req","Residence Address not entered");
-
-		//addr2_ds
-		frmValidator.addValidation("addr2_ds","dontselect=--","Choose District (Residence Address)");
-
-		//addr2_st
-		frmValidator.addValidation("addr2_st","req","State (Residence Address) not entered");
-		frmValidator.addValidation("addr2_st", "maxlen=20", "State (Residence Address) can't exceed 20 characters");
-
-		//addr2_pin
-		frmValidator.addValidation("addr2_pin","maxlen=6","Invalid PIN Code (Residence Address)");
-		frmValidator.addValidation("addr2_pin","minlen=6","Invalid PIN Code (Residence Address)");
-		frmValidator.addValidation("addr2_pin","num","Invalid PIN Code (Residence Address)");
-
-		//phnos
-		frmValidator.addValidation("phnos","req","Contact numbers not entered");
-
-		//pan
-		frmValidator.addValidation("pan", "maxlen=10", "Invalid PAN number");
-		frmValidator.addValidation("pan", "minlen=10", "Invalid PAN number");
-		frmValidator.addValidation("pan", "alnum", "Invalid PAN number");
-
+		//fv.addValidation("regno","req","Registration Number not entered");
+		fv.addValidation("regno","maxlen=20","Registration Number can't exceed 20 characters");
 		//company pan
-		frmValidator.addValidation("cmppan", "maxlen=10", "Invalid Company PAN number");
-		frmValidator.addValidation("cmppan", "minlen=10", "Invalid Company PAN number");
-		frmValidator.addValidation("cmppan", "alnum", "Invalid Company PAN number");
-
-		//da_name
-		frmValidator.addValidation("da_name", "maxlen=50", "Digital Auth name can't exceed 50 characters");
-		//frmValidator.addValidation("da_name", "req", "Please enter Digital Auth Name");
-
-		//da_exp
-		//frmValidator.addValidation("da_exp", "req", "Please enter Digital Auth Expiry Date");
-
-		//it_uname
-		//frmValidator.addValidation("it_uname", "req", "IT Username not entered");
-		frmValidator.addValidation("it_uname", "maxlen=30", "IT username can't exceed 30 characters");
-
-		//it_pass
-		//frmValidator.addValidation("it_pass", "req", "IT Password not entered");
-		frmValidator.addValidation("it_pass", "maxlen=30", "IT password can't exceed 30 characters");
-
-		//st_uname
-		//frmValidator.addValidation("st_uname", "req", "Sales Tax Username not entered");
-		frmValidator.addValidation("st_uname", "maxlen=30", "Sales Tax username can't exceed 30 characters");
-
-		//st_pass
-		//frmValidator.addValidation("st_pass", "req", "Sales Tax Password not entered");
-		frmValidator.addValidation("st_pass", "maxlen=30", "Sales Tax password can't exceed 30 characters");
-
-		//tid
-		frmValidator.addValidation("tid","dontselect=-","Choose Team");
-
-		//lvdate
-		//frmValidator.addValidation("lvdate", "req", "Please enter Last Visited Date");
-
-		//bank_name
-		frmValidator.addValidation("bank_name", "req", "Bank Name not entered");
-		frmValidator.addValidation("bank_name", "maxlen=50", "Bank name can't exceed 50 characters");
-
-		//acno
-		frmValidator.addValidation("acno", "req", "Bank Account Number not entered");
-		frmValidator.addValidation("acno", "maxlen=30", "Account Number can't exceed 30 characters");
-
-		//micr
-		frmValidator.addValidation("micr", "req", "MICR Code not entered");
-		frmValidator.addValidation("micr", "maxlen=20", "MICR Code can't exceed 20 characters");
-
-		//ifsc
-		frmValidator.addValidation("ifsc", "alnum", "Invalid IFSC Code");
-		frmValidator.addValidation("ifsc", "maxlen=11", "Invalid IFSC Code");
-		frmValidator.addValidation("ifsc", "minlen=11", "Invalid IFSC Code");
-
-		//branch
-		frmValidator.addValidation("branch", "req", "Bank Branch not entered");
-		frmValidator.addValidation("branch","maxlen=50","Bank Branch Name can't exceed 50 characters");
-
-
-		//dscindex
-
+		fv.addValidation("cmppan", "maxlen=10", "Invalid Company PAN number");
+		fv.addValidation("cmppan", "minlen=10", "Invalid Company PAN number");
+		fv.addValidation("cmppan", "alnum", "Invalid Company PAN number");
 		//signingauth_pan
-
-		//signingauth_fat_name
-
 		//carry_fwd_losses
+		
+		//NOT FOR FIRMS --- these and regno
+		//fatname
+		fv.addValidation("fatname","req","Father's Name not entered");
+		fv.addValidation("fatname", "maxlen=50", "Father's name can't exceed 50 characters");
+		fv.addValidation("fatname","regexp=^[a-zA-Z\ \.]*$","Father's name invalid");
+		//dob
+		fv.addValidation("dob", "req", "DOB not entered");
 
-		//last_year_of_filing
+		//NOT FOR COMPANIES --- fatname, regno
 
-		//vat_audit_applicable
+		//NOT FOR TRUSTS --- this and fatname, sex, dob
+		//client name
+		fv.addValidation("name","req","Name not entered.");
+		fv.addValidation("name","maxlen=50","Name can't exceed 50 characters");
+		fv.addValidation("name","regexp=^[a-zA-Z\ \.]*$","Invalid name");
+		*/
+
+
+		function modifyFormAccToLegalStr()
+		{
+			frmValidator.EnableFocusOnError(false);
+			
+			var ls = document.getElementById('status_cat1').value;
+			if(ls == 'LP' || ls == 'CO')
+				validateCO_LP(frmValidator);
+			else if(ls == 'FM')
+				validateFM(frmValidator);
+			else if(ls == 'IL')
+				validateIL(frmValidator);
+			else if(ls == 'TR')
+				validateTR(frmValidator);
+			else {
+				displayAllRows();
+				frmValidator.clearAllValidations();
+				setValidationsCommon(frmValidator);
+			}
+		}
+		setValidationsCommon(frmValidator);
+		modifyFormAccToLegalStr();
 
 	</script>
 </div>
