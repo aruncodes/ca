@@ -762,7 +762,7 @@
 		//frmValidator.addValidation("cmpdob", "req", "Company DOB not entered");
 
 		//status_cat1
-		frmValidator.addValidation("status_cat1","dontselect='--'","Choose Legal Structure");
+		frmValidator.addValidation("status_cat1","dontselect=--","Choose Legal Structure");
 
 		//bus_cat2
 		frmValidator.addValidation("bus_cat2","dontselect=--","Choose Business Category");
