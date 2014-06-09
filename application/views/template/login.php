@@ -6,7 +6,7 @@
 		<!-- Content (Right Column) -->
 		<div id="content" class="box loginfield">
 
-			<h1><?php echo $company_name; ?></h1>
+			<h1 style="text-align:center;"><img src="<?php echo base_url('tmp/logo_only.gif'); ?>" style=" height: 50px; margin-right:20px;"><span style="vertical-align:15px;color:#0085cc;"><?php echo $company_name; ?></span></h1>
 				<?php
 				if(isset($error))
 					echo "<p class='msg error'>$error</p>\n";

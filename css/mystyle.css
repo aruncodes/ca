@@ -74,3 +74,7 @@ input.image-button{
 	.add-row {
 		background: #fcbabc;
 	}
+	.logo-top {
+		padding-left: 50px;
+		background: url('../tmp/logo_only.png') no-repeat center left;
+	}

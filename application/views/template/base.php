@@ -2,7 +2,6 @@
 
 	<!-- Tray -->
 	<div id="tray" class="box">
-
 		<p class="f-left box">
 			<strong><?php echo $this->config->item('company_name'); ?></strong>
 		</p>

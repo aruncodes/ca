@@ -15,7 +15,7 @@
 |
 */
 $config['base_url']	= '/ca';
-$config['company_name'] = 'My Company';
+$config['company_name'] = 'P.A. Hameed & Associates';
 
 /*
 |--------------------------------------------------------------------------
