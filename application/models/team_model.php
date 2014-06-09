@@ -63,7 +63,7 @@
 		}
 		function getNoTeamClients(){
 
-			$this->db->select('cid,name');
+			$this->db->select('cid,name,cmpname');
 			$this->db->where(array('tid'=>"-"));
 
 			$query = $this->db->get('client');
