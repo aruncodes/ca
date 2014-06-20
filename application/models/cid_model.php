@@ -2,6 +2,12 @@
 	class Cid_model extends CI_Model {
 		
 		/*
+		* Funtions to use:
+		*	1. getRealCID()
+		*	2. getInCID()
+		*/
+
+		/*
 			Input: First char for structure followed by number. Ec: C1, C32, I56
 			Output: Corresponding CID of that client
 		*/
@@ -60,6 +66,20 @@
 
 				default: return '--';
 			}
+		}
+
+		function getInCID($cid) {
+
+			$this->db->select('in_cid,status_cat1');
+			$this->db->where(array('cid' => $cid));
+			$query = $this->db->get('client');
+
+			$result = $query->result_array();
+
+			if(count($result) == 0)
+				return 0;
+
+			else return $result[0]['status_cat1'][0].$result[0]['in_cid'];
 		}
 	}
 
