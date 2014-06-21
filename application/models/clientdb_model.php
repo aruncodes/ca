@@ -2,8 +2,18 @@
 class Clientdb_model extends CI_Model {
 	function insert($clientData)
 	{
-		if(!$this->isPresentPAN($clientData['pan']))
+		if(!$this->isPresentPAN($clientData['pan'])) {
+
+			$this->db->query("LOCK TABLES client WRITE");
+
+			$this->db->select_max('in_cid')->where('status_cat1', $clientData['status_cat1']);
+			$query = $this->db->get('client');
+			$clientData['in_cid'] = $query->result_array()[0]['in_cid'] + 1;
+
 			$this->db->insert('client', $clientData);
+
+			$this->db->query("UNLOCK TABLES");
+		}
 	}
 	function modify($clientData)
 	{
@@ -66,33 +76,24 @@ class Clientdb_model extends CI_Model {
 		$query = $this->db->get('client');
 		$row = $query->result()[0];
 		$clientData = (array)$row;
-
-		$this->db->select('service');
-		$this->db->where(array('cid' => $cid));
-		$query = $this->db->get('services');
-
-		if($query->num_rows() == 0)
-			$services = "none";
-		else {
-			$services = array();
-			foreach($query->result() as $row) {
-				array_push($services, $row->service);
-			}
-		}
-
-		$clientData['services'] = $services;
 		return $clientData;
 	}
 
 	function getCIDs($pan = "none")
 	{
-		$this->db->select('cid, cmpname, name, status_cat1');
+		$this->db->select('cid, cmpname, name, status_cat1, in_cid');
 		if($pan != "none")
 			$this->db->where('pan',$pan);
 		$query = $this->db->get('client');
 		if($query->num_rows() == 0)
 			return array('error'=>TRUE);
-		return array('cids'=>$query->result_array());
+		$result = $query->result_array();
+		$cnt = 0;
+		foreach($result as $row) {
+			$result[$cnt]['cid'] = $result[$cnt]['status_cat1'][0].$result[$cnt]['in_cid'];
+			$cnt++;
+		}
+		return array('cids'=>$result);
 	}
 
 	function updateLVDate($cid)

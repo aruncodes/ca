@@ -85,4 +85,6 @@
 
 	// $c = new Cid_model;
 	// echo $c->getRealCID("I1");
+
+	//CHANGES TO BE REFLECTED IN clientdb_model->getCIDs()
 ?>

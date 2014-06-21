@@ -59,6 +59,7 @@ class Projects extends CI_Controller {
 	 	$this->checkSession();
 		$this->load->model('team_model');
 		$cid = $this->input->post('cid');
+		$cid = $this->cid_model->getRealCID($cid);
 
 		$this->team_model->removeClientFromTeam($cid);
 

@@ -53,16 +53,19 @@ class Filemgmt extends CI_Controller {
 		if($this->input->post('cid')) {
 			$this->load->model('clientdb_model');
 			$cid = $this->input->post('cid');
+			if(ctype_digit($cid))
+				$cid = 0;
+			else
+				$cid = $this->cid_model->getRealCID($cid);
 			$present = $this->clientdb_model->isPresent($cid);
 			if($present == 0) {
 				$this->session->unset_userdata('cid');
 				$details['error'] = "Specified client does not exist";
-				$details['cid'] = $cid;
+				$details['cid'] = $this->input->post('cid');
 				$this->load->view('filemgmt/getCid', $details);
 				$this->load->view('template/footer');
 				return;
 			} else {
-				$details['cid'] = $cid;
 				$this->session->set_userdata(array('cid'=>$cid));
 			}
 		}
@@ -70,7 +73,7 @@ class Filemgmt extends CI_Controller {
 		if($this->session->userdata('cid')) {
 			$cid = $this->session->userdata('cid');
 
-			$details['cid'] = $cid;
+			$details['cid'] = $this->cid_model->getInCID($cid);
 			$this->load->view('filemgmt/getCid', $details);
 
 			$this->load->model('file_model');
@@ -80,6 +83,7 @@ class Filemgmt extends CI_Controller {
 			if($msg != "none")
 				$data['msg'] = $msg;
 			$data['fid'] = $this->file_model->getFid($cid);
+			$data['clientData']['cid'] = $this->cid_model->getInCID($data['clientData']['cid']);
 			$this->load->view('filemgmt/viewFiles', $data);
 		} else {
 			$this->load->view('filemgmt/getCid',array('close'=>TRUE));
@@ -96,7 +100,7 @@ class Filemgmt extends CI_Controller {
 			$this->load->model("file_model");
 			$this->file_model->remFile($id);
 		}
-		$this->showFiles("Deleted file");
+		$this->showFiles("File Deleted");
 	}
 
 	function modFile()
@@ -110,9 +114,9 @@ class Filemgmt extends CI_Controller {
 		$this->load->model('file_model');
 		$this->file_model->modify($id, $data);
 
-		$this->showFiles("Modified file");
+		$this->showFiles("File Modified");
 	}
-
+	
 	function forgotCID()
 	{
 		$this->checkSession();
@@ -140,6 +144,7 @@ class Filemgmt extends CI_Controller {
 	function setSession($cid)
 	{
 		$this->checkSession();
+		$cid = $this->cid_model->getRealCID($cid);
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)

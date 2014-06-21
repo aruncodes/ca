@@ -257,6 +257,7 @@ class Inout extends CI_Controller {
 	function setSession($cid, $page = "none")
 	{
 		$this->checkSession();
+		$cid = $this->cid_model->getRealCID($cid);
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)

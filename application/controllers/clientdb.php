@@ -40,6 +40,11 @@ class Clientdb extends CI_Controller {
 		$this->load->model('clientdb_model');
 		if($this->input->post('cid')) {
 			$cid = $this->input->post('cid');
+			if(ctype_digit($cid))
+				$cid = 0;
+			else
+				$cid = $this->cid_model->getRealCID($cid);
+
 			$details = $this->clientdb_model->getData($cid);
 			if(isset($details['error'])) {
 				$this->session->unset_userdata('cid');
@@ -63,6 +68,7 @@ class Clientdb extends CI_Controller {
 			$this->load->model('team_model');
 			$details['teams'] = $this->team_model->getTeams();
 
+			$details['cid'] = $this->cid_model->getInCID($details['cid']);
 			$this->load->view('clientdb/getCid', $details);
 			$this->load->view('clientdb/clientDetails', $details);
 		} else {
@@ -97,8 +103,10 @@ class Clientdb extends CI_Controller {
 			
 			$this->load->view('clientdb/clientDetails', $data);
 		} else if ($arg == "add" || $arg == "modify") {
-			if($this->input->post('cid') != "___")
+			if($this->input->post('cid') != "___") {
 				$clientData['cid'] = $this->input->post('cid');
+				$clientData['cid'] = $this->cid_model->getRealCID($clientData['cid']);
+			}
 			$clientData['name'] = $this->input->post('name');
 			$clientData['fatname'] = $this->input->post('fatname');
 			$clientData['sex'] = $this->input->post('sex');
@@ -161,6 +169,7 @@ class Clientdb extends CI_Controller {
 			else {
 				$this->clientdb_model->modify($clientData);
 				$cid = $this->input->post('cid');
+				$cid = $this->cid_model->getRealCID($cid);
 			}
 			$this->load->model('clientdb_model');
 			$this->session->set_userdata(array('cid'=>$cid));
@@ -170,6 +179,7 @@ class Clientdb extends CI_Controller {
 			$this->load->model('team_model');
 			$details['teams'] = $this->team_model->getTeams();
 
+			$details['cid'] = $this->cid_model->getInCID($details['cid']);
 			$this->load->view('clientdb/clientDetails', $details);
 		}
 
@@ -204,6 +214,7 @@ class Clientdb extends CI_Controller {
 	function setSession($cid)
 	{
 		$this->checkSession();
+		$cid = $this->cid_model->getRealCID($cid);
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)
@@ -235,6 +246,7 @@ class Clientdb extends CI_Controller {
 	{
 		$this->checkSession();
 		if($cid != "none") {
+			$cid = $this->cid_model->getRealCID($cid);
 			$this->load->model("clientdb_model");
 			$this->clientdb_model->updateLVDate($cid);
 		}

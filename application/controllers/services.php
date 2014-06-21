@@ -35,17 +35,22 @@ class Services extends CI_Controller {
 
 		if($this->input->post('cid')) {
 			$this->load->model('clientdb_model');
+
 			$cid = $this->input->post('cid');
+			if(ctype_digit($cid))
+				$cid = 0;
+			else
+				$cid = $this->cid_model->getRealCID($cid);
+
 			$present = $this->clientdb_model->isPresent($cid);
 			if($present == 0) {
 				$this->session->unset_userdata('cid');
 				$details['error'] = "Specified client does not exist";
-				$details['cid'] = $cid;
+				$details['cid'] = $this->input->post('cid');
 				$this->load->view('services/getCid', $details);
 				$this->load->view('template/footer');
 				return;
 			} else {
-				$details['cid'] = $cid;
 				$this->session->set_userdata(array('cid'=>$cid));
 			}
 		}
@@ -53,7 +58,7 @@ class Services extends CI_Controller {
 		if($this->session->userdata('cid')) {
 			$cid = $this->session->userdata('cid');
 
-			$details['cid'] = $cid;
+			$details['cid'] = $this->cid_model->getInCID($cid);
 			$this->load->view('services/getCid', $details);
 
 			$this->load->model('services_model');
@@ -61,7 +66,7 @@ class Services extends CI_Controller {
 				$this->services_model->addService($cid, $this->input->post('service'));
 			$services = $this->services_model->getServices($cid);
 			$services['serviceNames'] = $this->services_model->getServiceNames($cid);
-			$services['cid'] = $cid;
+			$services['cid'] = $this->cid_model->getInCID($cid);
 			$this->load->view('services/viewServices', $services);
 		} else {
 			$this->load->view('services/getCid',array('close'=>TRUE));
@@ -115,6 +120,7 @@ class Services extends CI_Controller {
 		$sname = $this->input->post('sname');
 		if($cid != "none" && $sname) {
 			$this->load->model("services_model");
+			$cid = $this->cid_model->getRealCID($cid);
 			$this->services_model->remCliService($cid, $sname);
 		}
 		$this->viewServices("show");
@@ -147,6 +153,7 @@ class Services extends CI_Controller {
 	function setSession($cid)
 	{
 		$this->checkSession();
+		$cid = $this->cid_model->getRealCID($cid);
 		$this->load->model('clientdb_model');
 		$present = $this->clientdb_model->isPresent($cid);
 		if($present == 1)
