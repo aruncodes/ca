@@ -300,9 +300,9 @@ class Admin extends CI_Controller {
 	function addClient($team_id) {
 		$this->checkSession();
 		$this->load->model('team_model');
-		$eid = $this->input->post('cid');
+		$cid = $this->input->post('cid');
 
-		$this->team_model->setTeamForClient($eid,$team_id);
+		$this->team_model->setTeamForClient($cid,$team_id);
 
 		$this->teamMgmt($team_id,"success_add_client");
 	}
@@ -349,6 +349,7 @@ class Admin extends CI_Controller {
 
 	function generate_xls()	{
 	   $this->load->helper('php-excel');
+	   $this->db->group_by(array('status_cat1', 'in_cid')); 
 	   $query = $this->db->get('client');
 	   $fields = (
 	   $field_array[] = array ("Client ID", "Name", "Fathers Name",
@@ -369,7 +370,7 @@ class Admin extends CI_Controller {
 	   foreach ($query->result() as $row)
 	         {
 	         $data_array[] = array( 
-	         	$row->cid,$row->name,$row->fatname,$this->getGender($row->sex),$row->dob,$row->cmpname,
+	         	$row->status_cat1[0].$row->in_cid,$row->name,$row->fatname,$this->getGender($row->sex),$row->dob,$row->cmpname,
 	         	$row->cmpdob,$row->status_cat1,$row->bus_cat2,$row->regno,$row->email,
 	         	$row->addr1_gn,$row->addr1_ds,$row->addr1_st,$row->addr1_pin,
 	         	$row->addr2_gn,$row->addr2_ds,$row->addr2_st,$row->addr2_pin,

@@ -15,7 +15,8 @@
 
 			$this->db->select('name,cid,cmpname');
 			$this->db->where(array('tid'=>$team_id));
-
+			$this->db->group_by(array('status_cat1', 'in_cid')); 
+			
 			$query = $this->db->get('client');
 
 			return $query->result_array();

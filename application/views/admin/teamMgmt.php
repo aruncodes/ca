@@ -62,7 +62,7 @@
 							echo '<td><table name="cpage" class="nostyle" id="tab'.($p/$rows).'">';
 						}
 						echo '<tr><td>';
-						echo '<a href="'.base_url('index.php/clientdb/setSession/'.$client['cid']).'">'.$client['cid'].'</a> - '.$client['name'].' </td><td> <i>'.$client['cmpname'].'</i>';
+						echo '<a href="'.base_url('index.php/clientdb/setSession/'.$client['cid']).'">'.$this->cid_model->getInCID($client['cid']).'</a> - '.$client['name'].' </td><td> <i>'.$client['cmpname'].'</i>';
 						echo '</td><td>';
 						$attrib = array('onsubmit'=>"return confirm('Are you sure you want to remove this client from team?');");
 						echo form_open('admin/removeClient/'.$teamid,$attrib);
@@ -94,7 +94,7 @@
 						echo '<tr class="add-row"><td>';
 						echo '<select name="cid">';
 						foreach($non_clients as $mem) {
-							echo '<option value="'.$mem['cid'].'">'.$mem['cid'].' - '.$mem['name'].' - <i>'.$mem['cmpname'].'</i>'.'</option>';						
+							echo '<option value="'.$mem['cid'].'">'.$this->cid_model->getInCID($mem['cid']).' - '.$mem['name'].' - <i>'.$mem['cmpname'].'</i>'.'</option>';						
 						}
 						echo '</select>';
 						echo "</td><td><input type='submit' value ='Add' class='image-button addsmall' />";

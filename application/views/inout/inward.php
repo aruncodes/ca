@@ -16,7 +16,7 @@
 	<table class="nostyle" style="margin-bottom:25px;">
 		<tr>
 			<td> Client ID: </td>
-			<td> <input type="text" class="input-text" name="cid" <?php if(isset($cid)) echo 'value="'.$cid.'"'; ?> /> </td>
+			<td> <input type="text" class="input-text" name="cid" <?php if(isset($cid)) echo 'value="'.$this->cid_model->getInCid($cid).'"'; ?> /> </td>
 			<td> <input type="submit" class="image-button show" value="Show" /> </td>
 			<td>
 			<?php if(isset($cid))

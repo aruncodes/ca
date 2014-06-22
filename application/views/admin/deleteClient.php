@@ -31,7 +31,7 @@ if(isset($error)) {
 	echo "var n = $n\n";
 	for($i = 0; $i < $n; $i++) {
 		$retAddr = base_url("index.php/clientdb/setSession")."/".$cids[$i]['cid'];
-		$arg = $cids[$i]['cid'].',"'.$cids[$i]['name'].'","'.$cids[$i]['cmpname'].'","'.$cids[$i]['status_cat1'].'","'.$retAddr.'"';
+		$arg = '"'.$cids[$i]['cid'].'","'.$cids[$i]['name'].'","'.$cids[$i]['cmpname'].'","'.$cids[$i]['status_cat1'].'","'.$retAddr.'"';
 		echo "clients[$i] = new Client(".$arg.");\n";
 	}
 	?>

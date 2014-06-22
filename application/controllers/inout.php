@@ -128,6 +128,7 @@ class Inout extends CI_Controller {
 
 		if($cid == 0) {
 			$cid = $this->input->post('cid');
+			$cid = $this->cid_model->getRealCID($cid);
 			$this->session->set_userdata(array('cid'=>$cid));
 		}
 

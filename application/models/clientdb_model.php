@@ -84,6 +84,7 @@ class Clientdb_model extends CI_Model {
 		$this->db->select('cid, cmpname, name, status_cat1, in_cid');
 		if($pan != "none")
 			$this->db->where('pan',$pan);
+		$this->db->group_by(array('status_cat1', 'in_cid')); 
 		$query = $this->db->get('client');
 		if($query->num_rows() == 0)
 			return array('error'=>TRUE);
