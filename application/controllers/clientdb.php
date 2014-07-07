@@ -1,16 +1,8 @@
 <?php //if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Clientdb extends CI_Controller {
-
-	function homeCheck($disp = 0) {
-		if(file_exists("home.php")) {
-			include('home.php');
-		}
-	}
-
 	function checkSession() {
 		if($this->session->userdata('loggedin')) {
-			//$this->homeCheck(0);
 			return;
 		}
 		else {
@@ -34,7 +26,6 @@ class Clientdb extends CI_Controller {
 	{
 		$this->checkSession();
 		
-
 		$data['title'] = 'Client DB';
 		$this->load->view('template/header',$data);
 

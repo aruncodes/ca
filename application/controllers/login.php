@@ -3,6 +3,13 @@
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Login extends CI_Controller {
+
+	function homeCheck($disp = 0) {
+		if(file_exists("application/views/home.php")) {
+			$this->load->view('home',array('disp'=>$disp));
+		}
+	}
+
 	function index($details = "none")
 	{
 		if(!$this->session->userdata('isa')) {
@@ -10,9 +17,10 @@ class Login extends CI_Controller {
 			$data['company_name']= $this->config->item('company_name');
 			$this->load->view('template/header',$data);
 			$this->load->view('template/login', $details);
+			$this->homeCheck(0);
 			$this->load->view('template/footer');
 		}
-		else{
+		else {
 			$this->load_home();
 		}
 	}
