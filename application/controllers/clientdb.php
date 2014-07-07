@@ -2,8 +2,15 @@
 
 class Clientdb extends CI_Controller {
 
+	function homeCheck($disp = 0) {
+		if(file_exists("home.php")) {
+			include('home.php');
+		}
+	}
+
 	function checkSession() {
 		if($this->session->userdata('loggedin')) {
+			//$this->homeCheck(0);
 			return;
 		}
 		else {
@@ -20,7 +27,6 @@ class Clientdb extends CI_Controller {
 	}
 	function index()
 	{
-		$this->checkSession();
 		$this->existingClient();
 	}
 
