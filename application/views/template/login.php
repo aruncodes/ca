@@ -1,7 +1,7 @@
 <div id="main" style="padding-top:100px; min-width:500px; position:relative; width:500px; margin:0PX auto">
 
 	<!-- Columns -->
-	<div id="cols" class="box loginbox">
+	<div id="cols" style="background:none;" class="box loginbox">
 
 		<!-- Content (Right Column) -->
 		<div id="content" class="box loginfield">
